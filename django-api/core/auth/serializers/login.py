@@ -6,6 +6,7 @@ from core.user.serializers import UserSerializer
 
 
 class LoginSerializer(TokenObtainPairSerializer):
+
     def validate(self, attrs):
         data = super().validate(attrs)
 
