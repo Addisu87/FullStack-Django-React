@@ -9,13 +9,21 @@ from core.user.serializers import UserSerializer
 
 class PostSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(
-        queryset=User.objects.all(), slug_field='public_id')
+        queryset=User.objects.all(), slug_field='public_id'
+    )
 
     def validate_author(self, value):
         if self.context["request"].user != value:
             raise ValidationError(
                 "You are not allowed to create post for other user")
         return value
+
+    def update(self, instance, validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+
+        instance = super().update(instance, validated_data)
+        return instance
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
