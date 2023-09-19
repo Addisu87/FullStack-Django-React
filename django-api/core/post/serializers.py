@@ -1,0 +1,30 @@
+from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+
+from core.abstract.serializers import AbstractSerializer
+from core.post.models import Post
+from core.user.models import User
+from core.user.serializers import UserSerializer
+
+
+class PostSerializer(AbstractSerializer):
+    author = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field='public_id')
+
+    def validate_author(self, value):
+        if self.context["request"].user != value:
+            raise ValidationError(
+                "You are not allowed to create post for other user")
+        return value
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        author = User.objects.get_object_by_public_id(rep['author'])
+        rep['author'] = UserSerializer(author).data
+        return rep
+
+    class Meta:
+        model = Post
+        # List all the fields that could possibly be included in a request
+        fields = ['id', 'author', 'body', 'edited', 'created', 'updated']
+        read_only_fields = ['edited']
