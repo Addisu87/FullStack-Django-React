@@ -68,3 +68,15 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     @property
     def name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def like(self, post):
+        # Like `post` if it hasn't been liked yet
+        return self.posts_liked.add(post)
+
+    def remove_like(self, post):
+        # Remove a like from a `post` if it has been liked
+        return self.posts_liked.remove(post)
+
+    def has_liked(self, post):
+        # Return True if `post` has been liked by the user
+        return self.posts_liked.filter(pk=post.pk).exists()
