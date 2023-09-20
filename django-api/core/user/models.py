@@ -1,19 +1,19 @@
-
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from core.abstract.models import AbstractModel, AbstractManager
 from django.db import models
+
+from core.abstract.models import AbstractModel, AbstractManager
 
 
 class UserManager(BaseUserManager, AbstractManager):
 
     def create_user(self, username, email, password=None, **kwargs):
-        """ Create and return a `User` with and email, phone number, username, and password. """
+        """Create and return a `User` with an email, phone number, username and password."""
         if username is None:
-            raise TypeError('User mush have a username')
+            raise TypeError('Users must have a username.')
         if email is None:
-            raise TypeError('User mush have a email')
+            raise TypeError('Users must have an email.')
         if password is None:
-            raise TypeError('User mush have a password')
+            raise TypeError('User must have an email.')
 
         user = self.model(username=username,
                           email=self.normalize_email(email), **kwargs)
@@ -23,14 +23,15 @@ class UserManager(BaseUserManager, AbstractManager):
         return user
 
     def create_superuser(self, username, email, password, **kwargs):
-        """ Create and return a `User` with superuser (admin) permissions."""
-
-        if username is None:
-            raise TypeError('Superusers mush have a username')
-        if email is None:
-            raise TypeError('Superusers mush have a email')
+        """
+        Create and return a `User` with superuser (admin) permissions.
+        """
         if password is None:
-            raise TypeError('Superusers mush have a password')
+            raise TypeError('Superusers must have a password.')
+        if email is None:
+            raise TypeError('Superusers must have an email.')
+        if username is None:
+            raise TypeError('Superusers must have an username.')
 
         user = self.create_user(username, email, password, **kwargs)
         user.is_superuser = True
@@ -70,13 +71,13 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         return f"{self.first_name} {self.last_name}"
 
     def like(self, post):
-        # Like `post` if it hasn't been liked yet
+        """Like `post` if it hasn't been done yet"""
         return self.posts_liked.add(post)
 
     def remove_like(self, post):
-        # Remove a like from a `post` if it has been liked
+        """Remove a like from a `post`"""
         return self.posts_liked.remove(post)
 
     def has_liked(self, post):
-        # Return True if `post` has been liked by the user
+        """Return True if the user has liked a `post`; else False"""
         return self.posts_liked.filter(pk=post.pk).exists()

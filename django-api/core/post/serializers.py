@@ -46,5 +46,5 @@ class PostSerializer(AbstractSerializer):
         model = Post
         # List all the fields that could possibly be included in a request
         fields = ['id', 'author', 'body', 'edited',
-                  'liked', 'likes_count' 'created', 'updated']
+                  'liked', 'likes_count', 'created', 'updated']
         read_only_fields = ['edited']
