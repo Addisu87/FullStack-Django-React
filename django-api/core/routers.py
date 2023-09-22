@@ -1,4 +1,4 @@
-from rest_framework import routers
+from rest_framework_nested import routers
 from core.user.viewsets import UserViewSet
 from core.auth.viewsets import RegisterViewSet, LoginViewSet, RefreshViewSet
 from core.post.viewsets import PostViewSet
@@ -24,4 +24,5 @@ posts_router.register(r'comment', CommentViewSet, basename='post-comment')
 
 urlpatterns = [
     *router.urls,
+    *posts_router.urls
 ]
