@@ -42,9 +42,9 @@ class UserManager(BaseUserManager, AbstractManager):
 
 
 class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(db_index=True, max_length=255, unique=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    username = models.CharField(db_index=True, max_length=50, unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
 
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
