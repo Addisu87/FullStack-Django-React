@@ -1,11 +1,8 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <!-- You are encouraged to replace this logo with your own! Otherwise you can also remove it. -->
-  <img src="murple_logo.png" alt="logo" width="140"  height="auto" />
-  <br/>
 
-  <h3><b>Django-React Postagram</b></h3>
+  <h3><b>Full Stack Django-React</b></h3>
 
 </div>
 
@@ -19,8 +16,8 @@
     - [Key Features](#key-features)
   - [🚀 Live Demo](#live-demo)
 - [💻 Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
   - [Setup](#setup)
+  - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
   - [Run tests](#run-tests)
@@ -39,32 +36,18 @@
 
 > Describe your project in 1 or 2 sentences.
 
-**[your_project__name]** is a...
+**[Full-Stack Django-React]** is a complete blog application that utilizes Django and React frameworks. It incorporates a personalized user model and establishes a connection between Django and a database server. Moreover, it ensures secure user authentication and authorization through JWTs. The app includes a robust system for handling social media posts and comments, involving the implementation of Create, Read, Update, and Delete (CRUD) operations using serializers and viewsets.
 
-## 🛠 Built With <a name="built-with"></a>
+## 🛠 Built With <a name="built-with">Django and React</a>
 
-### Tech Stack <a name="tech-stack"></a>
+### Tech Stack <a name="tech-stack">Django, React, and restframeworks</a>
 
 > Describe the tech stack and include only the relevant sections that apply to your project.
 
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://reactjs.org/">React.js</a></li>
-  </ul>
-</details>
-
-<details>
-  <summary>Server</summary>
-  <ul>
-    <li><a href="https://python.com/">Python</a></li>
-  </ul>
-</details>
-
-<details>
-<summary>Database</summary>
-  <ul>
-    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+    <li><a href="https://django.com/">Django</a></li>
   </ul>
 </details>
 
@@ -102,51 +85,49 @@ To get a local copy up and running, follow these steps.
 
 In order to run this project you need:
 
-<!--
 Example command:
 
 ```sh
- gem install rails
+ npm install
 ```
- -->
 
 ### Setup
 
 Clone this repository to your desired folder:
 
-<!--
 Example commands:
 
 ```sh
-  cd my-folder
-  git clone git@github.com:myaccount/my-project.git
+  cd Full-stack django-react
+  git clone https://github.com/Addisu87/FullStack-Django-React
 ```
---->
+
+-
 
 ### Install
 
 Install this project with:
 
-<!--
 Example command:
 
 ```sh
-  cd my-project
-  gem install
+  cd FullStack-django-react
+  npm install
 ```
---->
+
+-
 
 ### Usage
 
 To run the project, execute the following command:
 
-<!--
 Example command:
 
 ```sh
-  rails server
+  npm start
 ```
---->
+
+-
 
 ### Run tests
 
@@ -180,17 +161,11 @@ Example:
 
 > Mention all of the collaborators of this project.
 
-👤 **Author1**
+👤 **Addisu Haile**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
-
-👤 **Author2**
-
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [![GitHub Badge](https://img.shields.io/badge/-Addisu87-white?logo=GitHub&logoColor=181717&style=plastic)](https://github.com/Addisu87)
+- Twitter: [![Twitter Badge](https://img.shields.io/badge/-AddisuTedla-white?logo=Twitter&logoColor=1DA1F2&style=plastic)](https://twitter.com/AddisuTedla)
+- LinkedIn: [![LinkedIn Badge](https://img.shields.io/badge/-addisu_tedla-white?logo=LinkedIn&logoColor=1DA1F2&style=plastic)](https://linkedin.com/in/addisu-tedla/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
