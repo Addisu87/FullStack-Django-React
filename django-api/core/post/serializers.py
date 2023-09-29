@@ -12,6 +12,7 @@ class PostSerializer(AbstractSerializer):
         queryset=User.objects.all(), slug_field='public_id')
     liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
+    # TODO comment_counts
 
     def validate_author(self, value):
         if self.context["request"].user != value:
