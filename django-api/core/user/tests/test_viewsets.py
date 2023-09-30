@@ -5,7 +5,6 @@ from core.fixtures.post import post
 
 
 class TestUserViewSet:
-
     endpoint = '/api/user/'
 
     def test_list(self, client, user):
