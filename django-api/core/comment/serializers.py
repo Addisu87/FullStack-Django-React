@@ -14,6 +14,12 @@ class CommentSerializer(AbstractSerializer):
         queryset=User.objects.all(), slug_field='public_id')
     post = serializers.SlugRelatedField(
         queryset=Post.objects.all(), slug_field='public_id')
+    # TODO: liked, and likes_count
+
+    def validate_author(self, value):
+        if self.context['request'].user != value:
+            raise ValidationError("You can't create a post for another user.")
+        return value
 
     def validate_post(self, value):
         if self.instance:
