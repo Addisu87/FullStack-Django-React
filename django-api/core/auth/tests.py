@@ -10,7 +10,7 @@ class TestAuthenticationViewSet:
 
     def test_login(self, client, user):
         data = {
-            "username": user.username,
+            "email": user.email,
             "password": "test_password"
         }
         response = client.post(self.endpoint + "login/", data)
@@ -36,7 +36,7 @@ class TestAuthenticationViewSet:
 
     def test_refresh(self, client, user):
         data = {
-            "username": user.username,
+            "email": user.email,
             "password": "test_password"
         }
         response = client.post(self.endpoint + "login/", data)

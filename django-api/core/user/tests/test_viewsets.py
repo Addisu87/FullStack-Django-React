@@ -29,7 +29,7 @@ class TestUserViewSet:
         assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
     def test_update(self, client, user):
-        client.force_authenticated(user=user)
+        client.force_authenticate(user=user)
         data = {
             'username': 'test_user_updated'
         }
