@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useUserActions } from "../../hooks/user.actions";
 
 const RegistrationForm = () => {
-  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    bio: "",
+  });
   const [error, setError] = useState(null);
+  const userActions = useUserActions();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,31 +33,16 @@ const RegistrationForm = () => {
       bio: form.bio,
     };
 
-    axios
-      .post("http://localhost:8000/api/auth/register/", data)
-      .then((res) => {
-        // Registering the account and tokens in the store
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            access: res.data.access,
-            refresh: res.data.refresh,
-            user: res.data.user,
-          })
-        );
-
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.message) {
-          setError(err.request.response);
-        }
-      });
+    userActions.register(data).catch((err) => {
+      if (err.message) {
+        setError(err.request.response);
+      }
+    });
   };
 
   return (
     <div className="mt-5">
-      <form action="#" validated={validated} onSubmit={handleSubmit}>
+      <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
         <div className="flex flex-col mb-3">
           <label
             for="first_name"

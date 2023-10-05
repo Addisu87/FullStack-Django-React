@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useUserActions } from "../../hooks/user.actions";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
+  const userActions = useUserActions();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,31 +22,16 @@ const LoginForm = () => {
       password: form.password,
     };
 
-    axios
-      .post("http://localhost:8000/api/auth/login/", data)
-      .then((res) => {
-        // Registering the account and token in the store
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            access: res.data.access,
-            refresh: res.data.refresh,
-            user: res.data.user,
-          })
-        );
-
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.message) {
-          setError(err.request.response);
-        }
-      });
+    userActions.login(data).catch((err) => {
+      if (err.message) {
+        setError(err.request.response);
+      }
+    });
   };
 
   return (
     <div className="mt-5">
-      <form action="#" validated={validated} onSubmit={handleSubmit}>
+      <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
         <div className="flex flex-col mb-3">
           <label
             for="username"
