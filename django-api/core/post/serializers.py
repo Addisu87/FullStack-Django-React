@@ -12,7 +12,20 @@ class PostSerializer(AbstractSerializer):
         queryset=User.objects.all(), slug_field='public_id')
     liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
-    # TODO comment_counts
+    comments_count = serializers.SerializerMethodField()
+
+    def get_comments_count(self, instance):
+        return instance.comment_set.count()
+
+    def get_liked(self, instance):
+        request = self.context.get('request', None)
+        if request is None or request.user.is_anonymous:
+            return False
+
+        return request.user.has_liked_post(instance)
+
+    def get_likes_count(self, instance):
+        return instance.liked_by.count()
 
     def validate_author(self, value):
         if self.context["request"].user != value:
@@ -33,19 +46,9 @@ class PostSerializer(AbstractSerializer):
         rep['author'] = UserSerializer(author).data
         return rep
 
-    def get_liked(self, instance):
-        request = self.context.get('request', None)
-        if request is None or request.user.is_anonymous:
-            return False
-
-        return request.user.has_liked(instance)
-
-    def get_likes_count(self, instance):
-        return instance.liked_by.count()
-
     class Meta:
         model = Post
         # List all the fields that could possibly be included in a request
-        fields = ['id', 'author', 'body', 'edited',
-                  'liked', 'likes_count', 'created', 'updated']
+        fields = ['id', 'author', 'body', 'edited', 'liked',
+                  'likes_count', 'comments_count', 'created', 'updated']
         read_only_fields = ['edited']
