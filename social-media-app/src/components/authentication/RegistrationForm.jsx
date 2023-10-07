@@ -45,7 +45,7 @@ const RegistrationForm = () => {
       <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
         <div className="flex flex-col mb-3">
           <label
-            for="first_name"
+            htmlFor="first_name"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             First Name:
@@ -69,7 +69,7 @@ const RegistrationForm = () => {
         </div>
         <div className="flex flex-col mb-3">
           <label
-            for="last_name"
+            htmlFor="last_name"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Last Name:
@@ -93,7 +93,7 @@ const RegistrationForm = () => {
         </div>
         <div className="flex flex-col mb-3">
           <label
-            for="username"
+            htmlFor="username"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Username:
@@ -118,7 +118,7 @@ const RegistrationForm = () => {
         </div>
         <div className="flex flex-col mb-3">
           <label
-            for="email"
+            htmlFor="email"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             E-Mail Address:
@@ -142,7 +142,7 @@ const RegistrationForm = () => {
         </div>
         <div className="flex flex-col mb-3">
           <label
-            for="password"
+            htmlFor="password"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Password:
@@ -170,7 +170,7 @@ const RegistrationForm = () => {
 
         <div className="flex flex-col mb-3">
           <label
-            for="message"
+            htmlFor="message"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Bio:

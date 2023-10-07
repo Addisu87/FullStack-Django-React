@@ -34,7 +34,7 @@ const LoginForm = () => {
       <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
         <div className="flex flex-col mb-3">
           <label
-            for="username"
+            htmlFor="username"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Username:
@@ -60,7 +60,7 @@ const LoginForm = () => {
 
         <div className="flex flex-col mb-3">
           <label
-            for="password"
+            htmlFor="password"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Password:
