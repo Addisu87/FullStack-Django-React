@@ -60,7 +60,8 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     )
 
     comments_liked = models.ManyToManyField(
-        "core_comment.Comment", related_name="commented_by")
+        "core_comment.Comment",
+        related_name="commented_by")
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
