@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 
-
 from core.abstract.viewsets import AbstractViewSet
 from core.comment.models import Comment
 from core.comment.serializers import CommentSerializer
@@ -20,9 +19,9 @@ class CommentViewSet(AbstractViewSet):
         if self.request.user.is_superuser:
             return Comment.objects.all()
 
-        post_pk = self.kwargs['post_pk']
+        post_pk = self.kwargs.get('post_pk')
         if post_pk is None:
-            return Http404
+            return Http404("Post not found")
         queryset = Comment.objects.filter(post__public_id=post_pk)
         return queryset
 
