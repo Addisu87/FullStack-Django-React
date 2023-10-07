@@ -19,9 +19,9 @@ class CommentViewSet(AbstractViewSet):
         if self.request.user.is_superuser:
             return Comment.objects.all()
 
-        post_pk = self.kwargs.get('post_pk')
+        post_pk = self.kwargs['post_pk']
         if post_pk is None:
-            return Http404("Post not found")
+            return Http404
         queryset = Comment.objects.filter(post__public_id=post_pk)
         return queryset
 
