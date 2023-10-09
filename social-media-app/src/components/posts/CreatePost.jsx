@@ -5,6 +5,10 @@ import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
 
 const CreatePost = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const {
     register,
     handleSubmit,
@@ -35,18 +39,22 @@ const CreatePost = () => {
 
   return (
     <div className="w-75">
+      <input
+        className="py-2 rounded-full text-primary w-full px-4 border border-cyan-100"
+        type="text"
+        placeholder="Write a post"
+        onClick={() => document.getElementById("my_modal_3").showModal()}
+        data-testid="show-modal-form"
+      />
       <div>
-        <button
-          className="btn"
-          onClick={() => document.getElementById("my_modal_3").showModal()}
-        >
-          Create Post
-        </button>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
             <form method="dialog" onSubmit={handleSubmit(onSubmit)}>
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={handleClose}
+              >
                 ✕
               </button>
 
