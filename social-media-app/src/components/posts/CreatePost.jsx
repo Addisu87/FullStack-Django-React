@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
+
+const schema = yup.object({
+  body: yup.string().required(),
+});
 
 const CreatePost = () => {
   const [show, setShow] = useState(false);
@@ -14,7 +20,7 @@ const CreatePost = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -27,6 +33,7 @@ const CreatePost = () => {
       .post("/post/", { author: user?.id, body: data.body })
       .then(() => {
         reset();
+        handleClose();
         setShowToast(true);
         setToastMessage("Post created 🚀");
         setToastType("success");
@@ -75,9 +82,7 @@ const CreatePost = () => {
                        errors.body ? "border-red-500" : ""
                      }`}
                     placeholder="A simple post ..."
-                    {...register("body", {
-                      required: "This field is required.",
-                    })}
+                    {...register("body")}
                   />
                   {errors.body && (
                     <span className="text-sm text-red-500 mt-1">

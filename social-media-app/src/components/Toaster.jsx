@@ -10,7 +10,12 @@ const Toaster = (props) => {
 
   return (
     <div className="w-32">
-      <div className="toast toast-center toast-middle" onClose={handleClose}>
+      <div
+        className="toast toast-center toast-middle"
+        show={showToast}
+        onClose={handleClose}
+        delay={3000}
+      >
         <div>
           <strong>{title}</strong>
         </div>
