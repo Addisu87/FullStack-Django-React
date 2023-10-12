@@ -11,9 +11,9 @@ const schema = yup.object({
 });
 
 const CreatePost = () => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
   const {
     register,
@@ -22,25 +22,23 @@ const CreatePost = () => {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState("");
-
   const user = getUser();
 
   const onSubmit = (data) => {
+    console.log("Form submitted with data", data);
     axiosService
       .post("/post/", { author: user?.id, body: data.body })
       .then(() => {
         reset();
-        handleClose();
-        setShowToast(true);
         setToastMessage("Post created 🚀");
         setToastType("success");
+        setShowToast(true);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log("Toaster closed", err);
         setToastMessage("An error occurred.");
         setToastType("danger");
+        setShowToast(true);
       });
   };
 
@@ -58,10 +56,7 @@ const CreatePost = () => {
           <div className="modal-box">
             <form method="dialog" onSubmit={handleSubmit(onSubmit)}>
               {/* if there is a button in form, it will close the modal */}
-              <button
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                onClick={handleClose}
-              >
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
 

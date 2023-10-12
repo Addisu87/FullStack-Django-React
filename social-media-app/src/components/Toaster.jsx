@@ -1,21 +1,11 @@
 import React from "react";
 
 const Toaster = (props) => {
-  const { showToast, title, message, onClose, type } = props;
-
-  const handleClose = () => {
-    console.log("Toaster closed");
-    onClose();
-  };
+  const { title, message, type } = props;
 
   return (
     <div className="w-32">
-      <div
-        className="toast toast-center toast-middle"
-        show={showToast}
-        onClose={handleClose}
-        delay={3000}
-      >
+      <div className="toast toast-center toast-middle">
         <div>
           <strong>{title}</strong>
         </div>
