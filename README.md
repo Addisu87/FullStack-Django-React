@@ -40,8 +40,6 @@ Full-Stack Django-React is a complete blog application that utilizes Django and 
 
 ### Tech Stack <a name="tech-stack">Django, React, and restframeworks</a>
 
-> Describe the tech stack and include only the relevant sections that apply to your project.
-
 <details>
   <summary>Client</summary>
   <ul>
@@ -62,8 +60,6 @@ Full-Stack Django-React is a complete blog application that utilizes Django and 
 
 ### Key Features <a name="key-features"></a>
 
-> Describe between 1-3 key features of the application.
-
 - Has an authentication of users
 - Users can post and apply CRUD operations
 - Users can comment and apply CRUD operations
@@ -74,8 +70,6 @@ Full-Stack Django-React is a complete blog application that utilizes Django and 
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-> Add a link to your deployed project.
-
 - [Live Demo Link](https://google.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -84,15 +78,11 @@ Full-Stack Django-React is a complete blog application that utilizes Django and 
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-> Describe how a new developer could make use of your project.
-
 To get a local copy up and running, follow these steps.
 
 ### Prerequisites
 
 In order to run this project you need:
-
-Example command:
 
 ```sh
  npm install
@@ -101,8 +91,6 @@ Example command:
 ### Setup
 
 Clone this repository to your desired folder:
-
-Example commands:
 
 ```sh
   cd Full-stack django-react
@@ -115,8 +103,6 @@ Example commands:
 
 Install this project with:
 
-Example command:
-
 ```sh
   cd FullStack-django-react
   npm install
@@ -127,8 +113,6 @@ Example command:
 ### Usage
 
 To run the project, execute the following command:
-
-Example command:
 
 <!-- Backend -->
 
