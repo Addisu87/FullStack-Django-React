@@ -123,8 +123,19 @@ To run the project, execute the following command:
 
 Example command:
 
+<!-- Backend -->
+
 ```sh
-  npm start
+ cd django-api
+ source venv/bin/activate
+ python manage.py runserver
+```
+
+<!-- Front-end -->
+
+```sh
+ cd social-media-app
+ yarn start
 ```
 
 -
@@ -137,7 +148,8 @@ To run tests, run the following command:
 Example command:
 
 ```sh
-  bin/rails test test/models/article_test.rb
+  core/user/tests/test_models.py pytest
+  core/user/tests/test_viewsets.py pytest
 ```
 --->
 
