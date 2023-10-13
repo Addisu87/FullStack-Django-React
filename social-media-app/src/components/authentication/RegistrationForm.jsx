@@ -1,48 +1,43 @@
-import React, { useState } from "react";
-import { useUserActions } from "../../hooks/user.actions";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../redux/registerSlice";
+
+const schema = yup.object().shape({
+  first_name: yup.string().required("First Name is required"),
+  last_name: yup.string().required("Last Name is required"),
+  username: yup.string().required("Username is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+  bio: yup.string().required("Bio is required"),
+});
 
 const RegistrationForm = () => {
-  const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: "",
-    bio: "",
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
   });
-  const [error, setError] = useState(null);
-  const userActions = useUserActions();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const registrationForm = event.currentTarget;
+  const dispatch = useDispatch();
+  const { user, accessToken, refreshToken, error, loading } = useSelector(
+    (state) => state.register
+  );
 
-    if (registrationForm.checkValidity() === false) {
-      event.stopPropagation();
+  const handleRegister = async (data) => {
+    try {
+      await dispatch(registerUser(data));
+    } catch (error) {
+      throw new Error("An error occurred. Please try again later.");
     }
-
-    setValidated(true);
-
-    const data = {
-      username: form.username,
-      password: form.password,
-      email: form.email,
-      first_name: form.first_name,
-      last_name: form.last_name,
-      bio: form.bio,
-    };
-
-    userActions.register(data).catch((err) => {
-      if (err.message) {
-        setError(err.request.response);
-      }
-    });
   };
 
   return (
     <div className="mt-5">
-      <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleRegister)}>
         <div className="flex flex-col mb-3">
           <label
             htmlFor="first_name"
@@ -61,10 +56,13 @@ const RegistrationForm = () => {
               name="first_name"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
               placeholder="Enter your first name"
-              required
-              value={form.first_name}
-              onChange={(e) => setForm({ ...form, first_name: e.target.value })}
+              {...register("first_name")}
             />
+            {errors.first_name && (
+              <p className="text-red-500 text-sm">
+                {errors.first_name.message}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -85,10 +83,11 @@ const RegistrationForm = () => {
               name="last_name"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
               placeholder="Enter your last name"
-              required
-              value={form.last_name}
-              onChange={(e) => setForm({ ...form, last_name: e.target.value })}
+              {...register("last_name")}
             />
+            {errors.last_name && (
+              <p className="text-red-500 text-sm">{errors.last_name.message}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -110,10 +109,11 @@ const RegistrationForm = () => {
               className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
                     border border-gray-400 focus:outline-none focus:border-blue-400"
               placeholder="Enter your username"
-              required
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
+              {...register("username")}
             />
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username.message}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -134,10 +134,11 @@ const RegistrationForm = () => {
               name="email"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
               placeholder="Enter your email"
-              required
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              {...register("email")}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -160,11 +161,11 @@ const RegistrationForm = () => {
               name="password"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
               placeholder="Enter your password"
-              required
-              minLength={8}
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
         </div>
 
@@ -189,14 +190,13 @@ const RegistrationForm = () => {
               className="block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
                      sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
               placeholder="A simple bio ..."
-              required
-              value={form.bio}
-              onChange={(e) => setForm({ ...form, bio: e.target.value })}
+              {...register("bio")}
             />
+            {errors.bio && (
+              <p className="text-red-500 text-sm">{errors.bio.message}</p>
+            )}
           </div>
         </div>
-
-        <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
 
         <div className="flex w-full">
           <button
@@ -206,6 +206,7 @@ const RegistrationForm = () => {
           >
             <span className="mr-2 uppercase">Sign Up</span>
           </button>
+          <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
         </div>
       </form>
     </div>

@@ -2,13 +2,14 @@ import React from "react";
 import useSWR from "swr";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
+import Post from "../components/posts/Post";
 import { getUser } from "../hooks/user.actions";
 import { randomAvatar } from "../utils";
-import Post from "../components/posts/Post";
 import { fetcher } from "../helpers/axios";
 
 const Home = () => {
   const user = getUser();
+
   const posts = useSWR("/post/", fetcher, {
     refreshInterval: 1000,
   });

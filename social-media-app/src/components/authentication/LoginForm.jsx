@@ -1,37 +1,36 @@
-import React, { useState } from "react";
-import { useUserActions } from "../../hooks/user.actions";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/loginSlice";
+
+const schema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+});
 
 const LoginForm = () => {
-  const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({ username: "", password: "" });
-  const [error, setError] = useState(null);
-  const userActions = useUserActions();
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const loginForm = event.currentTarget;
+  const dispatch = useDispatch();
+  const { user, accessToken, refreshToken, error, loading } = useSelector(
+    (state) => state.login
+  );
 
-    if (loginForm.checkValidity() === false) {
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-
-    const data = {
-      username: form.username,
-      password: form.password,
-    };
-
-    userActions.login(data).catch((err) => {
-      if (err.message) {
-        setError(err.request.response);
-      }
-    });
+  const handleLogin = async (data) => {
+    const { username, password } = data;
+    await dispatch(loginUser({ username, password }));
   };
 
   return (
     <div className="mt-5">
-      <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <div className="flex flex-col mb-3">
           <label
             htmlFor="username"
@@ -48,13 +47,16 @@ const LoginForm = () => {
               id="username"
               type="text"
               name="username"
-              className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-                  border border-gray-400 focus:outline-none focus:border-blue-400"
+              className="w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
+              border border-gray-400 focus:outline-none focus:border-blue-400"
               placeholder="Enter your username"
-              required
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
+              {...register("username")}
             />
+            {errors.username && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.username.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -76,17 +78,18 @@ const LoginForm = () => {
               id="password"
               type="password"
               name="password"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
+              border border-gray-400 focus:outline-none focus:border-blue-400"
               placeholder="Enter your password"
-              required
-              minLength={8}
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
         </div>
-
-        <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
 
         <div className="flex w-full">
           <button
@@ -96,6 +99,7 @@ const LoginForm = () => {
           >
             <span className="mr-2 uppercase">Sign In</span>
           </button>
+          <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
         </div>
       </form>
     </div>
