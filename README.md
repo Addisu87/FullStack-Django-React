@@ -48,6 +48,9 @@ Full-Stack Django-React is a complete blog application that utilizes Django and 
     <li><a href="https://django.com/">Redux-toolkit</a></li>
     <li><a href="https://django.com/">React-hook-form</a></li>
   </ul>
+  </details>
+
+  <details>
   <summary>Server</summary>
   <ul>
     <li><a href="https://django.com/">Django</a></li>
