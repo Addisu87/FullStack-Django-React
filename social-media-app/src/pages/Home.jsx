@@ -14,9 +14,9 @@ const Home = () => {
     refreshInterval: 1000,
   });
 
-  // if (!user) {
-  //   return <div>Loading!</div>;
-  // }
+  if (!user) {
+    return <div>Loading!</div>;
+  }
 
   return (
     <Layout>

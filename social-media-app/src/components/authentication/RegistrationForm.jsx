@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
+import { useUserActions } from "../../hooks/user.actions";
 import { registerUser } from "../../redux/registerSlice";
 
 const schema = yup.object().shape({
@@ -18,20 +19,34 @@ const schema = yup.object().shape({
 });
 
 const RegistrationForm = () => {
-  const { register, handleSubmit, errors } = useForm({
+  const dispatch = useDispatch();
+  const { user, error, loading } = useSelector((state) => state.register);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useDispatch();
-  const { user, accessToken, refreshToken, error, loading } = useSelector(
-    (state) => state.register
-  );
+  const userActions = useUserActions();
 
   const handleRegister = async (data) => {
+    console.log("Form data submitted:", data);
+    const { username, password, email, first_name, last_name, bio } = data;
     try {
+      await userActions.register({
+        username,
+        password,
+        email,
+        first_name,
+        last_name,
+        bio,
+      });
       await dispatch(registerUser(data));
     } catch (error) {
-      throw new Error("An error occurred. Please try again later.");
+      throw new Error("Registration failed:", error);
     }
   };
 
@@ -201,10 +216,16 @@ const RegistrationForm = () => {
         <div className="flex w-full">
           <button
             type="submit"
-            className="flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                   bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in"
+            className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
+            bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading}
           >
-            <span className="mr-2 uppercase">Sign Up</span>
+            <span className="mr-2 uppercase">
+              {/* {loading ? "Submitting..." : "Sign Up"} */}
+              Sign Up
+            </span>
           </button>
           <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
         </div>

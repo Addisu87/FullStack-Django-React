@@ -8,17 +8,18 @@ import {
 
 const axiosService = axios.create({
   baseURL: "http://localhost:8000",
+  timeout: 5000,
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
 axiosService.interceptors.request.use(async (config) => {
-  /**
-   * Retrieving the access token from the local storage
-   * and adding it to the headers of the request
-   */
-  config.headers.Authorization = `Bearer ${getAccessToken()}`;
+  const accessToken = getAccessToken();
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
   return config;
 });
 
@@ -30,8 +31,8 @@ axiosService.interceptors.response.use(
 // a function that contains the refresh auth logic
 // This function will be called whenever the failed request returns a 401 error
 const refreshAuthLogic = async (failedRequest) => {
-  return axios
-    .post(
+  try {
+    const response = await axios.post(
       "/auth/refresh/",
       {
         refresh: getRefreshToken(),
@@ -39,23 +40,24 @@ const refreshAuthLogic = async (failedRequest) => {
       {
         baseURL: "http://localhost:8000/api",
       }
-    )
-    .then((resp) => {
-      const { access } = resp.data;
-      failedRequest.response.config.headers["Authorization"] =
-        "Bearer " + access;
-      localStorage.setItem(
-        "auth",
-        JSON.stringify({
-          access,
-          refresh: getRefreshToken(),
-          user: getUser(),
-        })
-      );
-    })
-    .catch(() => {
-      localStorage.removeItem("auth");
-    });
+    );
+
+    const { access } = response.data;
+    failedRequest.response.config.headers["Authorization"] = "Bearer " + access;
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        access,
+        refresh: getRefreshToken(),
+        user: getUser(),
+      })
+    );
+
+    return Promise.resolve();
+  } catch (error) {
+    localStorage.removeItem("auth");
+    return Promise.reject(error);
+  }
 };
 
 // initialize the authentication interceptor and create a custom fetcher

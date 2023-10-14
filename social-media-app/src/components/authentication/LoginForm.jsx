@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/loginSlice";
 
 const schema = yup.object().shape({
-  username: yup.string().required("Username is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
     .string()
     .required("Password is required")
@@ -14,18 +14,24 @@ const schema = yup.object().shape({
 });
 
 const LoginForm = () => {
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
   const dispatch = useDispatch();
-  const { user, accessToken, refreshToken, error, loading } = useSelector(
-    (state) => state.login
-  );
+  const { user, error, loading } = useSelector((state) => state.login);
 
   const handleLogin = async (data) => {
-    const { username, password } = data;
-    await dispatch(loginUser({ username, password }));
+    const { email, password } = data;
+    try {
+      await dispatch(loginUser({ email, password }));
+    } catch (err) {
+      throw new Error(err.message || "An error occurred while logging in.");
+    }
   };
 
   return (
@@ -33,29 +39,26 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="flex flex-col mb-3">
           <label
-            htmlFor="username"
+            htmlFor="email"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
-            Username:
+            E-Mail Address:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+            <div className=" inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <i className="fas fa-at text-blue-500"></i>
             </div>
 
             <input
-              id="username"
-              type="text"
-              name="username"
-              className="w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-              border border-gray-400 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your username"
-              {...register("username")}
+              id="email"
+              type="email"
+              name="email"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              placeholder="Enter your email"
+              {...register("email")}
             />
-            {errors.username && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.username.message}
-              </p>
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
           </div>
         </div>
@@ -94,10 +97,16 @@ const LoginForm = () => {
         <div className="flex w-full">
           <button
             type="submit"
-            className="flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                 bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in"
+            className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
+                 bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in ${
+                   loading ? "opacity-70 cursor-not-allowed" : ""
+                 }`}
+            disabled={loading}
           >
-            <span className="mr-2 uppercase">Sign In</span>
+            <span className="mr-2 uppercase">
+              {/* {loading ? "Logging in..." : "Sign In"} */}
+              Sign In
+            </span>
           </button>
           <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
         </div>
