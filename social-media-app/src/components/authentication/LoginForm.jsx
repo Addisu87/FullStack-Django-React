@@ -84,6 +84,7 @@ const LoginForm = () => {
               className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
               border border-gray-400 focus:outline-none focus:border-blue-400"
               placeholder="Enter your password"
+              autoComplete="password"
               {...register("password")}
             />
             {errors.password && (
