@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/loginSlice";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../redux/authSlice";
+// import jwtDecode from "jwt-decode";
 
 const schema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Email is required"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .trim()
+    .required("Email is required"),
   password: yup
     .string()
+    .trim()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),
 });
@@ -23,15 +30,30 @@ const LoginForm = () => {
   });
 
   const dispatch = useDispatch();
-  const { user, error, loading } = useSelector((state) => state.login);
+  const navigate = useNavigate();
+  const { authTokens, loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = async (data) => {
-    const { email, password } = data;
-    try {
-      await dispatch(loginUser({ email, password }));
-    } catch (err) {
-      throw new Error(err.message || "An error occurred while logging in.");
+  useEffect(() => {
+    if (authTokens) {
+      const user = jwtDecode(authTokens.access);
+      // Update local state or dispatch another action if needed
     }
+  }, [authTokens]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const credentials = {
+      username: e.target.username.value,
+      password: e.target.password.value,
+    };
+    dispatch(loginUser(credentials))
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error logging in:", error);
+        // Handle login error if necessary
+      });
   };
 
   return (

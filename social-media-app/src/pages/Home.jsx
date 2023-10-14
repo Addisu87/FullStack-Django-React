@@ -6,9 +6,19 @@ import Post from "../components/posts/Post";
 import { getUser } from "../hooks/user.actions";
 import { randomAvatar } from "../utils";
 import { fetcher } from "../helpers/axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../redux/authSlice";
 
 const Home = () => {
   const user = getUser();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
 
   const posts = useSWR("/post/", fetcher, {
     refreshInterval: 1000,

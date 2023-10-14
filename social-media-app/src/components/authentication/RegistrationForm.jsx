@@ -3,16 +3,21 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useUserActions } from "../../hooks/user.actions";
 import { registerUser } from "../../redux/registerSlice";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
   last_name: yup.string().required("Last Name is required"),
   username: yup.string().required("Username is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .trim()
+    .required("Email is required"),
   password: yup
     .string()
+    .trim()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),
   bio: yup.string().required("Bio is required"),
@@ -20,7 +25,8 @@ const schema = yup.object().shape({
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
-  const { user, error, loading } = useSelector((state) => state.register);
+  const navigate = useNavigate();
+  const { authTokens, loading, error } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -30,24 +36,24 @@ const RegistrationForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const userActions = useUserActions();
-
-  const handleRegister = async (data) => {
-    console.log("Form data submitted:", data);
-    const { username, password, email, first_name, last_name, bio } = data;
-    try {
-      await userActions.register({
-        username,
-        password,
-        email,
-        first_name,
-        last_name,
-        bio,
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const userData = {
+      first_name: e.target.first_name.value,
+      last_name: e.target.last_name.value,
+      username: e.target.username.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      bio: e.target.bio.value,
+    };
+    dispatch(registerUser(userData))
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+        // Handle registration error if necessary
       });
-      await dispatch(registerUser(data));
-    } catch (error) {
-      throw new Error("Registration failed:", error);
-    }
   };
 
   return (
