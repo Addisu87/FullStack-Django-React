@@ -3,17 +3,16 @@ import useSWR from "swr";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
-import { getUser } from "../hooks/user.actions";
 import { randomAvatar } from "../utils";
 import { fetcher } from "../helpers/axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/authSlice";
 
 const Home = () => {
-  const user = getUser();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user, loading, error } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -25,12 +24,16 @@ const Home = () => {
   });
 
   if (!user) {
-    return <div>Loading!</div>;
+    return (
+      <div>
+        <p>{loading}</p>
+      </div>
+    );
   }
 
   return (
     <Layout>
-      <div className="flex w-2/3 justify-between my-10">
+      <div className="flex flex-col w-2/3 items-center my-10 space-y-4">
         <div className="w-full border rounded flex items-center p-4">
           <div className="avatar online">
             <div className="flex-shrink-0">
@@ -49,11 +52,11 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="my-4">
-          {posts.data?.results.map((post, index) => (
+        {posts.data?.results.map((post, index) => (
+          <div key={index} className="w-full border rounded mb-4 p-2">
             <Post key={index} post={post} refresh={posts.mutate} />
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </Layout>
   );

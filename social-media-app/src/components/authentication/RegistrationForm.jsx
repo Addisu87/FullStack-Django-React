@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/registerSlice";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../redux/authSlice";
+import jwtDecode from "jwt-decode";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
@@ -26,7 +27,7 @@ const schema = yup.object().shape({
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { authTokens, loading, error } = useSelector((state) => state.auth);
+  const { accessToken, loading, error } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -36,17 +37,25 @@ const RegistrationForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const userData = {
-      first_name: e.target.first_name.value,
-      last_name: e.target.last_name.value,
-      username: e.target.username.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-      bio: e.target.bio.value,
-    };
-    dispatch(registerUser(userData))
+  useEffect(() => {
+    if (accessToken) {
+      const user = jwtDecode(accessToken);
+      // Update local state or dispatch another action if needed
+    }
+  }, [accessToken]);
+
+  const handleRegister = async (userData) => {
+    const { first_name, last_name, username, email, password, bio } = userData;
+    dispatch(
+      registerUser({
+        first_name,
+        last_name,
+        username,
+        email,
+        password,
+        bio,
+      })
+    )
       .then(() => {
         navigate("/");
       })

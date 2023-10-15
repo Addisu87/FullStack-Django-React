@@ -40,13 +40,9 @@ const LoginForm = () => {
     }
   }, [accessToken]);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const credentials = {
-      username: e.target.username.value,
-      password: e.target.password.value,
-    };
-    dispatch(loginUser(credentials))
+  const handleLogin = async (credentials) => {
+    const { email, password } = credentials;
+    dispatch(loginUser({ email, password }))
       .then(() => {
         navigate("/");
       })
@@ -127,8 +123,7 @@ const LoginForm = () => {
             disabled={loading}
           >
             <span className="mr-2 uppercase">
-              {/* {loading ? "Logging in..." : "Sign In"} */}
-              Sign In
+              {loading ? "Logging in..." : "Sign In"}
             </span>
           </button>
           <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>

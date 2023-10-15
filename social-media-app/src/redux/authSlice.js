@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import jwtDecode from "jwt-decode";
 import axiosService from "../helpers/axios";
 
@@ -11,6 +10,7 @@ export const loginUser = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/auth/login/`,
         credentials
       );
+      console.log("Login", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -26,6 +26,7 @@ export const registerUser = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/auth/register/`,
         userData
       );
+      console.log("Register", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -46,10 +47,7 @@ export const authSlice = createSlice({
     setAuthTokens: (state, action) => {
       state.accessToken = action.payload.access;
       state.refreshToken = action.payload.refresh;
-      localStorage.setItem(
-        "accessToken",
-        JSON.stringify(action.payload.access)
-      );
+      localStorage.setItem("auth", JSON.stringify(action.payload.access));
     },
 
     logoutUser: (state) => {
@@ -57,7 +55,7 @@ export const authSlice = createSlice({
       state.accessToken = null;
       state.loading = false;
       state.error = null;
-      localStorage.removeItem("accessToken");
+      localStorage.removeItem("auth");
     },
   },
   extraReducers: (builder) => {
@@ -68,7 +66,7 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = jwtDecode(action.payload.access);
-        localStorage.setItem("accessToken", JSON.stringify(action.payload));
+        localStorage.setItem("auth", JSON.stringify(action.payload));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -80,7 +78,7 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = jwtDecode(action.payload.access);
-        localStorage.setItem("accessToken", JSON.stringify(action.payload));
+        localStorage.setItem("auth", JSON.stringify(action.payload));
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
