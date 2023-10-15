@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../redux/authSlice";
-import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
@@ -36,13 +35,6 @@ const RegistrationForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  useEffect(() => {
-    if (accessToken) {
-      const user = jwtDecode(accessToken);
-      // Update local state or dispatch another action if needed
-    }
-  }, [accessToken]);
 
   const handleRegister = async (userData) => {
     const { first_name, last_name, username, email, password, bio } = userData;

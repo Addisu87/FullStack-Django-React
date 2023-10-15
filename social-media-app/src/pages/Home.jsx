@@ -1,23 +1,14 @@
 import React from "react";
 import useSWR from "swr";
+import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
 import { randomAvatar } from "../utils";
 import { fetcher } from "../helpers/axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../redux/authSlice";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { user, loading, error } = useSelector((state) => state.auth);
-
-  const handleLogout = () => {
-    dispatch(logoutUser());
-    navigate("/login");
-  };
 
   const posts = useSWR("/post/", fetcher, {
     refreshInterval: 1000,

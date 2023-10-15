@@ -20,6 +20,7 @@ function App() {
       />
       <Route path="/login/" element={<Login />} />
       <Route path="/register/" element={<Registration />} />
+      <Route path="/logout/" element={<Registration />} />
 
       <Route path="*" element={<NotFound />} />
       <Route path="/503" element={<Error503 />} />

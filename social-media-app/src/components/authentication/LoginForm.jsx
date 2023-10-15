@@ -33,13 +33,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { accessToken, loading, error } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (accessToken) {
-      const user = jwtDecode(accessToken);
-      // Update local state or dispatch another action if needed
-    }
-  }, [accessToken]);
-
   const handleLogin = async (credentials) => {
     const { email, password } = credentials;
     dispatch(loginUser({ email, password }))
@@ -51,6 +44,13 @@ const LoginForm = () => {
         // Handle login error if necessary
       });
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      const user = jwtDecode(accessToken);
+      // Update local state or dispatch another action if needed
+    }
+  }, [accessToken]);
 
   return (
     <div className="mt-5">

@@ -1,13 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/authSlice";
 import { randomAvatar } from "../utils";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    dispatch(logoutUser());
     navigate("/login/");
   };
+
   return (
     <div className="navbar bg-cyan-500">
       <div className="flex-1">
