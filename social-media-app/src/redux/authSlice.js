@@ -7,7 +7,7 @@ export const loginUser = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/auth/login/",
+        `${process.env.REACT_APP_API_URL}/auth/login/`,
         credentials
       );
       return response.data;
@@ -22,7 +22,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/auth/register/",
+        `${process.env.REACT_APP_API_URL}/auth/register/`,
         userData
       );
       return response.data;
@@ -36,17 +36,27 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    authTokens: null,
+    accessToken: null,
+    refreshToken: null,
     loading: false,
     error: null,
   },
   reducers: {
+    setAuthTokens: (state, action) => {
+      state.accessToken = action.payload.access;
+      state.refreshToken = action.payload.refresh;
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(action.payload.access)
+      );
+    },
+
     logoutUser: (state) => {
       state.user = null;
-      state.authTokens = null;
+      state.accessToken = null;
       state.loading = false;
       state.error = null;
-      localStorage.removeItem("authTokens");
+      localStorage.removeItem("accessToken");
     },
   },
   extraReducers: (builder) => {
@@ -56,33 +66,27 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.authTokens = action.payload;
         state.user = jwtDecode(action.payload.access);
-        state.loading = false;
-        state.error = null;
-        localStorage.setItem("authTokens", JSON.stringify(action.payload));
+        localStorage.setItem("accessToken", JSON.stringify(action.payload));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       })
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.authTokens = action.payload;
         state.user = jwtDecode(action.payload.access);
-        state.loading = false;
-        state.error = null;
-        localStorage.setItem("authTokens", JSON.stringify(action.payload));
+        localStorage.setItem("accessToken", JSON.stringify(action.payload));
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       });
   },
 });
 
-export const { logoutUser } = authSlice.actions;
+export const { setAuthTokens, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/authSlice";
-// import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 const schema = yup.object().shape({
   email: yup

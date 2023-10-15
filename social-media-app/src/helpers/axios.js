@@ -1,21 +1,18 @@
 import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
-import {
-  getAccessToken,
-  getRefreshToken,
-  getUser,
-} from "../hooks/user.actions";
+import authSlice from "../redux//authSlice";
+import store from "../redux/store.js";
+import { logoutUser } from "../redux/authSlice";
 
 const axiosService = axios.create({
-  baseURL: "http://localhost:8000",
-  timeout: 5000,
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 axiosService.interceptors.request.use(async (config) => {
-  const accessToken = getAccessToken();
+  const { accessToken } = store.getState().auth;
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -23,38 +20,47 @@ axiosService.interceptors.request.use(async (config) => {
 });
 
 axiosService.interceptors.response.use(
-  (res) => Promise.resolve(res),
-  (err) => Promise.reject(err)
+  (res) => res,
+  (err) => {
+    if (err.response && err.response.status === 401) {
+      // Trigger logout action if the request returns 401 unauthorized
+      store.dispatch(logoutUser());
+    }
+    return Promise.reject(err);
+  }
 );
 
 // a function that contains the refresh auth logic
 // This function will be called whenever the failed request returns a 401 error
 const refreshAuthLogic = async (failedRequest) => {
+  const { refreshToken } = store.getState().auth;
   try {
     const response = await axios.post(
       "/auth/refresh/",
       {
-        refresh: getRefreshToken(),
+        refresh: refreshToken,
       },
       {
-        baseURL: "http://localhost:8000/api",
+        baseURL: process.env.REACT_APP_API_URL,
       }
     );
 
-    const { access } = response.data;
+    const { access, refresh } = response.data;
     failedRequest.response.config.headers["Authorization"] = "Bearer " + access;
-    localStorage.setItem(
-      "auth",
-      JSON.stringify({
-        access,
-        refresh: getRefreshToken(),
-        user: getUser(),
+
+    // Dispatch the setAuthTokens action to update the authentication tokens
+    store.dispatch(
+      authSlice.actions.setAuthTokens({
+        accessToken: access,
+        refreshToken: refresh,
       })
     );
 
+    // Retry the original request with the new access token
     return Promise.resolve();
   } catch (error) {
-    localStorage.removeItem("auth");
+    // Handle refresh token request error, e.g., logout the user
+    store.dispatch(logoutUser());
     return Promise.reject(error);
   }
 };
