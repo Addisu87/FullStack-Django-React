@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import axiosService from "../helpers/axios";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosService.post(
         `${process.env.REACT_APP_API_URL}/auth/login/`,
         credentials
       );
@@ -21,7 +22,7 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosService.post(
         `${process.env.REACT_APP_API_URL}/auth/register/`,
         userData
       );

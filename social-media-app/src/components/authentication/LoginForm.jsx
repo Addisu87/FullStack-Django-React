@@ -31,14 +31,14 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { authTokens, loading, error } = useSelector((state) => state.auth);
+  const { accessToken, loading, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (authTokens) {
-      const user = jwtDecode(authTokens.access);
+    if (accessToken) {
+      const user = jwtDecode(accessToken);
       // Update local state or dispatch another action if needed
     }
-  }, [authTokens]);
+  }, [accessToken]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

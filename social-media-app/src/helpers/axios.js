@@ -30,7 +30,7 @@ axiosService.interceptors.response.use(
   }
 );
 
-// a function that contains the refresh auth logic
+// A function that contains the refresh auth logic
 // This function will be called whenever the failed request returns a 401 error
 const refreshAuthLogic = async (failedRequest) => {
   const { refreshToken } = store.getState().auth;
