@@ -4,11 +4,11 @@ import jwtDecode from "jwt-decode";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (credentials, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axiosService.post(
         `${process.env.REACT_APP_API_URL}/auth/login/`,
-        credentials
+        { email, password }
       );
       console.log("Login", response.data);
       return response.data;
@@ -20,11 +20,14 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (userData, { rejectWithValue }) => {
+  async (
+    { first_name, last_name, username, email, password, bio },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axiosService.post(
         `${process.env.REACT_APP_API_URL}/auth/register/`,
-        userData
+        { first_name, last_name, username, email, password, bio }
       );
       console.log("Register", response.data);
       return response.data;
@@ -53,6 +56,7 @@ const authSlice = createSlice({
     logoutUser: (state) => {
       state.user = null;
       state.accessToken = null;
+      state.refreshToken = null;
       state.loading = false;
       state.error = null;
       localStorage.removeItem("auth");

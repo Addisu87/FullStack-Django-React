@@ -38,7 +38,7 @@ const RegistrationForm = () => {
 
   const handleRegister = async (userData) => {
     const { first_name, last_name, username, email, password, bio } = userData;
-    dispatch(
+    await dispatch(
       registerUser({
         first_name,
         last_name,

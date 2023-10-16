@@ -33,9 +33,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { accessToken, loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = async (credentials) => {
-    const { email, password } = credentials;
-    dispatch(loginUser({ email, password }))
+  const handleLogin = async ({ email, password }) => {
+    await dispatch(loginUser({ email, password }))
       .then(() => {
         navigate("/");
       })

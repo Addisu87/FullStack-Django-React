@@ -1,15 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
+import authSlice from "../redux/authSlice";
 import { randomAvatar } from "../utils";
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
+  const handleLogout = async () => {
+    await dispatch(authSlice.actions.logoutUser());
     navigate("/login/");
   };
 
@@ -35,7 +35,7 @@ const Navbar = () => {
               <a href="/profile/">Profile</a>
             </li>
             <li>
-              <a href="/logout/" onClick={handleLogout}>
+              <a href="/login/" onClick={handleLogout}>
                 Logout
               </a>
             </li>
