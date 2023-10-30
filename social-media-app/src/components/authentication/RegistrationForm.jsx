@@ -5,6 +5,9 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { BiNote, BiSolidUserCircle } from "react-icons/bi";
+import { BsFillShieldLockFill } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
@@ -69,7 +72,7 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-blue-500" />
             </div>
 
             <input
@@ -96,7 +99,7 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-blue-500" />
             </div>
 
             <input
@@ -121,7 +124,7 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-blue-500" />
             </div>
 
             <input
@@ -147,7 +150,7 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className=" inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-at text-blue-500"></i>
+              <MdEmail className="text-blue-500" />
             </div>
 
             <input
@@ -173,7 +176,7 @@ const RegistrationForm = () => {
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
               <span>
-                <i className="fas fa-lock text-blue-500"></i>
+                <BsFillShieldLockFill className="text-blue-500" />
               </span>
             </div>
 
@@ -192,7 +195,7 @@ const RegistrationForm = () => {
           </div>
         </div>
 
-        <div className="flex flex-col mb-3">
+        <div className="flex flex-col">
           <label
             htmlFor="message"
             className="mb-1 text-sm tracking-wide text-gray-600"
@@ -200,12 +203,6 @@ const RegistrationForm = () => {
             Bio:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <span>
-                <i className="fas fa-lock text-blue-500"></i>
-              </span>
-            </div>
-
             <textarea
               name="message"
               id="message"
@@ -224,8 +221,8 @@ const RegistrationForm = () => {
         <div className="flex w-full">
           <button
             type="submit"
-            className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-            bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in ${
+            className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto items-center justify-center focus:outline-none text-white text-sm sm:text-base
+            bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 transition duration-150 ease-in ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}
