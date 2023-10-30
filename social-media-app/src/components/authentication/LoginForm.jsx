@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/authSlice";
 import jwtDecode from "jwt-decode";
 import { BsFillShieldLockFill } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdLogin } from "react-icons/md";
 
 const schema = yup.object().shape({
   email: yup
@@ -64,7 +64,7 @@ const LoginForm = () => {
             E-Mail Address:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+            <div className="absolute inline-flex items-center justify-center left-0 top-0 h-full w-10 text-gray-400">
               <MdEmail className="text-cyan-500" />
             </div>
 
@@ -77,7 +77,7 @@ const LoginForm = () => {
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-red-500 text-xs">{errors.email.message}</p>
             )}
           </div>
         </div>
@@ -90,7 +90,7 @@ const LoginForm = () => {
             Password:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+            <div className="absolute inline-flex items-center justify-center  left-0 top-0 h-full w-10 text-gray-400">
               <span>
                 <BsFillShieldLockFill className="text-cyan-500" />
               </span>
@@ -107,9 +107,7 @@ const LoginForm = () => {
               {...register("password")}
             />
             {errors.password && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.password.message}
-              </p>
+              <p className="text-red-500 text-xs">{errors.password.message}</p>
             )}
           </div>
         </div>
@@ -126,6 +124,7 @@ const LoginForm = () => {
             <span className="mr-2 uppercase">
               {loading ? "Logging in..." : "Sign In"}
             </span>
+            <MdLogin />
           </button>
           <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
         </div>

@@ -84,7 +84,7 @@ const RegistrationForm = () => {
               {...register("first_name")}
             />
             {errors.first_name && (
-              <p className="text-red-500 text-sm">
+              <p className="text-red-500 text-xs">
                 {errors.first_name.message}
               </p>
             )}
@@ -111,7 +111,7 @@ const RegistrationForm = () => {
               {...register("last_name")}
             />
             {errors.last_name && (
-              <p className="text-red-500 text-sm">{errors.last_name.message}</p>
+              <p className="text-red-500 text-xs">{errors.last_name.message}</p>
             )}
           </div>
         </div>
@@ -137,7 +137,7 @@ const RegistrationForm = () => {
               {...register("username")}
             />
             {errors.username && (
-              <p className="text-red-500 text-sm">{errors.username.message}</p>
+              <p className="text-red-500 text-xs">{errors.username.message}</p>
             )}
           </div>
         </div>
@@ -162,7 +162,7 @@ const RegistrationForm = () => {
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-red-500 text-xs">{errors.email.message}</p>
             )}
           </div>
         </div>
@@ -190,7 +190,7 @@ const RegistrationForm = () => {
               {...register("password")}
             />
             {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password.message}</p>
+              <p className="text-red-500 text-xs">{errors.password.message}</p>
             )}
           </div>
         </div>
@@ -213,7 +213,7 @@ const RegistrationForm = () => {
               {...register("bio")}
             />
             {errors.bio && (
-              <p className="text-red-500 text-sm">{errors.bio.message}</p>
+              <p className="text-red-500 text-xs">{errors.bio.message}</p>
             )}
           </div>
         </div>
@@ -232,7 +232,7 @@ const RegistrationForm = () => {
               Sign Up
             </span>
           </button>
-          <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
+          <div className="text-red-500 text-xs">{error && <p>{error}</p>}</div>
         </div>
       </form>
     </div>
