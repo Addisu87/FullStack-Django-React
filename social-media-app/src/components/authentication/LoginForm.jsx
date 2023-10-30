@@ -73,7 +73,7 @@ const LoginForm = () => {
               type="email"
               name="email"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your email"
+              placeholder="Email..."
               {...register("email")}
             />
             {errors.email && (
@@ -102,7 +102,7 @@ const LoginForm = () => {
               name="password"
               className="w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
               border border-gray-400 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your password"
+              placeholder="Password..."
               autoComplete="password"
               {...register("password")}
             />

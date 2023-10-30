@@ -80,7 +80,7 @@ const RegistrationForm = () => {
               type="text"
               name="first_name"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your first name"
+              placeholder="First name..."
               {...register("first_name")}
             />
             {errors.first_name && (
@@ -107,7 +107,7 @@ const RegistrationForm = () => {
               type="text"
               name="last_name"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your last name"
+              placeholder="Last name..."
               {...register("last_name")}
             />
             {errors.last_name && (
@@ -133,7 +133,7 @@ const RegistrationForm = () => {
               name="username"
               className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
                     border border-gray-400 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your username"
+              placeholder="Username..."
               {...register("username")}
             />
             {errors.username && (
@@ -158,7 +158,7 @@ const RegistrationForm = () => {
               type="email"
               name="email"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your email"
+              placeholder="Email..."
               {...register("email")}
             />
             {errors.email && (
@@ -185,7 +185,7 @@ const RegistrationForm = () => {
               type="password"
               name="password"
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
-              placeholder="Enter your password"
+              placeholder="Password..."
               autoComplete="password"
               {...register("password")}
             />
