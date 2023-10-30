@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
-import { BiNote, BiSolidUserCircle } from "react-icons/bi";
+import { BiSolidUserCircle } from "react-icons/bi";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 
@@ -72,14 +72,14 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <BiSolidUserCircle className="text-blue-500" />
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
               id="first_name"
               type="text"
               name="first_name"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your first name"
               {...register("first_name")}
             />
@@ -99,14 +99,14 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <BiSolidUserCircle className="text-blue-500" />
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
               id="last_name"
               type="text"
               name="last_name"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your last name"
               {...register("last_name")}
             />
@@ -124,7 +124,7 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <BiSolidUserCircle className="text-blue-500" />
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
@@ -132,7 +132,7 @@ const RegistrationForm = () => {
               type="text"
               name="username"
               className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-                    border border-gray-400 focus:outline-none focus:border-blue-400"
+                    border border-gray-400 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your username"
               {...register("username")}
             />
@@ -150,14 +150,14 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className=" inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <MdEmail className="text-blue-500" />
+              <MdEmail className="text-cyan-500" />
             </div>
 
             <input
               id="email"
               type="email"
               name="email"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your email"
               {...register("email")}
             />
@@ -176,7 +176,7 @@ const RegistrationForm = () => {
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
               <span>
-                <BsFillShieldLockFill className="text-blue-500" />
+                <BsFillShieldLockFill className="text-cyan-500" />
               </span>
             </div>
 
@@ -184,7 +184,7 @@ const RegistrationForm = () => {
               id="password"
               type="password"
               name="password"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your password"
               autoComplete="password"
               {...register("password")}
@@ -208,7 +208,7 @@ const RegistrationForm = () => {
               id="message"
               rows={3}
               className="block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
-                     sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                     sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="A simple bio ..."
               {...register("bio")}
             />
@@ -222,7 +222,7 @@ const RegistrationForm = () => {
           <button
             type="submit"
             className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto items-center justify-center focus:outline-none text-white text-sm sm:text-base
-            bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 transition duration-150 ease-in ${
+            bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 transition duration-150 ease-in ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}

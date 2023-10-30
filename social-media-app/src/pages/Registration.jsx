@@ -20,7 +20,7 @@ const Registration = () => {
             You have an account?
             <Link
               to="/login/"
-              className="text-xs ml-2 text-blue-500 font-semibold"
+              className="text-xs ml-2 text-cyan-500 font-semibold"
             >
               Login here.
             </Link>

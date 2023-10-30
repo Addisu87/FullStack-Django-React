@@ -65,14 +65,14 @@ const LoginForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <MdEmail className="text-blue-500" />
+              <MdEmail className="text-cyan-500" />
             </div>
 
             <input
               id="email"
               type="email"
               name="email"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your email"
               {...register("email")}
             />
@@ -92,7 +92,7 @@ const LoginForm = () => {
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
               <span>
-                <BsFillShieldLockFill className="text-blue-500" />
+                <BsFillShieldLockFill className="text-cyan-500" />
               </span>
             </div>
 
@@ -101,7 +101,7 @@ const LoginForm = () => {
               type="password"
               name="password"
               className="w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-              border border-gray-400 focus:outline-none focus:border-blue-400"
+              border border-gray-400 focus:outline-none focus:border-cyan-400"
               placeholder="Enter your password"
               autoComplete="password"
               {...register("password")}
@@ -118,7 +118,7 @@ const LoginForm = () => {
           <button
             type="submit"
             className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                 bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 transition duration-150 ease-in ${
+                 bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 transition duration-150 ease-in ${
                    loading ? "opacity-70 cursor-not-allowed" : ""
                  }`}
             disabled={loading}
