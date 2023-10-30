@@ -61,7 +61,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-12">
       <form onSubmit={handleSubmit(handleRegister)}>
         <div className="flex flex-col mb-3">
           <label
