@@ -39,8 +39,14 @@ const RegistrationForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleRegister = async (userData) => {
-    const { first_name, last_name, username, email, password, bio } = userData;
+  const handleRegister = async ({
+    first_name,
+    last_name,
+    username,
+    email,
+    password,
+    bio,
+  }) => {
     await dispatch(
       registerUser({
         first_name,
