@@ -8,13 +8,10 @@ import { loginUser } from "../../redux/authSlice";
 import jwtDecode from "jwt-decode";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { MdEmail, MdLogin } from "react-icons/md";
+import { BiSolidUserCircle } from "react-icons/bi";
 
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email")
-    .trim()
-    .required("Email is required"),
+  username: yup.string().required("Username is required"),
   password: yup
     .string()
     .trim()
@@ -58,26 +55,27 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="flex flex-col mb-3">
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
-            E-Mail Address:
+            Username:
           </label>
           <div className="relative">
-            <div className="absolute inline-flex items-center justify-center left-0 top-0 h-full w-10 text-gray-400">
-              <MdEmail className="text-cyan-500" />
+            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
-              id="email"
-              type="email"
-              name="email"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
-              placeholder="Email..."
-              {...register("email")}
+              id="username"
+              type="text"
+              name="username"
+              className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
+                    border border-gray-400 focus:outline-none focus:border-cyan-400"
+              placeholder="Username..."
+              {...register("username")}
             />
-            {errors.email && (
-              <p className="text-red-500 text-xs">{errors.email.message}</p>
+            {errors.username && (
+              <p className="text-red-500 text-xs">{errors.username.message}</p>
             )}
           </div>
         </div>

@@ -10,7 +10,6 @@ export const loginUser = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/auth/login/`,
         { email, password }
       );
-      console.log("Login", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
