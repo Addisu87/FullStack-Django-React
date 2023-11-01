@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/authSlice";
 import jwtDecode from "jwt-decode";
 import { BsFillShieldLockFill } from "react-icons/bs";
-import { MdEmail, MdLogin } from "react-icons/md";
+import { MdLogin } from "react-icons/md";
 import { BiSolidUserCircle } from "react-icons/bi";
 
 const schema = yup.object().shape({
@@ -32,8 +32,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { accessToken, loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = async ({ email, password }) => {
-    await dispatch(loginUser({ email, password }))
+  const handleLogin = async ({ username, password }) => {
+    await dispatch(loginUser({ username, password }))
       .then(() => {
         navigate("/");
       })
