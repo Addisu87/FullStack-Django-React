@@ -7,11 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/authSlice";
 import jwtDecode from "jwt-decode";
 import { BsFillShieldLockFill } from "react-icons/bs";
-import { MdLogin } from "react-icons/md";
-import { BiSolidUserCircle } from "react-icons/bi";
+import { MdEmail, MdLogin } from "react-icons/md";
 
 const schema = yup.object().shape({
-  username: yup.string().required("Username is required"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .trim()
+    .required("Email is required"),
   password: yup
     .string()
     .trim()
@@ -32,8 +35,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { accessToken, loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = async ({ username, password }) => {
-    await dispatch(loginUser({ username, password }))
+  const handleLogin = async ({ email, password }) => {
+    await dispatch(loginUser({ email, password }))
       .then(() => {
         navigate("/");
       })
@@ -55,27 +58,26 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="flex flex-col mb-3">
           <label
-            htmlFor="username"
+            htmlFor="email"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
-            Username:
+            E-Mail Address:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <BiSolidUserCircle className="text-cyan-500" />
+            <div className=" inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <MdEmail className="text-cyan-500" />
             </div>
 
             <input
-              id="username"
-              type="text"
-              name="username"
-              className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-                    border border-gray-400 focus:outline-none focus:border-cyan-400"
-              placeholder="Username..."
-              {...register("username")}
+              id="email"
+              type="email"
+              name="email"
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
+              placeholder="Email..."
+              {...register("email")}
             />
-            {errors.username && (
-              <p className="text-red-500 text-xs">{errors.username.message}</p>
+            {errors.email && (
+              <p className="text-red-500 text-xs">{errors.email.message}</p>
             )}
           </div>
         </div>
