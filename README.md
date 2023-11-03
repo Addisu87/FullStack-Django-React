@@ -105,7 +105,7 @@ Install this project with:
 
 ```sh
   cd FullStack-django-react
-  npm install
+  yarn install or npm install
 ```
 
 -
@@ -116,9 +116,15 @@ To run the project, execute the following command:
 
 <!-- Backend -->
 
+Create a virtual environment
+
 ```sh
  cd django-api
  source venv/bin/activate
+```
+
+```sh
+ python manage.py migrate
  python manage.py runserver
 ```
 
