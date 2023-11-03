@@ -49,7 +49,13 @@ const authSlice = createSlice({
     setAuthTokens: (state, action) => {
       state.accessToken = action.payload.access;
       state.refreshToken = action.payload.refresh;
-      localStorage.setItem("auth", JSON.stringify(action.payload.access));
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({
+          access: action.payload.access,
+          refresh: action.payload.refresh,
+        })
+      );
     },
 
     logoutUser: (state) => {
@@ -69,7 +75,15 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = jwtDecode(action.payload.access);
-        localStorage.setItem("auth", JSON.stringify(action.payload));
+        state.accessToken = action.payload.access;
+        state.refreshToken = action.payload.refresh;
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            access: action.payload.access,
+            refresh: action.payload.refresh,
+          })
+        );
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -81,7 +95,13 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = jwtDecode(action.payload.access);
-        localStorage.setItem("auth", JSON.stringify(action.payload));
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            access: action.payload.access,
+            refresh: action.payload.refresh,
+          })
+        );
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

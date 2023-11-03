@@ -4,11 +4,11 @@ import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import { SlLike } from "react-icons/sl";
 import { LiaComments } from "react-icons/lia";
-import { getUser } from "../../hooks/user.actions";
+import { useSelector } from "react-redux";
 
 const Post = (props) => {
   const { post, refresh } = props;
-  const user = getUser();
+  const { user } = useSelector((state) => state.auth);
 
   const handleLikeClick = (action) => {
     axiosService
@@ -21,55 +21,57 @@ const Post = (props) => {
       });
   };
   return (
-    <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto max-w-md md:max-w-2xl my-4">
-      <div className="flex items-start px-4 py-6">
+    <div className="flex flex-col py-8 px-4 max-w-3xl mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+      <div class="group flex">
         <img
-          className="w-12 h-12 rounded-full object-cover mr-4 shadow"
+          class="shrink-0 h-12 w-12 rounded-full"
           src={randomAvatar()}
           alt="avatar"
         />
-        <div className="">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-              {post?.author?.name}
-            </h2>
-            <small className="text-sm text-gray-700">
-              {format(post.created)}
-            </small>
-          </div>
-          <p className="mt-3 text-gray-700 text-sm">{post?.body}</p>
-          <div className="mt-4 flex items-center">
-            <div className="flex flex-row text-gray-700 text-sm mr-3">
-              <SlLike
-                onClick={() => {
-                  if (post?.liked) {
-                    handleLikeClick("remove_like");
-                  } else {
-                    handleLikeClick("like");
-                  }
-                }}
-              />
-              <span>{post?.likes_count}</span>
-              <p className="ms-1">
-                <small>Like</small>
-              </p>
-            </div>
-            <div className="flex flex-row text-gray-700 text-sm mr-8">
-              <LiaComments
-                onClick={() => {
-                  if (post?.liked) {
-                    handleLikeClick("remove_like");
-                  } else {
-                    handleLikeClick("like");
-                  }
-                }}
-              />
-              <span>{post.comments_count}</span>
-              <p className="ms-1 mb-0">
-                <small>Comment</small>
-              </p>
-            </div>
-          </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-slate-700 group-hover:text-slate-900">
+            {post.author.name}
+          </p>
+          <p class="text-sm font-medium text-slate-500 group-hover:text-slate-700">
+            {format(post.created)}
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p className="mt-3 text-gray-700 text-sm">{post.body}</p>
+      </div>
+
+      <div className="mt-4">
+        <div className="flex flex-row text-gray-700 text-sm mr-3">
+          <SlLike
+            onClick={() => {
+              if (post.liked) {
+                handleLikeClick("remove_like");
+              } else {
+                handleLikeClick("like");
+              }
+            }}
+          />
+          <span>{post.likes_count}</span>
+          <p className="ms-1">
+            <small>Like</small>
+          </p>
+        </div>
+        <div className="flex flex-row text-gray-700 text-sm mr-8">
+          <LiaComments
+            onClick={() => {
+              if (post.liked) {
+                handleLikeClick("remove_like");
+              } else {
+                handleLikeClick("like");
+              }
+            }}
+          />
+          <span>{post.comments_count}</span>
+          <p className="ms-1 mb-0">
+            <small>Comment</small>
+          </p>
         </div>
       </div>
     </div>

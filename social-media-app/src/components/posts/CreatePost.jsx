@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axiosService from "../../helpers/axios";
-import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -14,6 +15,7 @@ const CreatePost = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -22,10 +24,15 @@ const CreatePost = () => {
     formState: { errors, isSubmitting },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const user = getUser();
+  const { user } = useSelector((state) => state.auth);
 
-  const onSubmit = (data) => {
-    console.log("Form submitted with data", data);
+  const handleCreatePost = (data) => {
+    // Check if the user is authenticated
+    // if (!user) {
+    //   navigate("/login");
+    //   return;
+    // }
+
     axiosService
       .post("/post/", { author: user?.id, body: data.body })
       .then(() => {
@@ -35,11 +42,14 @@ const CreatePost = () => {
         setShowToast(true);
       })
       .catch((err) => {
-        console.log("Toaster closed", err);
         setToastMessage("An error occurred.");
         setToastType("danger");
         setShowToast(true);
       });
+  };
+
+  const handleToasterClose = () => {
+    setShowToast(false);
   };
 
   return (
@@ -54,7 +64,7 @@ const CreatePost = () => {
       <div>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
-            <form method="dialog" onSubmit={handleSubmit(onSubmit)}>
+            <form method="dialog" onSubmit={handleSubmit(handleCreatePost)}>
               {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
@@ -104,15 +114,18 @@ const CreatePost = () => {
         </dialog>
       </div>
 
-      {showToast && (
-        <Toaster
-          title="Post!"
-          message={toastMessage}
-          showToast={showToast}
-          type={toastType}
-          onClose={() => setShowToast(false)}
-        />
-      )}
+      <div>
+        {/* Render the Toaster component */}
+        {showToast && (
+          <Toaster
+            title="Post!"
+            message={toastMessage}
+            showToast={showToast}
+            type={toastType}
+            onClose={handleToasterClose}
+          />
+        )}
+      </div>
     </div>
   );
 };
