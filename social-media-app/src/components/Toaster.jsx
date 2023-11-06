@@ -1,13 +1,16 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { hideToaster } from "../redux/toasterSlice";
 
-function Toaster(props) {
-  const { showToast, title, message, type, onClose } = props;
+function Toaster() {
+  const toaster = useSelector((state) => state.toaster);
+  const dispatch = useDispatch();
 
   return (
-    <div className={`toaster ${showToast ? "show" : ""}`}>
-      <div className={`toast ${type}`}>
-        <strong>{title}</strong>: {message}
-        <button className="close" onClick={onClose}>
+    <div className={`toaster ${toaster.show ? "show" : ""}`}>
+      <div className={`toast ${toaster.type}`}>
+        <strong>{toaster.title}</strong>: {toaster.message}
+        <button className="close" onClick={() => dispatch(hideToaster())}>
           &times;
         </button>
       </div>

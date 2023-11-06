@@ -53,17 +53,17 @@ const Post = (props) => {
   return (
     <>
       <div className="flex flex-col py-8 px-4 max-w-3xl bg-white rounded-xl shadow-lg space-y-2 sm:py-2 sm:space-y-0 sm:space-x-6">
-        <div class="group flex">
+        <div className="group flex">
           <img
-            class="shrink-0 h-12 w-12 rounded-full"
+            className="shrink-0 h-12 w-12 rounded-full"
             src={randomAvatar()}
             alt="avatar"
           />
-          <div class="ml-3">
-            <p class="text-sm font-medium text-slate-700 group-hover:text-slate-900">
+          <div className="ml-3">
+            <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">
               {post.author.name}
             </p>
-            <p class="text-sm font-medium text-slate-500 group-hover:text-slate-700">
+            <p className="text-sm font-medium text-slate-500 group-hover:text-slate-700">
               {format(post.created)}
             </p>
           </div>

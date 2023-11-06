@@ -1,46 +1,43 @@
-import React, { createContext, useMemo, useState } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 import Toaster from "./Toaster";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-
-export const Context = createContext("unknown");
+import { useDispatch } from "react-redux";
+import { setToaster } from "../redux/toasterSlice";
 
 const Layout = (props) => {
-  const [toaster, setToaster] = useState({
-    title: "",
-    show: false,
-    message: "",
-    type: "",
-  });
-
+  const dispatch = useDispatch;
   const navigate = useNavigate();
-
-  const value = useMemo(() => ({ toaster, setToaster }), [toaster]);
-
   const { hasNavigationBack } = props;
 
-  return (
-    <Context.Provider value={value}>
-      <div>
-        <Navbar />
-        {hasNavigationBack && (
-          <BsFillArrowLeftCircleFill
-            className="mt-1 ml-2 text-cyan-500 text-lg font-medium"
-            onClick={() => navigate(-1)}
-          />
-        )}
+  const showToast = (title, message, type) => {
+    dispatch(
+      setToaster({
+        title: title,
+        message: message,
+        show: true,
+        type: type,
+      })
+    );
+  };
 
-        <div className="container m-5">{props.children}</div>
+  return (
+    <div>
+      <Navbar />
+      {hasNavigationBack && (
+        <BsFillArrowLeftCircleFill
+          className="mt-1 ml-2 text-cyan-500 text-lg font-medium"
+          onClick={() => navigate(-1)}
+        />
+      )}
+
+      <div className="container m-5">
+        {props.children} <button onClick={showToast}>Show Toaster</button>
       </div>
-      <Toaster
-        title={toaster.title}
-        message={toaster.message}
-        type={toaster.type}
-        showToast={toaster.show}
-        onClose={() => setToaster({ ...toaster, show: false })}
-      />
-    </Context.Provider>
+
+      <Toaster />
+    </div>
   );
 };
 
