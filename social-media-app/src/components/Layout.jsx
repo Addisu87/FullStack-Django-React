@@ -32,9 +32,7 @@ const Layout = (props) => {
         />
       )}
 
-      <div className="container m-5">
-        {props.children} <button onClick={showToast}>Show Toaster</button>
-      </div>
+      <div className="container m-5">{props.children}</div>
 
       <Toaster />
     </div>

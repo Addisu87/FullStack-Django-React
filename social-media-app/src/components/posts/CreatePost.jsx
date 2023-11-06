@@ -6,6 +6,7 @@ import axiosService from "../../helpers/axios";
 import Toaster from "../Toaster";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Dialog } from "@headlessui/react";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -54,25 +55,34 @@ const CreatePost = (props) => {
     setShowToast(false);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="w-75">
       <input
         className="py-2 rounded-full text-primary w-full px-4 border border-cyan-100"
         type="text"
         placeholder="Write a post"
-        onClick={() => document.getElementById("my_modal_3").showModal()}
-        data-testid="show-modal-form"
+        onClick={() => setIsOpen(true)}
       />
-      <div>
-        <dialog id="my_modal_3" className="modal">
-          <div className="modal-box">
-            <form method="dialog" onSubmit={handleSubmit(handleCreatePost)}>
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="fixed inset-0 z-10 overflow-y-auto"
+      >
+        <div className="flex items-center justify-center min-h-screen">
+          <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-              <div className="flex flex-col mb-3">
+          <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
+            <button
+              className="absolute top-2 right-2 text-gray-600"
+              onClick={() => setIsOpen(false)}
+            >
+              ✕
+            </button>
+
+            <form onSubmit={handleSubmit(handleCreatePost)}>
+              <div className="mb-3">
                 <label
                   htmlFor="message"
                   className="mb-3 text-base tracking-wide text-gray-600"
@@ -113,11 +123,10 @@ const CreatePost = (props) => {
               </div>
             </form>
           </div>
-        </dialog>
-      </div>
+        </div>
+      </Dialog>
 
       <div>
-        {/* Render the Toaster component */}
         {showToast && (
           <Toaster
             title="Post!"

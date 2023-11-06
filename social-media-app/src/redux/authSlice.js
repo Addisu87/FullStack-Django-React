@@ -28,7 +28,6 @@ export const registerUser = createAsyncThunk(
         `${process.env.REACT_APP_API_URL}/auth/register/`,
         { first_name, last_name, username, email, password, bio }
       );
-      console.log("Register", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
