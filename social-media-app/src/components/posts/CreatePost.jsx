@@ -11,7 +11,8 @@ const schema = yup.object({
   body: yup.string().required(),
 });
 
-const CreatePost = () => {
+const CreatePost = (props) => {
+  const { refresh } = props;
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
@@ -28,10 +29,10 @@ const CreatePost = () => {
 
   const handleCreatePost = (data) => {
     // Check if the user is authenticated
-    // if (!user) {
-    //   navigate("/login");
-    //   return;
-    // }
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
     axiosService
       .post("/post/", { author: user?.id, body: data.body })
@@ -40,6 +41,7 @@ const CreatePost = () => {
         setToastMessage("Post created 🚀");
         setToastType("success");
         setShowToast(true);
+        refresh();
       })
       .catch((err) => {
         setToastMessage("An error occurred.");

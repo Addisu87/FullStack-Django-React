@@ -9,6 +9,7 @@ import { SlLike } from "react-icons/sl";
 import { LiaComments } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Toaster from "../Toaster";
+import UpdatePost from "./UpdatePost";
 
 const Post = (props) => {
   const [showToast, setShowToast] = useState(false);
@@ -112,6 +113,7 @@ const Post = (props) => {
                     <BsThreeDotsVertical className="text-gray-500" />
                   </Menu.Button>
                   <Menu.Items>
+                    <UpdatePost post={post} refresh={refresh} />
                     <Menu.Item>
                       {({ active }) => (
                         <Link

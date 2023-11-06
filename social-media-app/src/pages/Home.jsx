@@ -1,17 +1,17 @@
 import React from "react";
 import useSWR from "swr";
 import { useSelector } from "react-redux";
+import { randomAvatar } from "../utils";
+import { fetcher } from "../helpers/axios";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
-import { randomAvatar } from "../utils";
-import { fetcher } from "../helpers/axios";
 
 const Home = () => {
   const { user, loading, error } = useSelector((state) => state.auth);
 
   const posts = useSWR("/post/", fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 20000,
   });
 
   if (!user) {
@@ -39,7 +39,7 @@ const Home = () => {
           </div>
 
           <div className="flex-grow pl-4">
-            <CreatePost />
+            <CreatePost refresh={posts.mutate} />
           </div>
         </div>
 
