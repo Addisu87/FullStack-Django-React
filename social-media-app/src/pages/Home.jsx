@@ -11,7 +11,7 @@ const Home = () => {
   const { user, loading, error } = useSelector((state) => state.auth);
 
   const posts = useSWR("/post/", fetcher, {
-    refreshInterval: 1000,
+    refreshInterval: 10000,
   });
 
   if (!user) {
