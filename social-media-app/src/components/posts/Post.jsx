@@ -61,7 +61,7 @@ const Post = (props) => {
           />
           <div className="ml-3">
             <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">
-              {post.author.name}
+              {post.author.username}
             </p>
             <p className="text-sm font-medium text-slate-500 group-hover:text-slate-700">
               {format(post.created)}
@@ -91,7 +91,6 @@ const Post = (props) => {
           </div>
           <div className="flex flex-row text-gray-700 text-sm mr-8 items-center">
             <LiaComments
-              className="text-cyan-500"
               onClick={() => {
                 if (post.liked) {
                   handleLikeClick("remove_like");
