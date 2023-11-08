@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/authSlice";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { MdEmail, MdLogin } from "react-icons/md";
 
@@ -33,7 +33,7 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { accessToken, loading, error } = useSelector((state) => state.auth);
+  const { user, loading, error } = useSelector((state) => state.auth);
 
   const handleLogin = async ({ email, password }) => {
     await dispatch(loginUser({ email, password }))
@@ -47,11 +47,10 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (accessToken) {
-      const user = jwtDecode(accessToken);
+    if (user) {
       // Update local state or dispatch another action if needed
     }
-  }, [accessToken]);
+  }, []);
 
   return (
     <div className="mt-12">

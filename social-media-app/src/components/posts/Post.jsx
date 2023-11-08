@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { Fragment } from "react";
 import { format } from "timeago.js";
 import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { SlLike } from "react-icons/sl";
@@ -10,24 +10,15 @@ import { LiaComments } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Toaster from "../Toaster";
 import UpdatePost from "./UpdatePost";
+import { setToaster } from "../../redux/toasterSlice";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 const Post = (props) => {
-  const [showToast, setShowToast] = useState(false);
   const { post, refresh } = props;
   const { user } = useSelector((state) => state.auth);
 
-  const MoreToggleIcon = React.forwardRef(({ onClick }, ref) => (
-    <Link
-      to="#"
-      href={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
-      }}
-    >
-      <BsThreeDotsVertical className="text-gray-500" />
-    </Link>
-  ));
+  const dispatch = useDispatch();
+  const { toaster } = useSelector((state) => state.toaster);
 
   const handleLikeClick = (action) => {
     axiosService
@@ -44,7 +35,7 @@ const Post = (props) => {
     axiosService
       .delete(`/post/${post.id}`)
       .then(() => {
-        setShowToast(true);
+        dispatch(setToaster());
         refresh();
       })
       .catch((err) => console.error(err));
@@ -106,39 +97,55 @@ const Post = (props) => {
           </div>
           {user.name === post.author.name && (
             <div>
-              <div className="relative group inline-block text-left">
-                <Menu>
-                  <Menu.Button as={MoreToggleIcon}>
-                    <BsThreeDotsVertical className="text-gray-500" />
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="inline-flex w-full rounded-lg px-4 py-2 text-sm font-medium text-black hover:bg-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+                    <BsThreeDotsVertical
+                      className="ml-2 -mr-1 h-5 w-5 text-black hover:text-cyan-400"
+                      aria-hidden="true"
+                    />
                   </Menu.Button>
-                  <Menu.Items>
-                    <UpdatePost post={post} refresh={refresh} />
+                </div>
+
+                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                  <div className="px-1 py-1 ">
                     <Menu.Item>
                       {({ active }) => (
-                        <Link
-                          className={`block px-4 py-2 ${
-                            active ? "bg-red-500 text-white" : "text-red-500"
-                          }`}
+                        <button
+                          className={`${
+                            active ? "bg-cyan-500 text-white" : "text-gray-900"
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                         >
-                          Update
-                        </Link>
+                          <AiFillEdit
+                            className="mr-2 h-5 w-5"
+                            aria-hidden="true"
+                          />
+                          Edit
+                        </button>
                       )}
                     </Menu.Item>
+                  </div>
+
+                  <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
-                        <Link
-                          className={`block px-4 py-2 ${
-                            active ? "bg-red-500 text-white" : "text-red-500"
-                          }`}
-                          onClick={handleDelete}
+                        <button
+                          className={`${
+                            active ? "bg-cyan-500 text-white" : "text-gray-900"
+                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                         >
+                          <AiFillDelete
+                            className="mr-2 h-5 w-5"
+                            aria-hidden="true"
+                            onClick={handleDelete}
+                          />
                           Delete
-                        </Link>
+                        </button>
                       )}
                     </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-              </div>
+                  </div>
+                </Menu.Items>
+              </Menu>
             </div>
           )}
         </div>
@@ -148,8 +155,7 @@ const Post = (props) => {
         title="Success!"
         message="Post deleted 🚀"
         type="danger"
-        showToast={showToast}
-        onClose={() => setShowToast(false)}
+        show={toaster}
       />
     </>
   );

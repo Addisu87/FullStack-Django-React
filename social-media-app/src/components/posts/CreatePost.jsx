@@ -27,14 +27,13 @@ const CreatePost = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const { user } = useSelector((state) => state.auth);
-  console.log("User", user);
 
   const handleCreatePost = (data) => {
     // Check if the user is authenticated
-    // if (!user) {
-    //   navigate("/login");
-    //   return;
-    // }
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
     axiosService
       .post("/post/", { author: user.id, body: data.body })
