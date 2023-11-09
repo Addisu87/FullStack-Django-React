@@ -4,7 +4,6 @@ import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
-import { Link } from "react-router-dom";
 import { SlLike } from "react-icons/sl";
 import { LiaComments } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -43,7 +42,7 @@ const Post = (props) => {
 
   return (
     <>
-      <div className="flex flex-col py-8 px-4 max-w-3xl bg-white rounded-xl shadow-lg space-y-2 sm:py-2 sm:space-y-0 sm:space-x-6">
+      <div className="relative flex flex-col py-8 px-4 max-w-3xl bg-white rounded-xl shadow-lg space-y-2 sm:py-2 sm:space-y-0 sm:space-x-6">
         <div className="group flex">
           <img
             className="shrink-0 h-12 w-12 rounded-full"
@@ -96,8 +95,8 @@ const Post = (props) => {
             </p>
           </div>
           {user.name === post.author.name && (
-            <div>
-              <Menu as="div" className="relative inline-block text-left">
+            <div className="absolute top-0 right-0">
+              <Menu as="div" className="relative inline-block">
                 <div>
                   <Menu.Button className="inline-flex w-full rounded-lg px-4 py-2 text-sm font-medium text-black hover:bg-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
                     <BsThreeDotsVertical

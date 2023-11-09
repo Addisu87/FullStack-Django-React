@@ -46,12 +46,6 @@ const LoginForm = () => {
       });
   };
 
-  useEffect(() => {
-    if (user) {
-      // Update local state or dispatch another action if needed
-    }
-  }, []);
-
   return (
     <div className="mt-12">
       <form onSubmit={handleSubmit(handleLogin)}>
@@ -121,7 +115,7 @@ const LoginForm = () => {
             disabled={loading}
           >
             <span className="mr-2 uppercase">
-              {loading ? "Logging in..." : "Sign In"}
+              {loading ? "Logging in" : "Sign In"}
             </span>
             <MdLogin />
           </button>
