@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { format } from "timeago.js";
 import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
@@ -7,18 +7,15 @@ import { Menu } from "@headlessui/react";
 import { SlLike } from "react-icons/sl";
 import { LiaComments } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Toaster from "../Toaster";
 import UpdatePost from "./UpdatePost";
 import { setToaster } from "../../redux/toasterSlice";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { AiFillDelete } from "react-icons/ai";
 
 const Post = (props) => {
   const { post, refresh } = props;
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const { toaster } = useSelector((state) => state.toaster);
 
   const handleLikeClick = (action) => {
     axiosService
@@ -115,24 +112,7 @@ const Post = (props) => {
                 </div>
 
                 <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                  <div className="px-1 py-1 ">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link
-                          to="/update-post/"
-                          className={`${
-                            active ? "bg-cyan-500 text-white" : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          <AiFillEdit
-                            className="mr-2 h-5 w-5"
-                            aria-hidden="true"
-                          />
-                          Modify
-                        </Link>
-                      )}
-                    </Menu.Item>
-                  </div>
+                  <UpdatePost post={post} refresh={refresh} />
 
                   <div className="px-1 py-1">
                     <Menu.Item>

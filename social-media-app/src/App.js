@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
 import Error503 from "./pages/Error503";
-import UpdatePost from "./components/posts/UpdatePost";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
       />
       <Route path="/login/" element={<Login />} />
       <Route path="/register/" element={<Registration />} />
-      <Route path="/update-post/" element={<UpdatePost />} />
 
       <Route path="*" element={<NotFound />} />
       <Route path="/503" element={<Error503 />} />

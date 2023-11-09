@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axiosService from "../../helpers/axios";
-import Toaster from "../Toaster";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
+import { setToaster } from "../../redux/toasterSlice";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -14,20 +14,24 @@ const schema = yup.object({
 
 const CreatePost = (props) => {
   const { refresh } = props;
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({ resolver: yupResolver(schema) });
 
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => {
+    setIsOpen(false);
+    reset(); // Reset form when the modal is closed
+  };
 
   const handleCreatePost = (data) => {
     // Check if the user is authenticated
@@ -39,21 +43,26 @@ const CreatePost = (props) => {
     axiosService
       .post("/post/", { author: user.id, body: data.body })
       .then(() => {
-        reset();
-        setToastMessage("Post created 🚀");
-        setToastType("success");
-        setShowToast(true);
+        dispatch(
+          setToaster({
+            title: "Success!",
+            message: "Post Created 🚀",
+            type: "success",
+            show: true,
+          })
+        );
         refresh();
       })
       .catch((err) => {
-        setToastMessage("An error occurred.");
-        setToastType("danger");
-        setShowToast(true);
+        dispatch(
+          setToaster({
+            title: "Error!",
+            message: "An error occurred.",
+            type: "danger",
+            show: true,
+          })
+        );
       });
-  };
-
-  const handleToasterClose = () => {
-    setShowToast(false);
   };
 
   return (
@@ -62,11 +71,11 @@ const CreatePost = (props) => {
         className="py-2 rounded-full text-primary w-full px-4 border border-cyan-100"
         type="text"
         placeholder="Write a post"
-        onClick={() => setIsOpen(true)}
+        onClick={openModal}
       />
       <Dialog
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={closeModal}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -75,7 +84,7 @@ const CreatePost = (props) => {
           <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
             <button
               className="absolute top-2 right-2 text-gray-600"
-              onClick={() => setIsOpen(false)}
+              onClick={closeModal}
             >
               ✕
             </button>
@@ -124,18 +133,6 @@ const CreatePost = (props) => {
           </div>
         </div>
       </Dialog>
-
-      <div>
-        {showToast && (
-          <Toaster
-            title="Post!"
-            message={toastMessage}
-            showToast={showToast}
-            type={toastType}
-            onClose={handleToasterClose}
-          />
-        )}
-      </div>
     </div>
   );
 };

@@ -3,9 +3,8 @@ import { Dialog, Menu } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Toaster from "../Toaster";
 import { AiFillEdit } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axiosService from "../../helpers/axios";
 import { setToaster } from "../../redux/toasterSlice";
 
@@ -16,8 +15,6 @@ const schema = yup.object({
 const UpdatePost = (props) => {
   const { post, refresh } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const { toaster } = useSelector((state) => state.toaster);
   const dispatch = useDispatch();
 
   const {
@@ -28,6 +25,7 @@ const UpdatePost = (props) => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
+      author: post.author.id,
       body: post.body,
     },
   });
@@ -41,32 +39,54 @@ const UpdatePost = (props) => {
   // Add form handling logic here
   const handleUpdatePost = (data) => {
     const requestData = {
+      author: data.author,
       body: data.body,
     };
 
     axiosService
       .put(`/post/${post.id}/`, requestData)
       .then(() => {
-        setToaster({
-          type: "success",
-          message: "Post updated 🚀",
-          show: true,
-          title: "Success",
-        });
+        dispatch(
+          setToaster({
+            type: "success",
+            message: "Post updated 🚀",
+            show: true,
+            title: "Success",
+          })
+        );
         refresh();
         closeModal(); // Close the modal after successful update
       })
       .catch(() => {
-        setToaster({
-          type: "danger",
-          message: "An error occurred.",
-          title: "Post Error",
-        });
+        dispatch(
+          setToaster({
+            type: "danger",
+            message: "An error occurred.",
+            title: "Post Error",
+            show: true,
+          })
+        );
       });
   };
 
   return (
     <>
+      <div className="px-1 py-1 ">
+        <Menu.Item>
+          {({ active }) => (
+            <button
+              className={`${
+                active ? "bg-cyan-500 text-white" : "text-gray-900"
+              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+              onClick={openModal}
+            >
+              <AiFillEdit className="mr-2 h-5 w-5" aria-hidden="true" />
+              Modify
+            </button>
+          )}
+        </Menu.Item>
+      </div>
+
       <Dialog
         open={isOpen}
         onClose={closeModal}
@@ -127,14 +147,6 @@ const UpdatePost = (props) => {
           </div>
         </div>
       </Dialog>
-
-      <Toaster
-        title="Success!"
-        message="Post updated 🚀"
-        type="success"
-        showToast={showToast}
-        onClose={() => setShowToast(false)}
-      />
     </>
   );
 };
