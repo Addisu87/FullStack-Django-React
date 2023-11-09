@@ -69,7 +69,7 @@ const UpdatePost = (props) => {
     <>
       <Dialog
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={closeModal}
         className="fixed inset-0 z-10 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -78,7 +78,7 @@ const UpdatePost = (props) => {
           <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
             <button
               className="absolute top-2 right-2 text-gray-600"
-              onClick={() => setIsOpen(false)}
+              onClick={closeModal}
             >
               ✕
             </button>

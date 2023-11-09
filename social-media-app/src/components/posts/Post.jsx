@@ -35,7 +35,14 @@ const Post = (props) => {
     axiosService
       .delete(`/post/${post.id}`)
       .then(() => {
-        dispatch(setToaster());
+        dispatch(
+          setToaster({
+            title: "Success!",
+            message: "Post deleted 🚀",
+            type: "danger",
+            show: true,
+          })
+        );
         refresh();
       })
       .catch((err) => console.error(err));
@@ -111,7 +118,8 @@ const Post = (props) => {
                   <div className="px-1 py-1 ">
                     <Menu.Item>
                       {({ active }) => (
-                        <button
+                        <Link
+                          to="/update-post/"
                           className={`${
                             active ? "bg-cyan-500 text-white" : "text-gray-900"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -121,7 +129,7 @@ const Post = (props) => {
                             aria-hidden="true"
                           />
                           Modify
-                        </button>
+                        </Link>
                       )}
                     </Menu.Item>
                   </div>
@@ -150,13 +158,6 @@ const Post = (props) => {
           )}
         </div>
       </div>
-
-      <Toaster
-        title="Success!"
-        message="Post deleted 🚀"
-        type="danger"
-        show={toaster}
-      />
     </>
   );
 };
