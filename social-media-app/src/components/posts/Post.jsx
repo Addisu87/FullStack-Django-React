@@ -11,6 +11,7 @@ import Toaster from "../Toaster";
 import UpdatePost from "./UpdatePost";
 import { setToaster } from "../../redux/toasterSlice";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Post = (props) => {
   const { post, refresh } = props;
@@ -100,7 +101,7 @@ const Post = (props) => {
                 <div>
                   <Menu.Button className="inline-flex w-full rounded-lg px-4 py-2 text-sm font-medium text-black hover:bg-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
                     <BsThreeDotsVertical
-                      className="ml-2 -mr-1 h-5 w-5 text-black hover:text-cyan-400"
+                      className="ml-2 -mr-1 h-5 w-5 text-cyan-400 hover:text-cyan-500"
                       aria-hidden="true"
                     />
                   </Menu.Button>
@@ -119,7 +120,7 @@ const Post = (props) => {
                             className="mr-2 h-5 w-5"
                             aria-hidden="true"
                           />
-                          Edit
+                          Modify
                         </button>
                       )}
                     </Menu.Item>
@@ -132,11 +133,11 @@ const Post = (props) => {
                           className={`${
                             active ? "bg-cyan-500 text-white" : "text-gray-900"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                          onClick={handleDelete}
                         >
                           <AiFillDelete
                             className="mr-2 h-5 w-5"
                             aria-hidden="true"
-                            onClick={handleDelete}
                           />
                           Delete
                         </button>

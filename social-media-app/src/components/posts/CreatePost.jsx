@@ -17,6 +17,7 @@ const CreatePost = (props) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -54,8 +55,6 @@ const CreatePost = (props) => {
   const handleToasterClose = () => {
     setShowToast(false);
   };
-
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="w-75">
