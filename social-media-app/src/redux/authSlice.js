@@ -4,11 +4,11 @@ import { jwtDecode } from "jwt-decode";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ username, password }, { rejectWithValue }) => {
     try {
       const response = await axiosService.post(
         `${process.env.REACT_APP_API_URL}/auth/login/`,
-        { email, password }
+        { username, password }
       );
       return response.data;
     } catch (error) {
