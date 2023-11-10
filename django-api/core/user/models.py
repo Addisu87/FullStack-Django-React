@@ -63,8 +63,8 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         "core_comment.Comment",
         related_name="commented_by")
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = "username"
+    EMAIL_FIELD = "email"
 
     objects = UserManager()
 
