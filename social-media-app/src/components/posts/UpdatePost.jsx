@@ -48,10 +48,10 @@ const UpdatePost = (props) => {
       .then(() => {
         dispatch(
           setToaster({
-            type: "success",
-            message: "Post updated 🚀",
-            show: true,
             title: "Success",
+            message: "Post updated 🚀",
+            type: "success",
+            show: true,
           })
         );
         refresh();
@@ -60,9 +60,9 @@ const UpdatePost = (props) => {
       .catch(() => {
         dispatch(
           setToaster({
-            type: "danger",
-            message: "An error occurred.",
             title: "Post Error",
+            message: "An error occurred.",
+            type: "danger",
             show: true,
           })
         );
