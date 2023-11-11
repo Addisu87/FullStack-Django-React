@@ -11,14 +11,7 @@ const toasterSlice = createSlice({
 
   reducers: {
     setToaster: (state, action) => {
-      const { title, message, type, show } = action.payload;
-      return {
-        ...state,
-        title: title || "",
-        message: message || "",
-        type: type || "",
-        show: show !== undefined ? show : state.show,
-      };
+      return { ...state, ...action.payload, show: true };
     },
     hideToaster: (state, action) => {
       return { ...state, show: false };
