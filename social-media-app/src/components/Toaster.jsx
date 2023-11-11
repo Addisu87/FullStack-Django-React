@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideToaster } from "../redux/toasterSlice";
-import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 
 function Toaster() {
   const toaster = useSelector((state) => state.toaster);
@@ -11,16 +11,16 @@ function Toaster() {
     dispatch(hideToaster());
   };
 
+  if (!toaster.show) {
+    return null;
+  }
+
   const bgColorClass =
     toaster.type === "success" ? "bg-green-500" : "bg-red-500";
-  console.log("Toaster Type:", toaster.type);
 
   return (
     <div
-      className={`fixed top-14 left-1/2 transform -translate-x-1/2 items-center w-full max-w-xs p-4 text-white rounded-xl shadow-lg dark:text-gray-400 dark:bg-gray-800 ${bgColorClass} ${
-        toaster.show ? "show" : ""
-      }`}
-      role="alert"
+      className={`fixed top-14 left-1/2 transform -translate-x-1/2 items-center w-full max-w-xs p-4 text-white rounded-xl shadow-lg dark:text-gray-400 dark:bg-gray-800 ${bgColorClass}`}
     >
       <div className="flex justify-between items-center">
         <div className="font-semibold">{toaster.title}</div>

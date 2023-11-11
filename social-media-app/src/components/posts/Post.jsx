@@ -32,6 +32,7 @@ const Post = (props) => {
     axiosService
       .delete(`/post/${post.id}`)
       .then(() => {
+        refresh();
         dispatch(
           setToaster({
             title: "Success!",

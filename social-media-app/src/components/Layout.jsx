@@ -3,24 +3,10 @@ import Navbar from "./Navbar";
 import Toaster from "./Toaster";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setToaster } from "../redux/toasterSlice";
 
 const Layout = (props) => {
-  const dispatch = useDispatch;
   const navigate = useNavigate();
   const { hasNavigationBack } = props;
-
-  const showToast = (title, message, type) => {
-    dispatch(
-      setToaster({
-        title: title,
-        message: message,
-        show: true,
-        type: type,
-      })
-    );
-  };
 
   return (
     <div>
