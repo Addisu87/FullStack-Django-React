@@ -50,6 +50,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     bio = models.TextField(null=True)
     avatar = models.ImageField(null=True)

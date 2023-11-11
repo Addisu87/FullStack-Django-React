@@ -6,11 +6,20 @@ function Toaster() {
   const toaster = useSelector((state) => state.toaster);
   const dispatch = useDispatch();
 
+  const handleCloseToaster = () => {
+    dispatch(hideToaster());
+  };
+
+  const bgColorClass =
+    toaster.type === "success" ? "bg-green-500" : "bg-red-500";
+
   return (
     <div className={`toaster ${toaster.show ? "show" : ""}`}>
-      <div className={`toast ${toaster.type}`}>
-        <strong>{toaster.title}</strong>: {toaster.message}
-        <button className="close" onClick={() => dispatch(hideToaster())}>
+      <div
+        className={`flex justify-center items-center toast ${toaster.type} ${bgColorClass}`}
+      >
+        <strong>{toaster.title}</strong> {toaster.message}
+        <button className="close" onClick={handleCloseToaster}>
           &times;
         </button>
       </div>
