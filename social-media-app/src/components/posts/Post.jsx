@@ -36,7 +36,7 @@ const Post = (props) => {
           setToaster({
             title: "Success!",
             message: "Post deleted 🚀",
-            type: "danger",
+            type: "success",
             show: true,
           })
         );
