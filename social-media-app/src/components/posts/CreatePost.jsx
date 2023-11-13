@@ -25,7 +25,7 @@ const CreatePost = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
@@ -40,8 +40,13 @@ const CreatePost = (props) => {
       return;
     }
 
+    const postData = {
+      author: user.id,
+      body: data.body,
+    };
+
     axiosService
-      .post("/post/", { author: user.id, body: data.body })
+      .post("/post/", postData)
       .then(() => {
         dispatch(
           setToaster({
