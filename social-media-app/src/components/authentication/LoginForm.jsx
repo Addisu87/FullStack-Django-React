@@ -4,9 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../redux/authSlice";
+import { toast } from "react-toastify";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { BiSolidUserCircle, BiLogIn } from "react-icons/bi";
+import { loginUser } from "../../redux/authSlice";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -34,10 +35,10 @@ const LoginForm = () => {
     await dispatch(loginUser({ username, password }))
       .then(() => {
         navigate("/");
+        toast.success("Successfully logged in.");
       })
       .catch((error) => {
-        console.error("Error logging in:", error);
-        // Handle login error if necessary
+        toast.error(error);
       });
   };
 
@@ -115,8 +116,8 @@ const LoginForm = () => {
             </span>
             <BiLogIn />
           </button>
-          <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
         </div>
+        {error && <p className="text-red-500 text-xs">{error}</p>}
       </form>
     </div>
   );

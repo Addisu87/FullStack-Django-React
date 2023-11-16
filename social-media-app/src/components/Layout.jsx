@@ -1,8 +1,9 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Toaster from "./Toaster";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import Navbar from "./Navbar";
 
 const Layout = (props) => {
   const navigate = useNavigate();
@@ -20,7 +21,18 @@ const Layout = (props) => {
 
       <div className="container m-5">{props.children}</div>
 
-      <Toaster />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

@@ -2,20 +2,18 @@ import React from "react";
 import { format } from "timeago.js";
 import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
+import { toast } from "react-toastify";
 import { SlLike } from "react-icons/sl";
 import { LiaComments } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import UpdatePost from "./UpdatePost";
-import { setToaster } from "../../redux/toasterSlice";
 import { AiFillDelete } from "react-icons/ai";
+import UpdatePost from "./UpdatePost";
 
 const Post = (props) => {
   const { post, refresh } = props;
   const { user } = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
 
   const handleLikeClick = (action) => {
     axiosService
@@ -32,18 +30,12 @@ const Post = (props) => {
     axiosService
       .delete(`/post/${post.id}`)
       .then(() => {
-        refresh();
-        dispatch(
-          setToaster({
-            title: "Success!",
-            message: "Post deleted 🚀",
-            type: "success",
-            show: true,
-          })
-        );
+        toast.success("Post deleted 🚀");
         refresh();
       })
-      .catch((err) => console.error(err));
+      .catch(() => {
+        toast.error("An error occurred.");
+      });
   };
 
   return (

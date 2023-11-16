@@ -3,10 +3,9 @@ import { Dialog, Menu } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 import { AiFillEdit } from "react-icons/ai";
-import { useDispatch } from "react-redux";
 import axiosService from "../../helpers/axios";
-import { setToaster } from "../../redux/toasterSlice";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -15,7 +14,6 @@ const schema = yup.object({
 const UpdatePost = (props) => {
   const { post, refresh } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
 
   const {
     register,
@@ -46,26 +44,11 @@ const UpdatePost = (props) => {
     axiosService
       .put(`/post/${post.id}/`, requestData)
       .then(() => {
-        dispatch(
-          setToaster({
-            title: "Success",
-            message: "Post updated 🚀",
-            type: "success",
-            show: true,
-          })
-        );
+        toast.success("Post Updated 🚀");
         refresh();
-        closeModal(); // Close the modal after successful update
       })
       .catch(() => {
-        dispatch(
-          setToaster({
-            title: "Post Error",
-            message: "An error occurred.",
-            type: "danger",
-            show: true,
-          })
-        );
+        toast.error("An error occurred.");
       });
   };
 

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axiosService from "../../helpers/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
-import { setToaster } from "../../redux/toasterSlice";
+import { toast } from "react-toastify";
+import axiosService from "../../helpers/axios";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -50,26 +50,11 @@ const CreatePost = (props) => {
       .post("/post/", postData)
       .then((response) => {
         console.log("Post Created Response:", response);
-        dispatch(
-          setToaster({
-            title: "Success!",
-            message: "Post Created 🚀",
-            type: "success",
-            show: true,
-          })
-        );
+        toast.success("Post Created 🚀");
         refresh();
       })
       .catch((err) => {
-        console.error("Post Creation Error:", err);
-        dispatch(
-          setToaster({
-            title: "Error!",
-            message: "An error occurred.",
-            type: "danger",
-            show: true,
-          })
-        );
+        toast.error("An error occurred.");
       });
   };
 
@@ -89,7 +74,7 @@ const CreatePost = (props) => {
         <div className="flex items-center justify-center min-h-screen">
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-          <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
+          <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-full">
             <button
               className="absolute top-2 right-2 text-gray-600"
               onClick={closeModal}
@@ -109,7 +94,7 @@ const CreatePost = (props) => {
                   <textarea
                     name="body"
                     id="message"
-                    rows={3}
+                    rows={5}
                     className={`block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
                      sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
                        errors.body ? "border-red-500" : ""
