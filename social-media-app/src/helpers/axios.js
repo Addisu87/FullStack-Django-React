@@ -11,13 +11,18 @@ const axiosService = axios.create({
   },
 });
 
-axiosService.interceptors.request.use(async (config) => {
-  const { accessToken } = store.getState().auth;
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+axiosService.interceptors.request.use(
+  async (config) => {
+    const { accessToken } = store.getState().auth;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
 axiosService.interceptors.response.use(
   (res) => res,
@@ -67,8 +72,14 @@ const refreshAuthLogic = async (failedRequest) => {
 
 // initialize the authentication interceptor and create a custom fetcher
 createAuthRefreshInterceptor(axiosService, refreshAuthLogic);
+
 export const fetcher = async (url) => {
-  return await axiosService.get(url).then((res) => res.data);
+  try {
+    const response = await axiosService.get(url);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 export default axiosService;

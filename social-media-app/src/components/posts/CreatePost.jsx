@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import { toast } from "react-toastify";
 import axiosService from "../../helpers/axios";
+import { loginUser } from "../../redux/authSlice";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -24,8 +25,8 @@ const CreatePost = (props) => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  // Get user data from Redux state
+  const user = useSelector((state) => state.auth.user);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
@@ -33,29 +34,31 @@ const CreatePost = (props) => {
     reset(); // Reset form when the modal is closed
   };
 
-  const handleCreatePost = (data) => {
-    console.log("User:", user);
-    // Check if the user is authenticated
-    if (!user) {
-      navigate("/login");
-      return;
+  const handleCreatePost = async (data) => {
+    try {
+      // Check if the user is authenticated
+      if (!user) {
+        navigate("/login");
+        return;
+      }
+
+      const postData = {
+        author: user.id,
+        body: data.body,
+      };
+
+      console.log("Post Data:", postData);
+
+      const response = await axiosService.post("/post/", postData);
+
+      console.log("Post request successful:", response);
+      toast.success("Post Created 🚀");
+      closeModal();
+      refresh();
+    } catch (error) {
+      console.error("Post request error:", error);
+      toast.error("An error occurred while creating the post.");
     }
-
-    const postData = {
-      author: user.user_id,
-      body: data.body,
-    };
-
-    axiosService
-      .post("/post/", postData)
-      .then((response) => {
-        console.log("Post Created Response:", response);
-        toast.success("Post Created 🚀");
-        refresh();
-      })
-      .catch((err) => {
-        toast.error("An error occurred.");
-      });
   };
 
   return (

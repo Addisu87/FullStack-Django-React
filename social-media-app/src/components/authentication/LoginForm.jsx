@@ -29,17 +29,17 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.auth);
 
   const handleLogin = async ({ username, password }) => {
-    await dispatch(loginUser({ username, password }))
-      .then(() => {
-        navigate("/");
-        toast.success("Successfully logged in.");
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
+    try {
+      const response = await dispatch(loginUser({ username, password }));
+      console.log("User after login:", response.payload.user);
+      navigate("/");
+      toast.success("Successfully logged in.");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
