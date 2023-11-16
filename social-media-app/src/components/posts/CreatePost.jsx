@@ -25,7 +25,7 @@ const CreatePost = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
@@ -34,6 +34,7 @@ const CreatePost = (props) => {
   };
 
   const handleCreatePost = (data) => {
+    console.log("User:", user);
     // Check if the user is authenticated
     if (!user) {
       navigate("/login");
@@ -41,13 +42,14 @@ const CreatePost = (props) => {
     }
 
     const postData = {
-      author: user.id,
+      author: user.user_id,
       body: data.body,
     };
 
     axiosService
       .post("/post/", postData)
-      .then(() => {
+      .then((response) => {
+        console.log("Post Created Response:", response);
         dispatch(
           setToaster({
             title: "Success!",
@@ -59,6 +61,7 @@ const CreatePost = (props) => {
         refresh();
       })
       .catch((err) => {
+        console.error("Post Creation Error:", err);
         dispatch(
           setToaster({
             title: "Error!",

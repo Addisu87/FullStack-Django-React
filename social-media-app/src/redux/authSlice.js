@@ -48,6 +48,7 @@ const authSlice = createSlice({
     setAuthTokens: (state, action) => {
       state.accessToken = action.payload.access;
       state.refreshToken = action.payload.refresh;
+      state.user = jwtDecode(action.payload.access);
       localStorage.setItem(
         "auth",
         JSON.stringify({
@@ -76,6 +77,7 @@ const authSlice = createSlice({
         state.user = jwtDecode(action.payload.access);
         state.accessToken = action.payload.access;
         state.refreshToken = action.payload.refresh;
+
         localStorage.setItem(
           "auth",
           JSON.stringify({
@@ -94,6 +96,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = jwtDecode(action.payload.access);
+
         localStorage.setItem(
           "auth",
           JSON.stringify({
