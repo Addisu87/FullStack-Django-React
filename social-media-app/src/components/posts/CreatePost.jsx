@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import { toast } from "react-toastify";
 import axiosService from "../../helpers/axios";
-import { loginUser } from "../../redux/authSlice";
 
 const schema = yup.object({
   body: yup.string().required(),
@@ -26,7 +25,8 @@ const CreatePost = (props) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   // Get user data from Redux state
-  const user = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.auth);
+  console.log("User:", user);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
