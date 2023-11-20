@@ -27,6 +27,7 @@ class PostSerializer(AbstractSerializer):
     def get_likes_count(self, instance):
         return instance.liked_by.count()
 
+    # checks if the author matches the current user
     def validate_author(self, value):
         if self.context["request"].user != value:
             raise ValidationError(
@@ -40,6 +41,7 @@ class PostSerializer(AbstractSerializer):
         instance = super().update(instance, validated_data)
         return instance
 
+   # customize how the serialized data is presented
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep['author'])

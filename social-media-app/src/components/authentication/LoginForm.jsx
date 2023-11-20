@@ -1,37 +1,50 @@
-import React, { useState } from "react";
-import { useUserActions } from "../../hooks/user.actions";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { BsFillShieldLockFill } from "react-icons/bs";
+import { BiSolidUserCircle, BiLogIn } from "react-icons/bi";
+import { loginUser } from "../../redux/authSlice";
+
+const schema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup
+    .string()
+    .trim()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+});
 
 const LoginForm = () => {
-  const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({ username: "", password: "" });
-  const [error, setError] = useState(null);
-  const userActions = useUserActions();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const loginForm = event.currentTarget;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.auth);
 
-    if (loginForm.checkValidity() === false) {
-      event.stopPropagation();
+  const handleLogin = async ({ username, password }) => {
+    try {
+      const response = await dispatch(loginUser({ username, password }));
+      console.log("User after login:", response.payload.user);
+      navigate("/");
+      toast.success("Successfully logged in.");
+    } catch (error) {
+      toast.error(error);
     }
-
-    setValidated(true);
-
-    const data = {
-      username: form.username,
-      password: form.password,
-    };
-
-    userActions.login(data).catch((err) => {
-      if (err.message) {
-        setError(err.request.response);
-      }
-    });
   };
 
   return (
-    <div className="mt-5">
-      <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
+    <div className="mt-12">
+      <form onSubmit={handleSubmit(handleLogin)}>
         <div className="flex flex-col mb-3">
           <label
             htmlFor="username"
@@ -41,7 +54,7 @@ const LoginForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
@@ -49,12 +62,13 @@ const LoginForm = () => {
               type="text"
               name="username"
               className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-                  border border-gray-400 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your username"
-              required
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
+                    border border-gray-400 focus:outline-none focus:border-cyan-400"
+              placeholder="Username..."
+              {...register("username")}
             />
+            {errors.username && (
+              <p className="text-red-500 text-xs">{errors.username.message}</p>
+            )}
           </div>
         </div>
 
@@ -66,9 +80,9 @@ const LoginForm = () => {
             Password:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+            <div className="absolute inline-flex items-center justify-center  left-0 top-0 h-full w-10 text-gray-400">
               <span>
-                <i className="fas fa-lock text-blue-500"></i>
+                <BsFillShieldLockFill className="text-cyan-500" />
               </span>
             </div>
 
@@ -76,27 +90,34 @@ const LoginForm = () => {
               id="password"
               type="password"
               name="password"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your password"
-              required
-              minLength={8}
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              className="w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
+              border border-gray-400 focus:outline-none focus:border-cyan-400"
+              placeholder="Password..."
+              autoComplete="password"
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500 text-xs">{errors.password.message}</p>
+            )}
           </div>
         </div>
-
-        <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
 
         <div className="flex w-full">
           <button
             type="submit"
-            className="flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                 bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in"
+            className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mb-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
+                 bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 transition duration-150 ease-in ${
+                   loading ? "opacity-70 cursor-not-allowed" : ""
+                 }`}
+            disabled={loading}
           >
-            <span className="mr-2 uppercase">Sign In</span>
+            <span className="mr-2 uppercase">
+              {loading ? "Logging in" : "Sign In"}
+            </span>
+            <BiLogIn />
           </button>
         </div>
+        {error && <p className="text-red-500 text-xs">{error}</p>}
       </form>
     </div>
   );

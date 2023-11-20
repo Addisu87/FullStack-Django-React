@@ -20,7 +20,7 @@ const Login = () => {
             If you don't have an account, please
             <Link
               to="/register/"
-              className="text-xs ml-2 text-blue-500 font-semibold"
+              className="text-xs ml-2 text-cyan-500 font-semibold"
             >
               register.
             </Link>

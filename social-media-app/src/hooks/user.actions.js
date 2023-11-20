@@ -51,7 +51,7 @@ const useUserActions = () => {
 // Get the user
 const getUser = () => {
   const auth = JSON.parse(localStorage.getItem("auth"));
-  return auth.user;
+  return auth?.user;
 };
 
 // Get the access token

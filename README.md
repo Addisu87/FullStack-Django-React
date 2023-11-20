@@ -32,22 +32,27 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [your_project_name] <a name="about-project"></a>
+# 📖 Full Stack Django-React <a name="about-project"></a>
 
-> Describe your project in 1 or 2 sentences.
-
-**[Full-Stack Django-React]** is a complete blog application that utilizes Django and React frameworks. It incorporates a personalized user model and establishes a connection between Django and a database server. Moreover, it ensures secure user authentication and authorization through JWTs. The app includes a robust system for handling social media posts and comments, involving the implementation of Create, Read, Update, and Delete (CRUD) operations using serializers and viewsets.
+Full-Stack Django-React is a complete blog application that utilizes Django and React frameworks. It incorporates a personalized user model and establishes a connection between Django and a database server. Moreover, it ensures secure user authentication and authorization through JWTs. The app includes a robust system for handling social media posts and comments, involving the implementation of Create, Read, Update, and Delete (CRUD) operations using serializers and viewsets.
 
 ## 🛠 Built With <a name="built-with">Django and React</a>
 
 ### Tech Stack <a name="tech-stack">Django, React, and restframeworks</a>
 
-> Describe the tech stack and include only the relevant sections that apply to your project.
-
 <details>
   <summary>Client</summary>
   <ul>
+    <li><a href="https://django.com/">Redux-toolkit</a></li>
+    <li><a href="https://django.com/">React-hook-form</a></li>
+  </ul>
+  </details>
+
+  <details>
+  <summary>Server</summary>
+  <ul>
     <li><a href="https://django.com/">Django</a></li>
+    <li><a href="https://django.com/">Pytest</a></li>
   </ul>
 </details>
 
@@ -55,19 +60,15 @@
 
 ### Key Features <a name="key-features"></a>
 
-> Describe between 1-3 key features of the application.
-
-- **[key_feature_1]**
-- **[key_feature_2]**
-- **[key_feature_3]**
+- Has an authentication of users
+- Users can post and apply CRUD operations
+- Users can comment and apply CRUD operations
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LIVE DEMO -->
 
 ## 🚀 Live Demo <a name="live-demo"></a>
-
-> Add a link to your deployed project.
 
 - [Live Demo Link](https://google.com)
 
@@ -77,15 +78,11 @@
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-> Describe how a new developer could make use of your project.
-
 To get a local copy up and running, follow these steps.
 
 ### Prerequisites
 
 In order to run this project you need:
-
-Example command:
 
 ```sh
  npm install
@@ -94,8 +91,6 @@ Example command:
 ### Setup
 
 Clone this repository to your desired folder:
-
-Example commands:
 
 ```sh
   cd Full-stack django-react
@@ -108,11 +103,9 @@ Example commands:
 
 Install this project with:
 
-Example command:
-
 ```sh
   cd FullStack-django-react
-  npm install
+  yarn install or npm install
 ```
 
 -
@@ -121,10 +114,25 @@ Example command:
 
 To run the project, execute the following command:
 
-Example command:
+<!-- Backend -->
+
+Create a virtual environment
 
 ```sh
-  npm start
+ cd django-api
+ source venv/bin/activate
+```
+
+```sh
+ python manage.py migrate
+ python manage.py runserver
+```
+
+<!-- Front-end -->
+
+```sh
+ cd social-media-app
+ yarn start
 ```
 
 -
@@ -137,7 +145,8 @@ To run tests, run the following command:
 Example command:
 
 ```sh
-  bin/rails test test/models/article_test.rb
+  core/user/tests/test_models.py pytest
+  core/user/tests/test_viewsets.py pytest
 ```
 --->
 

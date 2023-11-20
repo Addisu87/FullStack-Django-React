@@ -1,48 +1,74 @@
-import React, { useState } from "react";
-import { useUserActions } from "../../hooks/user.actions";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../redux/authSlice";
+import { useNavigate } from "react-router-dom";
+import { BiSolidUserCircle } from "react-icons/bi";
+import { BsFillShieldLockFill } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
+
+const schema = yup.object().shape({
+  first_name: yup.string().required("First Name is required"),
+  last_name: yup.string().required("Last Name is required"),
+  username: yup.string().required("Username is required"),
+  email: yup
+    .string()
+    .email("Invalid email")
+    .trim()
+    .required("Email is required"),
+  password: yup
+    .string()
+    .trim()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+  bio: yup.string().required("Bio is required"),
+});
 
 const RegistrationForm = () => {
-  const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: "",
-    bio: "",
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { accessToken, loading, error } = useSelector((state) => state.auth);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
-  const [error, setError] = useState(null);
-  const userActions = useUserActions();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const registrationForm = event.currentTarget;
-
-    if (registrationForm.checkValidity() === false) {
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-
-    const data = {
-      username: form.username,
-      password: form.password,
-      email: form.email,
-      first_name: form.first_name,
-      last_name: form.last_name,
-      bio: form.bio,
-    };
-
-    userActions.register(data).catch((err) => {
-      if (err.message) {
-        setError(err.request.response);
-      }
-    });
+  const handleRegister = async ({
+    first_name,
+    last_name,
+    username,
+    email,
+    password,
+    bio,
+  }) => {
+    await dispatch(
+      registerUser({
+        first_name,
+        last_name,
+        username,
+        email,
+        password,
+        bio,
+      })
+    )
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+        // Handle registration error if necessary
+      });
   };
 
   return (
-    <div className="mt-5">
-      <form action="#" noValidate validated={validated} onSubmit={handleSubmit}>
+    <div className="mt-12">
+      <form onSubmit={handleSubmit(handleRegister)}>
         <div className="flex flex-col mb-3">
           <label
             htmlFor="first_name"
@@ -52,19 +78,22 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
               id="first_name"
               type="text"
               name="first_name"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your first name"
-              required
-              value={form.first_name}
-              onChange={(e) => setForm({ ...form, first_name: e.target.value })}
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
+              placeholder="First name..."
+              {...register("first_name")}
             />
+            {errors.first_name && (
+              <p className="text-red-500 text-xs">
+                {errors.first_name.message}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -76,19 +105,20 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
               id="last_name"
               type="text"
               name="last_name"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your last name"
-              required
-              value={form.last_name}
-              onChange={(e) => setForm({ ...form, last_name: e.target.value })}
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
+              placeholder="Last name..."
+              {...register("last_name")}
             />
+            {errors.last_name && (
+              <p className="text-red-500 text-xs">{errors.last_name.message}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -100,7 +130,7 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-user text-blue-500"></i>
+              <BiSolidUserCircle className="text-cyan-500" />
             </div>
 
             <input
@@ -108,12 +138,13 @@ const RegistrationForm = () => {
               type="text"
               name="username"
               className=" w-full text-xs placeholder-gray-500 py-2 pl-10 pr-4 rounded-2xl
-                    border border-gray-400 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your username"
-              required
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
+                    border border-gray-400 focus:outline-none focus:border-cyan-400"
+              placeholder="Username..."
+              {...register("username")}
             />
+            {errors.username && (
+              <p className="text-red-500 text-xs">{errors.username.message}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -125,19 +156,20 @@ const RegistrationForm = () => {
           </label>
           <div className="relative">
             <div className=" inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <i className="fas fa-at text-blue-500"></i>
+              <MdEmail className="text-cyan-500" />
             </div>
 
             <input
               id="email"
               type="email"
               name="email"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your email"
-              required
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
+              placeholder="Email..."
+              {...register("email")}
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs">{errors.email.message}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-3">
@@ -150,7 +182,7 @@ const RegistrationForm = () => {
           <div className="relative">
             <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
               <span>
-                <i className="fas fa-lock text-blue-500"></i>
+                <BsFillShieldLockFill className="text-cyan-500" />
               </span>
             </div>
 
@@ -158,17 +190,18 @@ const RegistrationForm = () => {
               id="password"
               type="password"
               name="password"
-              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-              placeholder="Enter your password"
-              required
-              minLength={8}
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
+              placeholder="Password..."
+              autoComplete="password"
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500 text-xs">{errors.password.message}</p>
+            )}
           </div>
         </div>
 
-        <div className="flex flex-col mb-3">
+        <div className="flex flex-col">
           <label
             htmlFor="message"
             className="mb-1 text-sm tracking-wide text-gray-600"
@@ -176,36 +209,35 @@ const RegistrationForm = () => {
             Bio:
           </label>
           <div className="relative">
-            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
-              <span>
-                <i className="fas fa-lock text-blue-500"></i>
-              </span>
-            </div>
-
             <textarea
               name="message"
               id="message"
               rows={3}
               className="block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
-                     sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                     sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="A simple bio ..."
-              required
-              value={form.bio}
-              onChange={(e) => setForm({ ...form, bio: e.target.value })}
+              {...register("bio")}
             />
+            {errors.bio && (
+              <p className="text-red-500 text-xs">{errors.bio.message}</p>
+            )}
           </div>
         </div>
-
-        <div className="text-sm text-red-500">{error && <p>{error}</p>}</div>
 
         <div className="flex w-full">
           <button
             type="submit"
-            className="flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                   bg-blue-500 hover:bg-blue-600 rounded-2xl py-2 w-full transition duration-150 ease-in"
+            className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto items-center justify-center focus:outline-none text-white text-sm sm:text-base
+            bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 transition duration-150 ease-in ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading}
           >
-            <span className="mr-2 uppercase">Sign Up</span>
+            <span className="mr-2 uppercase">
+              {loading ? "Submitting..." : "Sign Up"}
+            </span>
           </button>
+          <div className="text-red-500 text-xs">{error && <p>{error}</p>}</div>
         </div>
       </form>
     </div>

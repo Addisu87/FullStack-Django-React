@@ -50,6 +50,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     bio = models.TextField(null=True)
     avatar = models.ImageField(null=True)
@@ -63,8 +64,8 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         "core_comment.Comment",
         related_name="commented_by")
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = "username"
+    EMAIL_FIELD = "email"
 
     objects = UserManager()
 
