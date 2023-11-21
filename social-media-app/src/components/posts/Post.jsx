@@ -10,9 +10,10 @@ import { LiaComments } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import UpdatePost from "./UpdatePost";
+import { Link } from "react-router-dom";
 
 const Post = (props) => {
-  const { post, refresh } = props;
+  const { post, refresh, isSinglePost } = props;
   const { user } = useSelector((state) => state.auth);
 
   const handleLikeClick = (action) => {
@@ -74,24 +75,32 @@ const Post = (props) => {
             />
             <span className="ml-2">{post.likes_count}</span>
             <p className="ms-1">
-              <small>Like</small>
+              <small>Likes</small>
             </p>
           </div>
-          <div className="flex flex-row text-gray-700 text-sm mr-8 items-center">
-            <LiaComments
-              onClick={() => {
-                if (post.liked) {
-                  handleLikeClick("remove_like");
-                } else {
-                  handleLikeClick("like");
-                }
-              }}
-            />
-            <span className="ml-2">{post.comments_count}</span>
-            <p className="ms-1 mb-0">
-              <small>Comment</small>
-            </p>
-          </div>
+
+          {!isSinglePost && (
+            <div className="flex flex-row text-gray-700 text-sm mr-8 items-center">
+              <LiaComments
+                onClick={() => {
+                  if (post.liked) {
+                    handleLikeClick("remove_like");
+                  } else {
+                    handleLikeClick("like");
+                  }
+                }}
+              />
+              <span className="ml-2">
+                <small>
+                  <Link to={`/post/${post.id}`}>{post.comments_count}</Link>
+                </small>
+              </span>
+              <p className="ms-1 mb-0">
+                <small>Comments</small>
+              </p>
+            </div>
+          )}
+
           {user.name === post.author.name && (
             <div className="absolute top-0 right-0">
               <Menu as="div" className="relative inline-block">

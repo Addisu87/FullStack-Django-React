@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
 import Error503 from "./pages/Error503";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -15,6 +16,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/post/:postId"
+        element={
+          <ProtectedRoute>
+            <SinglePost />
           </ProtectedRoute>
         }
       />
