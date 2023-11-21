@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-200">
       <div className="flex flex-col bg-white shadow-md px-4 sm:px-4 md:px-6 lg:px-8 py-6 rounded-3xl w-96 max-w-md">
         <div className="font-normal self-center text-xl sm:text-2xl text-gray-800">
           Welcome to the Addgram!
