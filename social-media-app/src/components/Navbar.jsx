@@ -17,7 +17,7 @@ const Navbar = () => {
     <div className="navbar bg-cyan-500">
       <div className="flex-1">
         <a href="/" className="btn btn-ghost normal-case text-xl">
-          Addgram
+          Addblog
         </a>
       </div>
       <div className="flex-none">

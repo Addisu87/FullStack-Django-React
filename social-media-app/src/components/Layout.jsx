@@ -11,7 +11,7 @@ const Layout = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="">
       <Navbar />
       {hasNavigationBack && (
         <BsArrowLeftCircle

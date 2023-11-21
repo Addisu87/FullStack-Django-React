@@ -41,7 +41,7 @@ const Post = (props) => {
 
   return (
     <>
-      <div className="relative flex flex-col py-8 px-4 max-w-3xl bg-white rounded-xl shadow-lg space-y-2 sm:py-2 sm:space-y-0 sm:space-x-6">
+      <div className="relative flex flex-col py-4 px-4 max-w-3xl bg-white rounded-xl shadow-lg space-y-3 sm:space-x-6">
         <div className="group flex">
           <img
             className="shrink-0 h-12 w-12 rounded-full"
@@ -73,33 +73,54 @@ const Post = (props) => {
                 }
               }}
             />
-            <span className="ml-2">{post.likes_count}</span>
-            <p className="ms-1">
-              <small>Likes</small>
-            </p>
-          </div>
+            <span className="ml-2">
+              <small>{post.likes_count}Likes</small>
+            </span>
 
-          {!isSinglePost && (
-            <div className="flex flex-row text-gray-700 text-sm mr-8 items-center">
-              <LiaComments
-                onClick={() => {
-                  if (post.liked) {
-                    handleLikeClick("remove_like");
-                  } else {
-                    handleLikeClick("like");
-                  }
-                }}
-              />
+            {!isSinglePost && (
               <span className="ml-2">
                 <small>
-                  <Link to={`/post/${post.id}`}>{post.comments_count}</Link>
+                  <Link to={`/post/${post.id}`}>
+                    {post.comments_count} Comments
+                  </Link>
                 </small>
               </span>
-              <p className="ms-1 mb-0">
-                <small>Comments</small>
-              </p>
-            </div>
-          )}
+            )}
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-row">
+          <div className="flex flex-row text-gray-700 text-sm mr-8 items-center">
+            <SlLike
+              onClick={() => {
+                if (post.liked) {
+                  handleLikeClick("remove_like");
+                } else {
+                  handleLikeClick("like");
+                }
+              }}
+            />
+            <p className="ms-1">
+              <small>Like</small>
+            </p>
+
+            {!isSinglePost && (
+              <>
+                <LiaComments
+                  onClick={() => {
+                    if (post.liked) {
+                      handleLikeClick("remove_like");
+                    } else {
+                      handleLikeClick("like");
+                    }
+                  }}
+                />
+                <p className="ms-1 mb-0">
+                  <small>Comment</small>
+                </p>
+              </>
+            )}
+          </div>
 
           {user.name === post.author.name && (
             <div className="absolute top-0 right-0">

@@ -114,13 +114,13 @@ const UpdateComment = (props) => {
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-               bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 px-3 transition duration-150 ease-in ${
-                 isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-               }`}
-                    disabled={isSubmitting}
+                    className={`btn-primary ${
+                      isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
                   >
-                    <span className="mr-2 uppercase">Update Comment</span>
+                    <span className="mr-2 uppercase">
+                      {isSubmitting ? "Updating Comment" : "Update Comment"}
+                    </span>
                   </button>
                 </div>
               </form>

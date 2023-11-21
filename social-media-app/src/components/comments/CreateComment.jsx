@@ -39,43 +39,51 @@ const CreateComment = (props) => {
     }
   };
   return (
-    <form
-      className="flex justify-between"
-      onSubmit={handleSubmit(handleComments)}
-    >
-      <img
-        className="shrink-0 rounded-full h-12 w-12 my-2"
-        src={randomAvatar()}
-        alt="avatar"
-      />
+    <div className="w-75">
+      <form
+        className="flex flex-col items-stretch"
+        onSubmit={handleSubmit(handleComments)}
+      >
+        <div className="flex flex-row">
+          <img
+            className="shrink-0 rounded-full h-12 w-12 my-2"
+            src={randomAvatar()}
+            alt="avatar"
+          />
 
-      <div className="m-3 w-75">
-        <input
-          type="text"
-          placeholder="Write a comment"
-          {...register("body")}
-          className={`py-2 rounded-pill border-cyan-100 ${
-            errors.body && "border-red-500"
-          }`}
-        />
-        {errors.body && (
-          <span className="text-red-500 text-sm">{errors.body.message}</span>
-        )}
-      </div>
+          <div className="flex-1 m-3 relative">
+            <textarea
+              type="text"
+              rows={2}
+              placeholder="Write a comment"
+              {...register("body")}
+              className={`w-full text-xs placeholder-gray-500 py-2 pl-4 pr-4 rounded-2xl
+              border border-gray-400 focus:outline-none focus:border-cyan-400 ${
+                errors.body && "border-red-500"
+              }`}
+            />
+            {errors.body && (
+              <span className="text-red-500 text-sm">
+                {errors.body.message}
+              </span>
+            )}
+          </div>
+        </div>
 
-      <div className="m-auto">
-        <button
-          type="submit"
-          className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                   bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 px-3 transition duration-150 ease-in ${
-                     isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                   }`}
-          disabled={isSubmitting}
-        >
-          <span className="mr-2 uppercase">Comment</span>
-        </button>
-      </div>
-    </form>
+        <div className="self-end">
+          <button
+            type="submit"
+            className={`btn-primary ${
+              isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+            }`}
+          >
+            <span className="mr-2 uppercase">
+              {isSubmitting ? "Commenting" : "Comment"}
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
