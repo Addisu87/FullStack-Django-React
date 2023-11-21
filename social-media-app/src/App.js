@@ -20,7 +20,7 @@ function App() {
         }
       />
       <Route
-        path="/post/:postId"
+        path="/post/:postId/"
         element={
           <ProtectedRoute>
             <SinglePost />
@@ -29,7 +29,6 @@ function App() {
       />
       <Route path="/login/" element={<Login />} />
       <Route path="/register/" element={<Registration />} />
-
       <Route path="*" element={<NotFound />} />
       <Route path="/503" element={<Error503 />} />
     </Routes>
