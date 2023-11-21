@@ -18,31 +18,30 @@ const CreateComment = (props) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isSubmitting },
   } = useForm({ resolver: yupResolver(schema) });
 
   const { user } = useSelector((state) => state.auth);
 
-  const createComments = async (data) => {
-    const commentData = {
-      author: user.id,
-      body: data.body,
-      post: postId,
-    };
-
+  const handleComments = async (data) => {
     try {
+      const commentData = {
+        author: user.id,
+        body: data.body,
+        post: postId,
+      };
       await axiosService.post(`/post/${postId}/comment/`, commentData);
       toast.success("Comment posted successfully🚀");
       refresh();
       reset();
     } catch (error) {
-      toast.error("An error occurred while creating the comment.");
+      toast.error("An error occurred.!");
     }
   };
   return (
     <form
       className="flex justify-between"
-      onSubmit={handleSubmit(createComments)}
+      onSubmit={handleSubmit(handleComments)}
     >
       <img
         className="shrink-0 rounded-full h-12 w-12 my-2"
@@ -67,10 +66,13 @@ const CreateComment = (props) => {
       <div className="m-auto">
         <button
           type="submit"
-          className="bg-cyan-200 text-white px-4 py-2 rounded-full disabled:bg-gray-300"
-          disabled={!isValid}
+          className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
+                   bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 px-3 transition duration-150 ease-in ${
+                     isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                   }`}
+          disabled={isSubmitting}
         >
-          Comment
+          <span className="mr-2 uppercase">Comment</span>
         </button>
       </div>
     </form>

@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import { fetcher } from "../helpers/axios";
 import Post from "../components/posts/Post";
 import CreateComment from "../components/comments/CreateComment";
+import Comment from "../components/comments/Comment";
 
 const SinglePost = () => {
   let { postId } = useParams();
@@ -18,8 +19,18 @@ const SinglePost = () => {
         <div className="flex justify-center">
           <div className="w-full sm:w-8/12 bg-gray-200 p-4 rounded-lg shadow-md">
             <Post post={post.data} refresh={post.mutate} isSinglePost />
+
             {/* Adding CreateComment form and list all comments here */}
             <CreateComment postId={post.data.id} refresh={comments.mutate} />
+            {comments.data &&
+              comments.data.results.map((comment, index) => (
+                <Comment
+                  key={index}
+                  postId={post.data.id}
+                  comment={comment}
+                  refresh={comments.mutate}
+                />
+              ))}
           </div>
         </div>
       ) : (

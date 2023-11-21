@@ -36,13 +36,10 @@ const UpdatePost = (props) => {
 
   // Add form handling logic here
   const handleUpdatePost = (data) => {
-    const requestData = {
-      author: data.author,
-      body: data.body,
-    };
+    const { author, body } = data;
 
     axiosService
-      .put(`/post/${post.id}/`, requestData)
+      .put(`/post/${post.id}/`, { author, body })
       .then(() => {
         toast.success("Post Updated 🚀");
         refresh();

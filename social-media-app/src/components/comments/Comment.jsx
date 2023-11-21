@@ -4,13 +4,26 @@ import { AiFillDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
+import { toast } from "react-toastify";
 import { randomAvatar } from "../../utils";
+import axiosService from "../../helpers/axios";
+import UpdateComment from "./UpdateComment";
 
 const Comment = (props) => {
   const { postId, comment, refresh } = props;
   const { user } = useSelector((state) => state.auth);
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    axiosService
+      .delete(`/post/${postId}/comment/${comment.id}/`)
+      .then(() => {
+        toast.success("comment deleted 🚀");
+        refresh();
+      })
+      .catch(() => {
+        toast.error("An error occurred.");
+      });
+  };
 
   return (
     <div className="relative flex flex-col py-8 px-4 max-w-3xl bg-white rounded-xl shadow-lg space-y-2 sm:py-2 sm:space-y-0 sm:space-x-6">
@@ -43,6 +56,11 @@ const Comment = (props) => {
             </div>
 
             <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+              <UpdateComment
+                comment={comment}
+                refresh={refresh}
+                postId={postId}
+              />
               <div className="px-1 py-1">
                 <Menu.Item>
                   {({ active }) => (
@@ -65,7 +83,6 @@ const Comment = (props) => {
           </Menu>
         </div>
       )}
-
       <div>
         <p className="mt-3 text-gray-700 text-sm">{comment.body}</p>
       </div>
