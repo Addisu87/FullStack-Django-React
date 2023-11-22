@@ -8,11 +8,22 @@ import { toast } from "react-toastify";
 import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import UpdateComment from "./UpdateComment";
+import { BiLike, BiSolidLike } from "react-icons/bi";
 
 const Comment = (props) => {
   const { postId, comment, refresh } = props;
   const { user } = useSelector((state) => state.auth);
 
+  const handleLikeClick = (action) => {
+    axiosService
+      .post(`/post/${postId}/comment/${comment.id}/${action}/`)
+      .then(() => {
+        refresh();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   const handleDelete = () => {
     axiosService
       .delete(`/post/${postId}/comment/${comment.id}/`)
@@ -83,8 +94,32 @@ const Comment = (props) => {
           </Menu>
         </div>
       )}
+
       <div>
         <p className="mt-3 text-gray-700 text-sm">{comment.body}</p>
+      </div>
+
+      <BiSolidLike className="text-cyan-500" />
+      <span className="ml-2">
+        <p className="space-x-2">{comment.likes_count} Likes</p>
+      </span>
+
+      <div className="mt-4 flex flex-row">
+        <div className="flex flex-row text-gray-700 text-sm mr-3 items-center">
+          <BiLike
+            className="text-cyan-500"
+            onClick={() => {
+              if (comment.liked) {
+                handleLikeClick("remove_like");
+              } else {
+                handleLikeClick("like");
+              }
+            }}
+          />
+          <span className="ml-2">
+            <p>Like</p>
+          </span>
+        </div>
       </div>
     </div>
   );

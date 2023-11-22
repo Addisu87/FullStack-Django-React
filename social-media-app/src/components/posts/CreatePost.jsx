@@ -116,11 +116,9 @@ const CreatePost = (props) => {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className={`flex mt-2 w-32 items-center justify-center bg-gradient-to-r from-cyan-400 to-cyan-600     focus:ring-2
-                  focus:ring-offset-2 focus:ring-cyan-500 mb-2  focus:outline-none text-white text-sm sm:text-base bg-cyan-500 hover:bg-cyan-600
-                   rounded-2xl py-2 px-3 transition duration-150 ease-in ${
-                     isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                   }`}
+                  className={`btn-primary ${
+                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                   disabled={isSubmitting}
                 >
                   <span className="mr-2 uppercase">Post</span>
