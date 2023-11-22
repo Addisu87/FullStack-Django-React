@@ -5,12 +5,12 @@ import axiosService from "../../helpers/axios";
 import { useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
 import { toast } from "react-toastify";
-import { SlLike } from "react-icons/sl";
-import { LiaComments } from "react-icons/lia";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { AiFillDelete } from "react-icons/ai";
-import UpdatePost from "./UpdatePost";
 import { Link } from "react-router-dom";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { LiaComments } from "react-icons/lia";
+import { AiFillDelete } from "react-icons/ai";
+import { BiLike, BiSolidLike } from "react-icons/bi";
+import UpdatePost from "./UpdatePost";
 
 const Post = (props) => {
   const { post, refresh, isSinglePost } = props;
@@ -64,7 +64,8 @@ const Post = (props) => {
 
         <div className="mt-4 flex flex-row">
           <div className="flex flex-row text-gray-700 text-sm mr-3 items-center">
-            <SlLike
+            <BiSolidLike
+              className="text-cyan-500"
               onClick={() => {
                 if (post.liked) {
                   handleLikeClick("remove_like");
@@ -90,8 +91,8 @@ const Post = (props) => {
         </div>
 
         <div className="mt-5 flex flex-row">
-          <div className="flex flex-row text-gray-700 text-sm mr-8 items-center">
-            <SlLike
+          <div className="flex flex-row text-gray-700 text-sm mr-8 items-center justify-center">
+            <BiLike
               onClick={() => {
                 if (post.liked) {
                   handleLikeClick("remove_like");
@@ -100,12 +101,12 @@ const Post = (props) => {
                 }
               }}
             />
-            <p className="ms-1">
+            <span className="ml-2">
               <small>Like</small>
-            </p>
+            </span>
 
             {!isSinglePost && (
-              <>
+              <div className="flex flex-row items-center ml-4">
                 <LiaComments
                   onClick={() => {
                     if (post.liked) {
@@ -115,10 +116,10 @@ const Post = (props) => {
                     }
                   }}
                 />
-                <p className="ms-1 mb-0">
+                <span className="ml-2">
                   <small>Comment</small>
-                </p>
-              </>
+                </span>
+              </div>
             )}
           </div>
 
