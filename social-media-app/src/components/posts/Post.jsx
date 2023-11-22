@@ -64,16 +64,7 @@ const Post = (props) => {
 
         <div className="mt-4 flex flex-row">
           <div className="flex flex-row text-gray-700 text-sm mr-3 items-center">
-            <BiSolidLike
-              className="text-cyan-500"
-              onClick={() => {
-                if (post.liked) {
-                  handleLikeClick("remove_like");
-                } else {
-                  handleLikeClick("like");
-                }
-              }}
-            />
+            <BiSolidLike className="text-cyan-500" />
             <span className="ml-2">
               <small>{post.likes_count}Likes</small>
             </span>
