@@ -70,7 +70,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def __str__(self):
-        return f"{self.email}"
+        return f"{self.name}"
 
     @property
     def name(self):

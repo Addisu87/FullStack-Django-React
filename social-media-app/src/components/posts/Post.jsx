@@ -50,7 +50,7 @@ const Post = (props) => {
           />
           <div className="ml-3">
             <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">
-              {post.author.username}
+              {post.author.name}
             </p>
             <p className="text-sm font-medium text-slate-500 group-hover:text-slate-700">
               {format(post.created)}
