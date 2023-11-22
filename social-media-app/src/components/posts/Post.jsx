@@ -7,8 +7,8 @@ import { Menu } from "@headlessui/react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { LiaComments } from "react-icons/lia";
 import { AiFillDelete } from "react-icons/ai";
+import { FaComments, FaRegComments } from "react-icons/fa";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import UpdatePost from "./UpdatePost";
 
@@ -64,26 +64,30 @@ const Post = (props) => {
 
         <div className="mt-4 flex flex-row">
           <div className="flex flex-row text-gray-700 text-sm mr-3 items-center">
-            <BiSolidLike className="text-cyan-500" />
+            <BiSolidLike className="text-cyan-500 w-4 h-4" />
             <span className="ml-2">
               <small>{post.likes_count}Likes</small>
             </span>
 
-            {!isSinglePost && (
-              <span className="ml-2">
-                <small>
+            <div className="flex flex-row ml-3 items-center justify-center">
+              {!isSinglePost && (
+                <>
+                  <FaComments className="text-cyan-500 w-4 h-4" />
                   <Link to={`/post/${post.id}`}>
-                    {post.comments_count} Comments
+                    <span className="ml-2">
+                      <small>{post.comments_count} Comments</small>
+                    </span>
                   </Link>
-                </small>
-              </span>
-            )}
+                </>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="mt-5 flex flex-row">
           <div className="flex flex-row text-gray-700 text-sm mr-8 items-center justify-center">
             <BiLike
+              className="w-4 h-4"
               onClick={() => {
                 if (post.liked) {
                   handleLikeClick("remove_like");
@@ -98,7 +102,8 @@ const Post = (props) => {
 
             {!isSinglePost && (
               <div className="flex flex-row items-center ml-4">
-                <LiaComments
+                <FaRegComments
+                  className="w-4 h-4"
                   onClick={() => {
                     if (post.liked) {
                       handleLikeClick("remove_like");

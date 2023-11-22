@@ -99,7 +99,7 @@ const Comment = (props) => {
         <p className="mt-3 text-gray-700 text-sm">{comment.body}</p>
       </div>
 
-      <BiSolidLike className="text-cyan-500" />
+      <BiSolidLike className="text-cyan-500 w-4 h-4" />
       <span className="ml-2">
         <p className="space-x-2">{comment.likes_count} Likes</p>
       </span>
@@ -107,7 +107,7 @@ const Comment = (props) => {
       <div className="mt-4 flex flex-row">
         <div className="flex flex-row text-gray-700 text-sm mr-3 items-center">
           <BiLike
-            className="text-cyan-500"
+            className="text-cyan-500 w-4 h-4"
             onClick={() => {
               if (comment.liked) {
                 handleLikeClick("remove_like");
