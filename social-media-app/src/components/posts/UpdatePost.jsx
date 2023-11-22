@@ -63,7 +63,12 @@ const UpdatePost = (props) => {
                 openModal();
               }}
             >
-              <AiFillEdit className="mr-2 h-5 w-5" aria-hidden="true" />
+              <AiFillEdit
+                className={`${
+                  active ? "text-white" : "text-cyan-500"
+                } mr-2 h-5 w-5`}
+                aria-hidden="true"
+              />
               Modify
             </button>
           )}

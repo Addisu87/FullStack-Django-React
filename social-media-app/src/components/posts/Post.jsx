@@ -144,7 +144,9 @@ const Post = (props) => {
                           onClick={handleDelete}
                         >
                           <AiFillDelete
-                            className="mr-2 h-5 w-5"
+                            className={`${
+                              active ? "text-white" : "text-cyan-500"
+                            } mr-2 h-5 w-5`}
                             aria-hidden="true"
                           />
                           Delete
