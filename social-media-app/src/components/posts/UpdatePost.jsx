@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Dialog, Menu } from "@headlessui/react";
+import React, { useEffect, useState } from "react";
+import { Dialog } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -21,31 +21,34 @@ const UpdatePost = (props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { user } = useSelector((state) => state.auth);
-
   const openModal = () => {
-    console.log("Opening modal");
     setIsOpen(true);
   };
   const closeModal = () => {
-    console.log("Closing modal");
     setIsOpen(false);
-    reset(); // Reset form when the modal is closed
+    reset();
   };
 
+  useEffect(() => {
+    // Set the initial value of the textarea from the post body
+    setValue("body", post.body);
+  }, [post.body, setValue]);
+
   // Add form handling logic here
-  const handleUpdatePost = (data) => {
+  const handleUpdatePost = async (data) => {
     try {
       const updateData = {
-        author: user?.id,
+        author: post.author.id,
         body: data.body,
       };
 
-      axiosService.put(`/post/${post.id}/`, updateData).then(() => {
+      await axiosService.put(`/post/${post.id}/`, updateData).then(() => {
         toast.success("Post Updated 🚀");
         refresh();
+        closeModal();
       });
     } catch (error) {
       toast.error("An error occurred.");
@@ -53,29 +56,15 @@ const UpdatePost = (props) => {
   };
 
   return (
-    <>
-      <div className="px-1 py-1 ">
-        <Menu.Item>
-          {({ active }) => (
-            <button
-              className={`${
-                active ? "bg-cyan-500 text-white" : "text-gray-900"
-              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-              onClick={() => {
-                console.log("Modify button clicked");
-                openModal();
-              }}
-            >
-              <AiFillEdit
-                className={`${
-                  active ? "text-white" : "text-cyan-500"
-                } mr-2 h-5 w-5`}
-                aria-hidden="true"
-              />
-              Modify
-            </button>
-          )}
-        </Menu.Item>
+    <div className="w-75">
+      <div className="px-1 py-1">
+        <button
+          onClick={openModal}
+          className="group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white"
+        >
+          <AiFillEdit className="mr-2 h-5 w-5" aria-hidden="true" />
+          Modify
+        </button>
       </div>
 
       <Dialog
@@ -111,7 +100,6 @@ const UpdatePost = (props) => {
                      sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
                        errors.body ? "border-red-500" : ""
                      }`}
-                    placeholder="A simple post ..."
                     {...register("body")}
                   />
                   {errors.body && (
@@ -131,14 +119,14 @@ const UpdatePost = (props) => {
                    }`}
                   disabled={isSubmitting}
                 >
-                  <span className="mr-2 uppercase">Update Post</span>
+                  <span className="mr-2 uppercase">Update</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
       </Dialog>
-    </>
+    </div>
   );
 };
 

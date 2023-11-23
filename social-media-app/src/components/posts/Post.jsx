@@ -134,7 +134,6 @@ const Post = (props) => {
                 </div>
 
                 <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                  {console.log("Rendering UpdatePost component")}
                   <UpdatePost post={post} refresh={refresh} />
 
                   <div className="px-1 py-1">
@@ -148,7 +147,7 @@ const Post = (props) => {
                         >
                           <AiFillDelete
                             className={`${
-                              active ? "text-white" : "text-cyan-500"
+                              active ? "text-white" : "text-gray-900"
                             } mr-2 h-5 w-5`}
                             aria-hidden="true"
                           />
