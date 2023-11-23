@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import axiosService from "../../helpers/axios";
 
@@ -20,33 +21,35 @@ const UpdatePost = (props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      author: post.author.id,
-      body: post.body,
-    },
-  });
+  } = useForm({ resolver: yupResolver(schema) });
 
-  const openModal = () => setIsOpen(true);
+  const { user } = useSelector((state) => state.auth);
+
+  const openModal = () => {
+    console.log("Opening modal");
+    setIsOpen(true);
+  };
   const closeModal = () => {
+    console.log("Closing modal");
     setIsOpen(false);
     reset(); // Reset form when the modal is closed
   };
 
   // Add form handling logic here
   const handleUpdatePost = (data) => {
-    const { author, body } = data;
+    try {
+      const updateData = {
+        author: user?.id,
+        body: data.body,
+      };
 
-    axiosService
-      .put(`/post/${post.id}/`, { author, body })
-      .then(() => {
+      axiosService.put(`/post/${post.id}/`, updateData).then(() => {
         toast.success("Post Updated 🚀");
         refresh();
-      })
-      .catch(() => {
-        toast.error("An error occurred.");
       });
+    } catch (error) {
+      toast.error("An error occurred.");
+    }
   };
 
   return (

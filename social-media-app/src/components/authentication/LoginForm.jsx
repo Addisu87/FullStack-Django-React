@@ -37,9 +37,6 @@ const LoginForm = () => {
       const response = await dispatch(loginUser({ username, password }));
       // Dispatch setAuthTokens action to update the user in the Redux state
       dispatch(setAuthTokens(response.payload));
-      console.log("User after login:", response.payload);
-      // Check the Redux state
-      console.log("Redux state after login:", store.getState());
 
       navigate("/");
       toast.success("Successfully logged in.");
