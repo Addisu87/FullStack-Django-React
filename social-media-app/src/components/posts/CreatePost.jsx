@@ -26,7 +26,6 @@ const CreatePost = (props) => {
 
   // Get user data from Redux state
   const { user } = useSelector((state) => state.auth);
-  // console.log("User:", user);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
@@ -47,16 +46,11 @@ const CreatePost = (props) => {
         body: data.body,
       };
 
-      console.log("Post Data:", postData);
-
-      const response = await axiosService.post("/post/", postData);
-
-      console.log("Post request successful:", response);
+      await axiosService.post("/post/", postData);
       toast.success("Post Created 🚀");
       closeModal();
       refresh();
     } catch (error) {
-      console.error("Post request error:", error);
       toast.error("An error occurred while creating the post.");
     }
   };

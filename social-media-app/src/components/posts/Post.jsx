@@ -112,9 +112,11 @@ const Post = (props) => {
                     }
                   }}
                 />
-                <span className="ml-2">
-                  <small>Comment</small>
-                </span>
+                <Link to={`/post/${post.id}`}>
+                  <span className="ml-2">
+                    <small>Comment</small>
+                  </span>
+                </Link>
               </div>
             )}
           </div>

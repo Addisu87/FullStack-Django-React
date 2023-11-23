@@ -11,7 +11,7 @@ const Layout = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div className="">
+    <>
       <Navbar />
       {hasNavigationBack && (
         <BsArrowLeftCircle
@@ -34,7 +34,7 @@ const Layout = (props) => {
         pauseOnHover
         theme="light"
       />
-    </div>
+    </>
   );
 };
 
