@@ -48,7 +48,9 @@ const authSlice = createSlice({
     setAuthTokens: (state, action) => {
       state.accessToken = action.payload.access;
       state.refreshToken = action.payload.refresh;
-      state.user = jwtDecode(action.payload.access);
+      state.user = {
+        id: jwtDecode(action.payload.access).user_id,
+      };
 
       localStorage.setItem(
         "auth",
