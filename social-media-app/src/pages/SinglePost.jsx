@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
+import { Radio } from "react-loader-spinner";
 import Layout from "../components/Layout";
 import { fetcher } from "../helpers/axios";
 import Post from "../components/posts/Post";
@@ -8,7 +9,6 @@ import CreateComment from "../components/comments/CreateComment";
 import Comment from "../components/comments/Comment";
 
 const SinglePost = () => {
-  console.log(useParams());
   let { postId } = useParams();
 
   const post = useSWR(`/post/${postId}/`, fetcher);
@@ -33,7 +33,15 @@ const SinglePost = () => {
             ))}
         </div>
       ) : (
-        <div>Loading...</div>
+        <Radio
+          visible={true}
+          height={30}
+          width={30}
+          ariaLabel="radio-loading"
+          wrapperStyle={{}}
+          wrapperClassName="radio-wrapper"
+          color="#1ff507"
+        />
       )}
     </Layout>
   );
