@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { BiSolidUserCircle, BiLogIn } from "react-icons/bi";
-import { loginUser } from "../../redux/authSlice";
+import { loginUser, setAuthTokens } from "../../redux/authSlice";
+import store from "../../redux/store";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -34,7 +35,12 @@ const LoginForm = () => {
   const handleLogin = async ({ username, password }) => {
     try {
       const response = await dispatch(loginUser({ username, password }));
-      console.log("User after login:", response.payload.user);
+      // Dispatch setAuthTokens action to update the user in the Redux state
+      dispatch(setAuthTokens(response.payload));
+      console.log("User after login:", response.payload);
+      // Check the Redux state
+      console.log("Redux state after login:", store.getState());
+
       navigate("/");
       toast.success("Successfully logged in.");
     } catch (error) {

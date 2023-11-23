@@ -26,7 +26,7 @@ const CreatePost = (props) => {
 
   // Get user data from Redux state
   const { user } = useSelector((state) => state.auth);
-  console.log("User:", user);
+  // console.log("User:", user);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
@@ -43,7 +43,7 @@ const CreatePost = (props) => {
       }
 
       const postData = {
-        author: user.id,
+        author: user?.id,
         body: data.body,
       };
 
