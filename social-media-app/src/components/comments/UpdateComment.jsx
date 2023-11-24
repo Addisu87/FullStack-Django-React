@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, Menu } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +20,7 @@ const UpdateComment = (props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm({ resolver: yupResolver(schema) });
 
   const openModal = () => setIsOpen(true);
@@ -27,6 +28,13 @@ const UpdateComment = (props) => {
     setIsOpen(false);
     reset(); // Reset form when the modal is closed
   };
+
+  // Set th initial value of the body
+  useEffect(() => {
+    console.log("useEffect triggered");
+    console.log("comment.body:", comment.body);
+    setValue("body", comment.body);
+  }, [comment.body, setValue]);
 
   // Add form handling logic here
   const handleUpdateComment = (data) => {
@@ -50,84 +58,76 @@ const UpdateComment = (props) => {
 
   return (
     <div>
-      <>
-        <div className="px-1 py-1 ">
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                className={`${
-                  active ? "bg-cyan-500 text-white" : "text-gray-900"
-                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                onClick={openModal}
-              >
-                <AiFillEdit className="mr-2 h-5 w-5" aria-hidden="true" />
-                Modify
-              </button>
-            )}
-          </Menu.Item>
-        </div>
-
-        <Dialog
-          open={isOpen}
-          onClose={closeModal}
-          className="fixed inset-0 z-10 overflow-y-auto"
+      <div className="px-1 py-1">
+        <button
+          onClick={openModal}
+          className="group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white"
         >
-          <div className="flex items-center justify-center min-h-screen">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+          <AiFillEdit className="mr-2 h-5 w-5" aria-hidden="true" />
+          Modify
+        </button>
+      </div>
 
-            <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
-              <button
-                className="absolute top-2 right-2 text-gray-600"
-                onClick={closeModal}
-              >
-                ✕
-              </button>
+      <Dialog
+        open={isOpen}
+        onClose={closeModal}
+        className="fixed inset-0 z-10 overflow-y-auto"
+      >
+        <div className="flex items-center justify-center min-h-screen">
+          <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-              <form onSubmit={handleSubmit(handleUpdateComment)}>
-                <div className="mb-3">
-                  <label
-                    htmlFor="message"
-                    className="mb-3 text-base tracking-wide text-gray-600"
-                  >
-                    Update Comment
-                  </label>
-                  <div className="relative">
-                    <textarea
-                      name="body"
-                      id="message"
-                      rows={3}
-                      className={`block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
+          <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
+            <button
+              className="absolute top-2 right-2 text-gray-600"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+
+            <form onSubmit={handleSubmit(handleUpdateComment)}>
+              <div className="mb-3">
+                <label
+                  htmlFor="message"
+                  className="mb-3 text-base tracking-wide text-gray-600"
+                >
+                  Update Comment
+                </label>
+                <div className="relative">
+                  <textarea
+                    name="body"
+                    id="message"
+                    rows={3}
+                    className={`block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
                  sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
                    errors.body ? "border-red-500" : ""
                  }`}
-                      placeholder="A simple comment ..."
-                      {...register("body")}
-                    />
-                    {errors.body && (
-                      <span className="text-sm text-red-500 mt-1">
-                        {errors.body.message}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className={`btn-primary ${
-                      isSubmitting ? "opacity-70 cursor-not-allowed" : ""
-                    }`}
-                  >
-                    <span className="mr-2 uppercase">
-                      {isSubmitting ? "Updating Comment" : "Update Comment"}
+                    placeholder="A simple comment ..."
+                    {...register("body")}
+                  />
+                  {errors.body && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.body.message}
                     </span>
-                  </button>
+                  )}
                 </div>
-              </form>
-            </div>
+              </div>
+
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className={`btn-primary ${
+                    isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
+                >
+                  <span className="mr-2 uppercase">
+                    {isSubmitting ? "Updating" : "Update"}
+                  </span>
+                </button>
+              </div>
+            </form>
           </div>
-        </Dialog>
-      </>
+        </div>
+      </Dialog>
     </div>
   );
 };
