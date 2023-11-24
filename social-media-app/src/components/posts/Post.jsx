@@ -48,7 +48,7 @@ const Post = (props) => {
           alt="avatar"
         />
         <div className="ml-3">
-          <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">
+          <p className="text-normal text-black font-medium">
             {post.author.name}
           </p>
           <p className="text-sm font-medium text-slate-500 group-hover:text-slate-700">
