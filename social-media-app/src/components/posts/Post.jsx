@@ -10,7 +10,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { FaComments, FaRegComments } from "react-icons/fa";
 import { BiLike, BiSolidLike } from "react-icons/bi";
-import UpdatePost from "./UpdatePost";
+import UpdatePost from "./UpdatePostE";
 
 const Post = (props) => {
   const { post, refresh, isSinglePost } = props;
