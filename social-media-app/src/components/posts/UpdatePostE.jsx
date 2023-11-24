@@ -80,10 +80,10 @@ const UpdatePost = (props) => {
               </button>
 
               <form onSubmit={handleSubmit(handleUpdatePost)}>
-                <div className="mb-3">
+                <div className="">
                   <label
                     htmlFor="message"
-                    className="mb-3 text-base tracking-wide text-gray-600"
+                    className="text-base tracking-wide text-gray-600"
                   >
                     Update Post
                   </label>
@@ -108,7 +108,7 @@ const UpdatePost = (props) => {
                   </div>
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-end mt-2">
                   <button
                     type="submit"
                     className={`btn-primary ${

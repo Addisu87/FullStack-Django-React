@@ -20,8 +20,9 @@ const SinglePost = () => {
         <div className="relative flex flex-col py-2 px-2 max-w-4xl bg-gray-100 rounded-xl shadow-lg space-y-3 sm:space-x-6">
           <Post post={post.data} refresh={post.mutate} isSinglePost />
 
-          {/* Adding CreateComment form and list all comments here */}
           <CreateComment postId={post.data.id} refresh={comments.mutate} />
+
+          {/* list of comments */}
           {comments.data &&
             comments.data.results.map((comment, index) => (
               <Comment
