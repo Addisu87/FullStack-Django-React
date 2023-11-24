@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { BiSolidUserCircle, BiLogIn } from "react-icons/bi";
 import { loginUser, setAuthTokens } from "../../redux/authSlice";
-import store from "../../redux/store";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
