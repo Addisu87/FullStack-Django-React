@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-cyan-500">
       <div className="flex-1">
-        <a href="/" className="btn btn-ghost normal-case text-xl">
+        <a href="/" className="btn btn-ghost text-xl text-white uppercase">
           Addblog
         </a>
       </div>
