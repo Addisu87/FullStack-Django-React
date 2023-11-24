@@ -58,10 +58,10 @@ const Post = (props) => {
       </div>
 
       <div>
-        <p className="mt-3 text-gray-700 text-sm">{post.body}</p>
+        <p className="mt-2 text-gray-700 text-sm">{post.body}</p>
       </div>
 
-      <div className="mt-4 flex flex-row">
+      <div className="flex flex-row">
         <div className="flex flex-row text-gray-700 text-sm mr-3 items-center">
           <BiSolidLike className="text-cyan-500 w-4 h-4" />
           <span className="ml-2">
@@ -83,7 +83,7 @@ const Post = (props) => {
         </div>
       </div>
 
-      <div className="mt-5 flex flex-row">
+      <div className="flex flex-row">
         <div className="flex flex-row text-gray-700 text-sm mr-8 items-center justify-center">
           <BiLike
             className="w-4 h-4"
