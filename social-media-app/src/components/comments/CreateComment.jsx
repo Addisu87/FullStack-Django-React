@@ -39,19 +39,19 @@ const CreateComment = (props) => {
     }
   };
   return (
-    <div className="w-75">
+    <>
       <form
         className="flex flex-col items-stretch"
         onSubmit={handleSubmit(handleComments)}
       >
-        <div className="flex flex-row">
+        <div className="flex flex-row space-x-3">
           <img
-            className="shrink-0 rounded-full h-12 w-12 my-2"
+            className="shrink-0 rounded-full h-12 w-12"
             src={randomAvatar()}
             alt="avatar"
           />
 
-          <div className="flex-1 m-3 relative">
+          <div className="flex-1 relative">
             <textarea
               type="text"
               rows={2}
@@ -70,7 +70,7 @@ const CreateComment = (props) => {
           </div>
         </div>
 
-        <div className="self-end">
+        <div className="self-end mr-2">
           <button
             type="submit"
             className={`btn-primary ${
@@ -83,7 +83,7 @@ const CreateComment = (props) => {
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 
