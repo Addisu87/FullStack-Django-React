@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import axiosService from "../../helpers/axios";
 
 const schema = yup.object({
-  body: yup.string().required(),
+  body: yup.string().required("Message is required."),
 });
 
 const CreatePost = (props) => {
