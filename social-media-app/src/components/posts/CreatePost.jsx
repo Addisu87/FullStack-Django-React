@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import axiosService from "../../helpers/axios";
 
 const schema = yup.object({
-  body: yup.string().required(),
+  body: yup.string().required("Message is required."),
 });
 
 const CreatePost = (props) => {
@@ -26,7 +26,6 @@ const CreatePost = (props) => {
 
   // Get user data from Redux state
   const { user } = useSelector((state) => state.auth);
-  console.log("User:", user);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
@@ -43,20 +42,15 @@ const CreatePost = (props) => {
       }
 
       const postData = {
-        author: user.id,
+        author: user?.id,
         body: data.body,
       };
 
-      console.log("Post Data:", postData);
-
-      const response = await axiosService.post("/post/", postData);
-
-      console.log("Post request successful:", response);
+      await axiosService.post("/post/", postData);
       toast.success("Post Created 🚀");
       closeModal();
       refresh();
     } catch (error) {
-      console.error("Post request error:", error);
       toast.error("An error occurred while creating the post.");
     }
   };
@@ -116,10 +110,9 @@ const CreatePost = (props) => {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className={`flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base
-                   bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 px-3 transition duration-150 ease-in ${
-                     isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                   }`}
+                  className={`btn-primary ${
+                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                   disabled={isSubmitting}
                 >
                   <span className="mr-2 uppercase">Post</span>

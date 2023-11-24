@@ -49,6 +49,7 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <div>{error && <p className="text-red-500">{error}</p>}</div>
     </Layout>
   );
 };

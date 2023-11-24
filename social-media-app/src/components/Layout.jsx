@@ -2,18 +2,19 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { BsArrowLeftCircle } from "react-icons/bs";
 import Navbar from "./Navbar";
 
 const Layout = (props) => {
-  const navigate = useNavigate();
   const { hasNavigationBack } = props;
 
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <>
       <Navbar />
       {hasNavigationBack && (
-        <BsFillArrowLeftCircleFill
+        <BsArrowLeftCircle
           className="mt-1 ml-2 text-cyan-500 text-lg font-medium"
           onClick={() => navigate(-1)}
         />
@@ -33,7 +34,7 @@ const Layout = (props) => {
         pauseOnHover
         theme="light"
       />
-    </div>
+    </>
   );
 };
 
