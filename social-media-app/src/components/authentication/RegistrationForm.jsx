@@ -29,7 +29,7 @@ const schema = yup.object().shape({
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { accessToken, loading, error } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.auth);
 
   const {
     register,

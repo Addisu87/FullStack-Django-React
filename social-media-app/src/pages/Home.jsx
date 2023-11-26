@@ -31,7 +31,7 @@ const Home = () => {
     <Layout>
       <div className="flex space-x-6">
         <div className="flex flex-col w-2/3 items-center my-3 space-y-4">
-          <div className="w-full border rounded flex items-center p-4">
+          <div className="w-full drop-shadow-lg rounded flex items-center p-4">
             <div className="avatar online">
               <div className="flex-shrink-0">
                 <div className="w-12 rounded-full">
@@ -50,14 +50,14 @@ const Home = () => {
           </div>
 
           {posts.data?.results.map((post, index) => (
-            <div key={index} className="w-full border rounded mb-4 p-2">
+            <div key={index} className="w-full rounded mb-4 p-2">
               <Post key={index} post={post} refresh={posts.mutate} />
             </div>
           ))}
         </div>
 
         <div className="flex flex-col w-1/3 items-center my-3 space-y-4">
-          <div className="w-full border rounded flex items-center p-4">
+          <div className="w-full drop-shadow-md rounded flex items-center p-4">
             <div className="flex flex-col">
               {profiles.data &&
                 profiles.data.results.map((profile, index) => (
