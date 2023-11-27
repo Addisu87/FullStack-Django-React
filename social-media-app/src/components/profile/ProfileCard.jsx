@@ -9,6 +9,7 @@ const ProfileCard = (props) => {
   const handleNavigateProfile = () => {
     navigate(`/profile/${user.id}/`);
   };
+
   return (
     <div className="flex items-center space-y-0 space-x-6 mt-2 py-3 px-4 max-w-sm mx-auto bg-white rounded-xl shadow-lg ">
       <img
