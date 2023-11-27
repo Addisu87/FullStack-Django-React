@@ -36,13 +36,17 @@ const UpdateProfileForm = (props) => {
   });
 
   const handleProfileForm = async (data) => {
-    const { avatar, first_name, last_name, bio } = data;
+    const { first_name, last_name, bio } = data;
     const userId = user?.id;
 
     try {
+      const formData = new FormData();
+      formData.append("avatar", avatar); // Append the avatar file to the FormData
+
       const response = await dispatch(
-        editUser({ avatar, first_name, last_name, bio, userId })
+        editUser({ formData, first_name, last_name, bio, userId })
       );
+      console.log("Server response:", response);
       dispatch(setAuthTokens(response.payload));
       toast.success("Profile updated successfully 🚀");
       navigate(-1);
@@ -67,7 +71,7 @@ const UpdateProfileForm = (props) => {
               {avatar ? (
                 <img
                   src={URL.createObjectURL(avatar)}
-                  alt="Selected Avatar"
+                  alt="User Avatar"
                   className="mx-auto h-12 w-12 object-cover rounded-full"
                 />
               ) : (
@@ -174,7 +178,7 @@ const UpdateProfileForm = (props) => {
 
         <div className="flex w-full">
           <button type="submit" className="btn-primary">
-            <span className="mr-2 uppercase">Save Changes</span>
+            <span className="mr-2 uppercase">Save</span>
           </button>
           <div className="text-red-500 text-xs">{error && <p>{error}</p>}</div>
         </div>

@@ -43,12 +43,12 @@ export const registerUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "auth/editUser",
   async (
-    { avatar, first_name, last_name, bio, userId },
+    { formData, first_name, last_name, bio, userId },
     { rejectWithValue }
   ) => {
     try {
       const response = await axiosService.patch(`${baseURL}/user/${userId}/`, {
-        avatar,
+        formData,
         first_name,
         last_name,
         bio,
