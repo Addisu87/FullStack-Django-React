@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { MdAddAPhoto } from "react-icons/md";
 import { editUser } from "../redux/authSlice";
 
 const schema = yup.object().shape({
@@ -49,6 +50,41 @@ const UpdateProfileForm = (props) => {
   return (
     <div className="mt-12">
       <form onSubmit={handleSubmit(handleProfileForm)}>
+        <div className="flex flex-col mb-3">
+          <label
+            htmlFor="first_name"
+            className="mb-1 text-sm tracking-wide text-gray-600"
+          >
+            Avatar:
+          </label>
+          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+            <div className="text-center">
+              <MdAddAPhoto
+                className="mx-auto h-12 w-12 text-gray-300"
+                aria-hidden="true"
+              />
+              <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                <label
+                  htmlFor="file-upload"
+                  className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                >
+                  <span>Upload a file</span>
+                  <input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    className="sr-only"
+                  />
+                </label>
+                <p className="pl-1">or drag and drop</p>
+              </div>
+              <p className="text-xs leading-5 text-gray-600">
+                PNG, JPG, GIF up to 10MB
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-col mb-3">
           <label
             htmlFor="first_name"
@@ -135,7 +171,7 @@ const UpdateProfileForm = (props) => {
             disabled={loading}
           >
             <span className="mr-2 uppercase">
-              {loading ? "Submitting..." : "Sign Up"}
+              {loading ? "Saving..." : "Save changes"}
             </span>
           </button>
           <div className="text-red-500 text-xs">{error && <p>{error}</p>}</div>
