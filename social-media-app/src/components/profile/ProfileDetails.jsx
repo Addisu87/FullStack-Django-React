@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const ProfileDetails = (props) => {
-  const { user } = props;
+const ProfileDetails = () => {
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   if (!user) {
@@ -12,7 +13,7 @@ const ProfileDetails = (props) => {
   return (
     <div className="flex items-center space-y-0 space-x-6 mt-2 py-3 px-4 max-w-sm mx-auto bg-white rounded-xl shadow-lg ">
       <img
-        className="block mx-auto h-12 rounded-full sm:mx-0 sm:shrink-0"
+        className="block mx-auto h-16 rounded-full sm:mx-0 sm:shrink-0"
         src={user?.avatar}
         alt="avatar"
       />
