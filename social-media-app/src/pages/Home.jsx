@@ -15,7 +15,7 @@ const Home = () => {
     refreshInterval: 20000,
   });
 
-  const profiles = useSWR("/user/?limit=5", fetcher, {
+  const profiles = useSWR("/user/?limit=6", fetcher, {
     refreshInterval: 20000,
   });
 
@@ -29,9 +29,9 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="flex space-x-6">
-        <div className="flex flex-col w-2/3 items-center my-3 space-y-4">
-          <div className="w-full drop-shadow-lg rounded flex items-center p-4">
+      <div className="flex justify-center">
+        <div className="flex flex-col w-2/3 items-center my-3 space-y-4 pr-4">
+          <div className="w-full drop-shadow-md border rounded flex items-center p-2">
             <div className="avatar online">
               <div className="flex-shrink-0">
                 <div className="w-12 rounded-full">
@@ -56,9 +56,12 @@ const Home = () => {
           ))}
         </div>
 
-        <div className="flex flex-col w-1/3 items-center my-3 space-y-4">
-          <div className="w-full drop-shadow-md rounded flex items-center p-4">
-            <div className="flex flex-col">
+        <div className="flex flex-col w-1/3 items-center my-3 space-y-4 pl-4">
+          <div className="w-full drop-shadow-md border rounded flex items-center p-2">
+            <div className="flex flex-col mx-auto">
+              <h4 className="font-semibold text-base text-center mb-2">
+                Suggested people
+              </h4>
               {profiles.data &&
                 profiles.data.results.map((profile, index) => (
                   <ProfileCard key={index} user={profile} />
