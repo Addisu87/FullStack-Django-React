@@ -42,12 +42,18 @@ export const registerUser = createAsyncThunk(
 
 export const editUser = createAsyncThunk(
   "auth/editUser",
-  async ({ data, userId }, { rejectWithValue }) => {
+  async (
+    { avatar, first_name, last_name, bio, userId },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await axiosService.patch(
-        `${baseURL}/user/${userId}/`,
-        data
-      );
+      const response = await axiosService.patch(`${baseURL}/user/${userId}/`, {
+        avatar,
+        first_name,
+        last_name,
+        bio,
+        userId,
+      });
       // Update the user in the store
       return response.data;
     } catch (error) {
@@ -97,16 +103,6 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.accessToken = action.payload.access;
-        state.refreshToken = action.payload.refresh;
-
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            access: action.payload.access,
-            refresh: action.payload.refresh,
-          })
-        );
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -118,14 +114,6 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
-
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            access: action.payload.access,
-            refresh: action.payload.refresh,
-          })
-        );
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
@@ -137,14 +125,6 @@ const authSlice = createSlice({
       })
       .addCase(editUser.fulfilled, (state, action) => {
         state.user = action.payload;
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            access: state.accessToken,
-            refresh: state.refreshToken,
-            user: action.payload,
-          })
-        );
         state.loading = false;
       })
       .addCase(editUser.rejected, (state, action) => {

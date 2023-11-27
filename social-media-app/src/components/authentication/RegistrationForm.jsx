@@ -3,11 +3,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/authSlice";
+import { registerUser, setAuthTokens } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
@@ -39,31 +40,28 @@ const RegistrationForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleRegister = async ({
-    first_name,
-    last_name,
-    username,
-    email,
-    password,
-    bio,
-  }) => {
-    await dispatch(
-      registerUser({
-        first_name,
-        last_name,
-        username,
-        email,
-        password,
-        bio,
-      })
-    )
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Error registering user:", error);
-        // Handle registration error if necessary
-      });
+  const handleRegister = async (data) => {
+    const { first_name, last_name, username, email, password, bio } = data;
+
+    try {
+      const response = await dispatch(
+        registerUser({
+          first_name,
+          last_name,
+          username,
+          email,
+          password,
+          bio,
+        })
+      );
+      // Dispatch setAuthTokens action to update the user in the Redux state
+      dispatch(setAuthTokens(response.payload));
+      toast.success("A user registered successfully 🚀");
+      navigate("/");
+    } catch (error) {
+      toast.error("An error occurred.!");
+      console.error("Error registering user:", error);
+    }
   };
 
   return (

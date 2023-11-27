@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { MdAddAPhoto } from "react-icons/md";
-import { editUser } from "../redux/authSlice";
+import { editUser, setAuthTokens } from "../../redux/authSlice";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
@@ -16,6 +16,7 @@ const schema = yup.object().shape({
 });
 
 const UpdateProfileForm = (props) => {
+  const [avatar, setAvatar] = useState(null);
   const { profile } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,46 +28,55 @@ const UpdateProfileForm = (props) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      first_name: profile.first_name || "",
+      last_name: profile.last_name || "",
+      bio: profile.bio || "",
+    },
   });
 
-  const handleProfileForm = async ({ avatar, first_name, last_name, bio }) => {
-    const updateData = {
-      avatar,
-      first_name,
-      last_name,
-      bio,
-    };
-    await dispatch(editUser({ data: updateData, userId: user.id }))
-      .then(() => {
-        toast.success("Profile updated successfully 🚀");
-        navigate(-1);
-      })
-      .catch((error) => {
-        toast.error("An error occurred.");
-        console.error("Error registering user:", error);
-      });
+  const handleProfileForm = async (data) => {
+    const { avatar, first_name, last_name, bio } = data;
+    const userId = user?.id;
+
+    try {
+      const response = await dispatch(
+        editUser({ avatar, first_name, last_name, bio, userId })
+      );
+      dispatch(setAuthTokens(response.payload));
+      toast.success("Profile updated successfully 🚀");
+      navigate(-1);
+    } catch (error) {
+      toast.error("An error occurred.");
+      console.error("Error updating user profile:", error);
+    }
   };
 
   return (
-    <div className="mt-12">
+    <div className="mt-8">
       <form onSubmit={handleSubmit(handleProfileForm)}>
         <div className="flex flex-col mb-3">
           <label
-            htmlFor="first_name"
+            htmlFor="file-upload"
             className="mb-1 text-sm tracking-wide text-gray-600"
           >
             Avatar:
           </label>
-          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-3 py-6">
             <div className="text-center">
-              <MdAddAPhoto
-                className="mx-auto h-12 w-12 text-gray-300"
-                aria-hidden="true"
-              />
+              {avatar ? (
+                <img
+                  src={URL.createObjectURL(avatar)}
+                  alt="Selected Avatar"
+                  className="mx-auto h-12 w-12 object-cover rounded-full"
+                />
+              ) : (
+                <MdAddAPhoto className="mx-auto h-12 w-12 text-gray-300" />
+              )}
               <div className="mt-4 flex text-sm leading-6 text-gray-600">
                 <label
                   htmlFor="file-upload"
-                  className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                  className="relative cursor-pointer rounded-md bg-white font-semibold text-cyan-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-cyan-600 focus-within:ring-offset-2 hover:text-cyan-500"
                 >
                   <span>Upload a file</span>
                   <input
@@ -74,6 +84,7 @@ const UpdateProfileForm = (props) => {
                     name="file-upload"
                     type="file"
                     className="sr-only"
+                    onChange={(e) => setAvatar(e.target.files[0])}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>
@@ -162,17 +173,8 @@ const UpdateProfileForm = (props) => {
         </div>
 
         <div className="flex w-full">
-          <button
-            type="submit"
-            className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto items-center justify-center focus:outline-none text-white text-sm sm:text-base
-            bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 transition duration-150 ease-in ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={loading}
-          >
-            <span className="mr-2 uppercase">
-              {loading ? "Saving..." : "Save changes"}
-            </span>
+          <button type="submit" className="btn-primary">
+            <span className="mr-2 uppercase">Save Changes</span>
           </button>
           <div className="text-red-500 text-xs">{error && <p>{error}</p>}</div>
         </div>

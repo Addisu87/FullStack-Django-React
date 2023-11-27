@@ -36,11 +36,11 @@ const LoginForm = () => {
       const response = await dispatch(loginUser({ username, password }));
       // Dispatch setAuthTokens action to update the user in the Redux state
       dispatch(setAuthTokens(response.payload));
-
       navigate("/");
-      toast.success("Successfully logged in.");
+      toast.success("Successfully logged in 🚀.");
     } catch (error) {
-      toast.error(error);
+      toast.error("An error occurred.");
+      console.error("Error", error);
     }
   };
 
