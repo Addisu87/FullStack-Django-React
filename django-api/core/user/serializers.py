@@ -22,7 +22,7 @@ class UserSerializer(AbstractSerializer):
         fields = ['id', 'username', "name", 'first_name', 'last_name', 'bio', 'avatar',
                   'email', 'password', 'is_active', 'created', 'updated']
         # List of all the fields that can only be read by the user
-        read_only_field = ['is_active']
+        read_only_fields = ['is_active']
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
