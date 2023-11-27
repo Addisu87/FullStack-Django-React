@@ -5,7 +5,6 @@ import * as yup from "yup";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axiosService from "../../helpers/axios";
-import { randomAvatar } from "../../utils";
 
 const schema = yup.object({
   body: yup.string().required("Comment is required"),
@@ -46,7 +45,7 @@ const CreateComment = (props) => {
       <div className="flex flex-row space-x-3">
         <img
           className="shrink-0 rounded-full h-12 w-12"
-          src={randomAvatar()}
+          src={user.avatar}
           alt="avatar"
         />
 

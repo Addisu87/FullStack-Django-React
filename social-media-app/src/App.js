@@ -7,6 +7,7 @@ import Registration from "./pages/Registration";
 import NotFound from "./pages/NotFound";
 import Error503 from "./pages/Error503";
 import SinglePost from "./pages/SinglePost";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -24,6 +25,15 @@ function App() {
         element={
           <ProtectedRoute>
             <SinglePost />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile/:profileId/"
+        element={
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
         }
       />

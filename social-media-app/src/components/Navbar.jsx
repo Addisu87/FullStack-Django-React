@@ -1,12 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import authSlice from "../redux/authSlice";
-import { randomAvatar } from "../utils";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const { user } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const { user } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
     await dispatch(authSlice.actions.logoutUser());
@@ -24,7 +25,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-8 rounded-full">
-              <img src={randomAvatar()} alt="Random Avatar" />
+              <img src={user?.avatar} alt="Random Avatar" />
             </div>
           </label>
           <ul
@@ -32,7 +33,7 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a href="/profile/">Profile</a>
+              <Link to={`/profile/${user?.id}/`}>Profile</Link>
             </li>
             <li>
               <a href="/login/" onClick={handleLogout}>

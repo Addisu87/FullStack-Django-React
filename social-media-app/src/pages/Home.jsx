@@ -36,7 +36,7 @@ const Home = () => {
               <div className="flex-shrink-0">
                 <div className="w-12 rounded-full">
                   <img
-                    src={randomAvatar()}
+                    src={user.avatar}
                     alt="User Avatar"
                     className="rounded-full object-cover"
                   />

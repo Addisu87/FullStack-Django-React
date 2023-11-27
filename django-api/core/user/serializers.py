@@ -1,11 +1,19 @@
 from core.abstract.serializers import AbstractSerializer
 from core.user.models import User
+from django.conf import settings
 
 
 class UserSerializer(AbstractSerializer):
+
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep["name"] = instance.name
+        if not rep['avatar']:
+            rep['avatar'] = settings.DEFAULT_AVATAR_URL
+            return rep
+
+        if settings.DEBUG:  # debug enabled for dev
+            request = self.context.get('request')
+            rep['avatar'] = request.build_absolute_uri(rep['avatar'])
         return rep
 
     class Meta:

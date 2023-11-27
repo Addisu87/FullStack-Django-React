@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { randomAvatar } from "../../utils";
 
 const ProfileCard = (props) => {
   const { user } = props;
@@ -14,7 +13,7 @@ const ProfileCard = (props) => {
     <div className="flex items-center space-y-0 space-x-6 mt-2 py-3 px-4 max-w-sm mx-auto bg-white rounded-xl shadow-lg ">
       <img
         className="block mx-auto h-12 rounded-full sm:mx-0 sm:shrink-0"
-        src={randomAvatar()}
+        src={user.avatar}
         alt="avatar"
       />
       <div className="text-center space-y-2 sm:text-left">
