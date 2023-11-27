@@ -40,6 +40,22 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const editUser = createAsyncThunk(
+  "auth/editUser",
+  async ({ data, userId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosService.patch(
+        `${baseURL}/user/${userId}/`,
+        data
+      );
+      // Update the user in the store
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -112,6 +128,26 @@ const authSlice = createSlice({
         );
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(editUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            access: state.accessToken,
+            refresh: state.refreshToken,
+            user: action.payload,
+          })
+        );
+        state.loading = false;
+      })
+      .addCase(editUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
