@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import authSlice from "../redux/authSlice";
+import { logoutUser } from "../redux/authSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
-    await dispatch(authSlice.actions.logoutUser());
+    await dispatch(logoutUser());
     navigate("/login/");
   };
 
@@ -39,9 +39,9 @@ const Navbar = () => {
               <Link to={`/profile/${user?.id}/`}>Profile</Link>
             </li>
             <li>
-              <a href="/login/" onClick={handleLogout}>
+              <Link to={"/login/"} onClick={handleLogout}>
                 Logout
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

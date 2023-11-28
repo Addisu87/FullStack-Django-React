@@ -49,6 +49,7 @@ const UpdateProfileForm = (props) => {
       console.log("Server response:", response);
       dispatch(setAuthTokens(response.payload));
       toast.success("Profile updated successfully 🚀");
+      // Go back to the previous page
       navigate(-1);
     } catch (error) {
       toast.error("An error occurred.");

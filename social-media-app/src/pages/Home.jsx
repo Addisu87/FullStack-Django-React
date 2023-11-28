@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
 import { useSelector } from "react-redux";
-import { randomAvatar } from "../utils";
+import { Radio } from "react-loader-spinner";
 import { fetcher } from "../helpers/axios";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
@@ -15,21 +15,31 @@ const Home = () => {
     refreshInterval: 20000,
   });
 
-  const profiles = useSWR("/user/?limit=6", fetcher, {
+  const profiles = useSWR("/user/?limit=5", fetcher, {
     refreshInterval: 20000,
   });
 
   if (!user) {
     return (
       <div>
-        <p>{loading}</p>
+        {loading && (
+          <Radio
+            visible={true}
+            height={30}
+            width={30}
+            ariaLabel="radio-loading"
+            wrapperStyle={{}}
+            wrapperClassName="radio-wrapper"
+            color="#1ff507"
+          />
+        )}
       </div>
     );
   }
 
   return (
     <Layout>
-      <div className="flex justify-center">
+      <div className="flex justify-evenly ">
         <div className="flex flex-col w-2/3 items-center my-3 space-y-4 pr-4">
           <div className="w-full drop-shadow-md border rounded flex items-center p-2">
             <div className="avatar online">
