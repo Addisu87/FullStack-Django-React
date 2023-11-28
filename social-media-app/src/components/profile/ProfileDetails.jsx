@@ -1,4 +1,5 @@
 import React from "react";
+import { Radio } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +8,17 @@ const ProfileDetails = () => {
   const navigate = useNavigate();
 
   if (!user) {
-    <div>Loading...</div>;
+    <div>
+      <Radio
+        visible={true}
+        height={30}
+        width={30}
+        ariaLabel="radio-loading"
+        wrapperStyle={{}}
+        wrapperClassName="radio-wrapper"
+        color="#1ff507"
+      />
+    </div>;
   }
 
   return (

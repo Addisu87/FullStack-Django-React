@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Dialog } from "@headlessui/react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";

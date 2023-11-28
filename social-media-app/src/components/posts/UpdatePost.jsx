@@ -25,13 +25,9 @@ const UpdatePost = (props) => {
     defaultValues: { body: post.body },
   });
 
-  const openModal = () => {
-    console.log("Opening modal");
-    setIsOpen(true);
-  };
+  const openModal = () => setIsOpen(true);
 
   const closeModal = () => {
-    console.log("Closing modal");
     setIsOpen(false);
     reset();
   };
@@ -39,7 +35,6 @@ const UpdatePost = (props) => {
   // Add form handling logic here
   const handleUpdatePost = async (data) => {
     try {
-      console.log("Update data:", data);
       const updateData = {
         author: post.author.id,
         body: data.body,
