@@ -225,8 +225,7 @@ const RegistrationForm = () => {
         <div className="flex w-full">
           <button
             type="submit"
-            className={`flex mt-2 w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 mx-auto items-center justify-center focus:outline-none text-white text-sm sm:text-base
-            bg-cyan-500 hover:bg-cyan-600 rounded-2xl py-2 transition duration-150 ease-in ${
+            className={`btn-primary ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}

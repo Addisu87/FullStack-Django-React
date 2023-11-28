@@ -8,6 +8,8 @@ import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
 import ProfileCard from "../components/profile/ProfileCard";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Home = () => {
   const [showProfile, setShowProfile] = useState(true);
@@ -83,11 +85,15 @@ const Home = () => {
                     Suggested people
                   </h4>
                   {profiles.data && (
-                    <div className="profile-carousel">
+                    <Carousel
+                      showArrows={true}
+                      showStatus={false}
+                      showIndicators={false}
+                    >
                       {profiles.data.results.map((profile, index) => (
                         <ProfileCard key={index} user={profile} />
                       ))}
-                    </div>
+                    </Carousel>
                   )}
                 </div>
               )}
