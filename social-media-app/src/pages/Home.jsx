@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { Radio } from "react-loader-spinner";
-import { CgProfile } from "react-icons/cg";
+import Slider from "react-slick";
 import { fetcher } from "../helpers/axios";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
 import ProfileCard from "../components/profile/ProfileCard";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Home = () => {
-  const [showProfile, setShowProfile] = useState(true);
   const { user, loading, error } = useSelector((state) => state.auth);
 
   const posts = useSWR("/post/", fetcher, {
@@ -23,8 +20,12 @@ const Home = () => {
     refreshInterval: 20000,
   });
 
-  const toggleProfile = () => {
-    setShowProfile(!showProfile);
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
   };
 
   if (!user) {
@@ -63,10 +64,6 @@ const Home = () => {
             <div className="flex-grow pl-4">
               <CreatePost refresh={posts.mutate} />
             </div>
-
-            <div className="cursor-pointer md:hidden" onClick={toggleProfile}>
-              <CgProfile className="rounded-full object-cover w-12" />
-            </div>
           </div>
 
           {posts.data?.results.map((post, index) => (
@@ -79,24 +76,18 @@ const Home = () => {
         <div className="w-full md:w-1/3 md:pl-4">
           <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-4">
             <div className="flex flex-col w-full mx-auto">
-              {showProfile && (
-                <div className="relative">
-                  <h4 className="font-semibold text-base text-center mb-2">
-                    Suggested people
-                  </h4>
-                  {showProfile && profiles.data && (
-                    <Carousel
-                      showArrows={true}
-                      showStatus={false}
-                      showIndicators={false}
-                    >
-                      {profiles.data.results.map((profile, index) => (
-                        <ProfileCard key={index} user={profile} />
-                      ))}
-                    </Carousel>
-                  )}
-                </div>
-              )}
+              <div className="relative">
+                <h4 className="font-semibold text-base text-center mb-2">
+                  Suggested people
+                </h4>
+                {profiles.data && (
+                  <Slider {...settings}>
+                    {profiles.data.results.map((profile, index) => (
+                      <ProfileCard key={index} user={profile} />
+                    ))}
+                  </Slider>
+                )}
+              </div>
             </div>
           </div>
         </div>
