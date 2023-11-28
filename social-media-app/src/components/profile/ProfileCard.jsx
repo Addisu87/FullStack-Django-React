@@ -27,7 +27,11 @@ const ProfileCard = () => {
         {/* Name and position */}
         <div className="mt-8 flex flex-col items-center">
           <h4 className="text-navy-700 text-xl font-bold dark:text-white">
-            <p className="text-base text-black font-normal">{user?.name}</p>
+            <p className="text-base text-black font-normal">
+              {user?.name && user.name.length > 8
+                ? `${user.name.slice(0, 8)}...`
+                : user.name}
+            </p>
           </h4>
 
           <button
@@ -35,7 +39,7 @@ const ProfileCard = () => {
             onClick={handleNavigateProfile}
             className="px-4 py-1 text-sm text-cyan-500 font-semibold rounded-full border border-cyan-200 hover:text-white hover:bg-cyan-500 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
           >
-            See Profile
+            Profile
           </button>
         </div>
       </div>

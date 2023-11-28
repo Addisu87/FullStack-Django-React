@@ -3,6 +3,8 @@ import useSWR from "swr";
 import { useSelector } from "react-redux";
 import { Radio } from "react-loader-spinner";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { fetcher } from "../helpers/axios";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
@@ -20,12 +22,18 @@ const Home = () => {
     refreshInterval: 20000,
   });
 
+  const isMobile = window.innerWidth <= 768; // Adjust the breakpoint as needed
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
+    centerMode: true,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    pauseOnHover: true,
   };
 
   if (!user) {
@@ -50,7 +58,15 @@ const Home = () => {
     <Layout>
       <div className="flex flex-col md:flex-row justify-evenly">
         <div className="w-full md:w-2/3 md:pr-4">
-          <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-4">
+          {isMobile && profiles.data && (
+            <Slider {...settings}>
+              {profiles.data.results.map((profile, index) => (
+                <ProfileCard key={index} user={profile} />
+              ))}
+            </Slider>
+          )}
+
+          <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-2">
             <div className="flex-shrink-0">
               <div className="w-12 rounded-full">
                 <img
@@ -74,22 +90,18 @@ const Home = () => {
         </div>
 
         <div className="w-full md:w-1/3 md:pl-4">
-          <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-4">
-            <div className="flex flex-col w-full mx-auto">
-              <div className="relative">
+          {profiles.data && !isMobile && (
+            <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-2">
+              <div className="flex flex-col w-full mx-auto">
                 <h4 className="font-semibold text-base text-center mb-2">
                   Suggested people
                 </h4>
-                {profiles.data && (
-                  <Slider {...settings}>
-                    {profiles.data.results.map((profile, index) => (
-                      <ProfileCard key={index} user={profile} />
-                    ))}
-                  </Slider>
-                )}
+                {profiles.data.results.map((profile, index) => (
+                  <ProfileCard key={index} user={profile} />
+                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
