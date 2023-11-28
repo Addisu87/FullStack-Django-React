@@ -30,15 +30,15 @@ const ProfileDetails = () => {
       />
       <div className="text-center space-y-2 sm:text-left">
         <div className="space-y-0.5">
-          <p class="text-xl leading-tight">{user?.name}</p>
-          <p class="text-sm leading-tight text-gray-600">
+          <p className="text-xl leading-tight">{user?.name}</p>
+          <p className="text-sm leading-tight text-gray-600">
             {user?.bio ? user?.bio : "No bio."}
           </p>
-          <p class="text-sm leading-tight text-gray-600">
+          <p className="text-sm leading-tight text-gray-600">
             {user?.posts_count} posts
           </p>
         </div>
-        <div class="mt-4">
+        <div className="mt-4">
           <button
             type="submit"
             onClick={() => navigate(`/profile/${user?.id}/edit/`)}

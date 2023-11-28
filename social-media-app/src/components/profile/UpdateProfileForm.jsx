@@ -42,10 +42,15 @@ const UpdateProfileForm = (props) => {
     try {
       const formData = new FormData();
       formData.append("avatar", avatar); // Append the avatar file to the FormData
+      console.log("FormData:", formData);
 
       const response = await dispatch(
         editUser({ formData, first_name, last_name, bio, userId })
       );
+      // Update local state with the new avatar URL
+      const newAvatarUrl = response.payload.avatar;
+      setAvatar(newAvatarUrl); // Assuming you have a state variable for avatar URL
+
       console.log("Server response:", response);
       dispatch(setAuthTokens(response.payload));
       toast.success("Profile updated successfully 🚀");
@@ -88,8 +93,13 @@ const UpdateProfileForm = (props) => {
                     id="file-upload"
                     name="file-upload"
                     type="file"
+                    multiple
+                    accept="image/*"
                     className="sr-only"
-                    onChange={(e) => setAvatar(e.target.files[0])}
+                    onChange={(e) => {
+                      setAvatar(...e.target.files);
+                      console.log("Selected avatar:", e.target.files);
+                    }}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>
