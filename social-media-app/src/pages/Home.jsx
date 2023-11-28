@@ -84,7 +84,7 @@ const Home = () => {
                   <h4 className="font-semibold text-base text-center mb-2">
                     Suggested people
                   </h4>
-                  {profiles.data && (
+                  {showProfile && profiles.data && (
                     <Carousel
                       showArrows={true}
                       showStatus={false}

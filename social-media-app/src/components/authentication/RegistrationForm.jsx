@@ -225,7 +225,7 @@ const RegistrationForm = () => {
         <div className="flex w-full">
           <button
             type="submit"
-            className={`btn-primary ${
+            className={`btn-primary mx-auto ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}
