@@ -14,7 +14,7 @@ const ProfileCard = () => {
     <div className="flex w-3/4 items-center space-y-0 space-x-6 mt-2 py-1 px-1 max-w-sm mx-auto bg-white rounded-xl drop-shadow-md">
       <div className="items-center flex-col w-full h-full p-2 bg-cover">
         {/* Background and profile */}
-        <div className="relative flex h-8 w-full justify-center rounded-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500">
+        <div className="relative flex h-8 w-full justify-center rounded-xl bg-gradient-to-r from-green-300 to-cyan-500">
           <div className="dark:!border-navy-700 absolute -bottom-6 flex w-12 h-12 items-center justify-center rounded-full border-white bg-cyan-400">
             <img
               className="block mx-auto w-12 h-12 rounded-full sm:mx-0 sm:shrink-0"
