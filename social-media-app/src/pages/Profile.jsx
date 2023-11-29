@@ -15,7 +15,7 @@ const Profile = () => {
 
   return (
     <Layout hasNavigationBack>
-      <div className="relative flex flex-col py-2 px-2 max-w-4xl bg-gray-50 rounded-xl shadow-lg space-y-3 sm:space-x-6">
+      <div className="relative flex flex-col py-2 px-2 max-w-4xl bg-gray-50 rounded-xl shadow-lg space-y-3 sm:space-x-6 md:mx-auto">
         <ProfileDetails user={user.data} />
         <div className="my-4">
           <div className="grid grid-cols-1 gap-4">

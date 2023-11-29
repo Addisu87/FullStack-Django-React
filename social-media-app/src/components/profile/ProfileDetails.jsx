@@ -8,7 +8,7 @@ const ProfileDetails = () => {
   const navigate = useNavigate();
 
   if (!user) {
-    <div>
+    <div className="flex items-center justify-center h-full">
       <Radio
         visible={true}
         height={30}
@@ -22,9 +22,9 @@ const ProfileDetails = () => {
   }
 
   return (
-    <div className="flex items-center space-y-0 space-x-6 mt-2 py-3 px-4 max-w-sm mx-auto bg-white rounded-xl shadow-lg ">
+    <div className="relative flex justify-evenly max-w-sm py-3 px-3 bg-gray-50 rounded-xl shadow-lg space-y-3 sm:space-x-6 mx-auto">
       <img
-        className="block mx-auto h-16 rounded-full sm:mx-0 sm:shrink-0"
+        className="block h-24 rounded-full sm:mx-0 sm:shrink-0"
         src={user?.avatar}
         alt="avatar"
       />
