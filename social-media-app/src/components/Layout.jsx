@@ -20,7 +20,7 @@ const Layout = (props) => {
         />
       )}
 
-      <div className="container m-5">{props.children}</div>
+      <div className="m-2 overflow-hidden">{props.children}</div>
 
       <ToastContainer
         position="top-right"

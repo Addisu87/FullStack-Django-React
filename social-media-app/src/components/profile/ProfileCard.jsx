@@ -11,7 +11,7 @@ const ProfileCard = () => {
   };
 
   return (
-    <div className="flex w-3/4 items-center space-y-0 space-x-6 mt-2 py-1 px-1 max-w-sm mx-auto bg-white rounded-xl drop-shadow-md">
+    <div className="flex w-3/4 items-center space-y-0 space-x-6 mt-2 py-1 px-1 mb-1 max-w-sm mx-auto bg-white rounded-xl drop-shadow-md">
       <div className="items-center flex-col w-full h-full p-2 bg-cover">
         {/* Background and profile */}
         <div className="relative flex h-8 w-full justify-center rounded-xl bg-gradient-to-r from-green-300 to-cyan-500">
@@ -28,8 +28,8 @@ const ProfileCard = () => {
         <div className="mt-8 flex flex-col items-center">
           <h4 className="text-navy-700 text-xl font-bold dark:text-white">
             <p className="text-base text-black font-normal">
-              {user?.name && user.name.length > 8
-                ? `${user.name.slice(0, 8)}...`
+              {user?.name && user.name.length > 7
+                ? `${user.name.slice(0, 7)}...`
                 : user.name}
             </p>
           </h4>

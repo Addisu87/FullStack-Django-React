@@ -231,7 +231,7 @@ const RegistrationForm = () => {
             disabled={loading}
           >
             <span className="mr-2 uppercase">
-              {loading ? "Submitting..." : "Sign Up"}
+              {loading ? "Register..." : "Sign Up"}
             </span>
           </button>
           <div className="text-red-500 text-xs">{error && <p>{error}</p>}</div>

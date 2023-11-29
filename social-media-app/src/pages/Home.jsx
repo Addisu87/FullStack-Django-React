@@ -66,7 +66,7 @@ const Home = () => {
             </Slider>
           )}
 
-          <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-2">
+          <div className="flex items-center justify-center py-4 px-4 mb-2 max-w-4xl bg-white rounded-xl drop-shadow-md space-y-3 sm:space-x-6">
             <div className="flex-shrink-0">
               <div className="w-12 rounded-full">
                 <img
@@ -77,7 +77,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="flex-grow pl-4">
+            <div className="flex-grow pl-2">
               <CreatePost refresh={posts.mutate} />
             </div>
           </div>
@@ -91,7 +91,7 @@ const Home = () => {
 
         <div className="w-full md:w-1/3 md:pl-4">
           {profiles.data && !isMobile && (
-            <div className="w-full drop-shadow-md border rounded flex items-center p-2 mb-2">
+            <div className="w-full md:border rounded flex items-center p-2 mb-2">
               <div className="flex flex-col w-full mx-auto">
                 <h4 className="font-semibold text-base text-center mb-2">
                   Suggested people
