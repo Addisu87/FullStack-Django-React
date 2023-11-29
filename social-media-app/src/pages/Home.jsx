@@ -91,7 +91,7 @@ const Home = () => {
 
         <div className="w-full md:w-1/3 md:pl-4">
           {profiles.data && !isMobile && (
-            <div className="w-full md:border rounded flex items-center p-2 mb-2">
+            <div className="w-full shadow-xl rounded-lg flex items-center p-2 mb-2">
               <div className="flex flex-col w-full mx-auto">
                 <h4 className="font-semibold text-base text-center mb-2">
                   Suggested people

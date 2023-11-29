@@ -59,7 +59,7 @@ const UpdateProfileForm = (props) => {
   };
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       <form onSubmit={handleSubmit(handleProfileForm)}>
         <div className="flex flex-col mb-3">
           <label
