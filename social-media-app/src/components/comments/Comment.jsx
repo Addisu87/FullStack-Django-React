@@ -5,7 +5,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
 import { toast } from "react-toastify";
-import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
 import UpdateComment from "./UpdateComment";
 import { BiLike, BiSolidLike } from "react-icons/bi";
@@ -41,7 +40,7 @@ const Comment = (props) => {
       <div className="group flex">
         <img
           className="shrink-0 h-12 w-12 rounded-full"
-          src={randomAvatar()}
+          src={comment.author.avatar}
           alt="avatar"
         />
         <div className="ml-3">

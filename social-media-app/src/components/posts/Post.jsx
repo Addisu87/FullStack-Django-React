@@ -1,7 +1,5 @@
 import React from "react";
 import { format } from "timeago.js";
-import { randomAvatar } from "../../utils";
-import axiosService from "../../helpers/axios";
 import { useSelector } from "react-redux";
 import { Menu } from "@headlessui/react";
 import { toast } from "react-toastify";
@@ -10,7 +8,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { FaComments, FaRegComments } from "react-icons/fa";
 import { BiLike, BiSolidLike } from "react-icons/bi";
-import UpdatePost from "./UpdatePostE";
+import axiosService from "../../helpers/axios";
+import UpdatePost from "./UpdatePost";
 
 const Post = (props) => {
   const { post, refresh, isSinglePost } = props;
@@ -44,11 +43,11 @@ const Post = (props) => {
       <div className="group flex">
         <img
           className="shrink-0 h-12 w-12 rounded-full"
-          src={randomAvatar()}
+          src={post.author.avatar}
           alt="avatar"
         />
         <div className="ml-3">
-          <p className="text-sm font-medium text-slate-700 group-hover:text-slate-900">
+          <p className="text-normal text-black font-medium">
             {post.author.name}
           </p>
           <p className="text-sm font-medium text-slate-500 group-hover:text-slate-700">
