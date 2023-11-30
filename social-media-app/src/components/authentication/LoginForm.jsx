@@ -45,8 +45,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="mt-12">
-      <form onSubmit={handleSubmit(handleLogin)}>
+    <div className="mt-8">
+      <form onSubmit={handleSubmit(handleLogin)} data-testid="login-form">
         <div className="flex flex-col mb-3">
           <label
             htmlFor="username"
@@ -67,6 +67,7 @@ const LoginForm = () => {
                     border border-gray-400 focus:outline-none focus:border-cyan-400"
               placeholder="Username..."
               {...register("username")}
+              data-testid="username-field"
             />
             {errors.username && (
               <p className="text-red-500 text-xs">{errors.username.message}</p>
@@ -97,6 +98,7 @@ const LoginForm = () => {
               placeholder="Password..."
               autoComplete="password"
               {...register("password")}
+              data-testid="password-field"
             />
             {errors.password && (
               <p className="text-red-500 text-xs">{errors.password.message}</p>
