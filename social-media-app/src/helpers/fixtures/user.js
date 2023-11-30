@@ -3,8 +3,8 @@ import { faker } from "@faker-js/faker";
 import { v4 as uuid4 } from "uuid";
 
 const userFixtures = () => {
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
+  const firstName = faker.internet.firstName();
+  const lastName = faker.internet.lastName();
 
   return (
     <>
@@ -17,9 +17,9 @@ const userFixtures = () => {
         posts_count: Math.floor(Math.random() * 10),
         email: `${firstName}@gmail.com`,
         bio: faker.lorem.sentence(20),
-        avatar: null,
+        avatar: faker.image.avatar(),
         updated: faker.date.recent(),
-        created: faker.data.recent(),
+        created: faker.date.recent(),
       }}
     </>
   );
