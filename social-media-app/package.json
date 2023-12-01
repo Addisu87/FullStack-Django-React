@@ -75,10 +75,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "jest": {
-    "resetMocks": false,
-    "setupFiles": [
-      "setupTests.js"
-    ]
+    "resetMocks": false
   },
   "browser": {
     "crypto": false

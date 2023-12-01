@@ -1,14 +1,14 @@
 import React from "react";
 import { render as rtlRender } from "@testing-library/react";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
-import store from "../redux/store";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import store from "../redux/store";
 
 function render(ui, { ...renderOptions } = {}) {
   const Wrapper = ({ children }) => (
-    <MemoryRouter>
+    <BrowserRouter>
       <Provider store={store}>{children}</Provider>
-    </MemoryRouter>
+    </BrowserRouter>
   );
 
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
