@@ -39,7 +39,10 @@ const Post = (props) => {
   };
 
   return (
-    <div className="relative flex flex-col py-4 px-4 max-w-4xl bg-white rounded-xl shadow-lg space-y-3 sm:space-x-6">
+    <div
+      data-testid="post-test"
+      className="relative flex flex-col py-4 px-4 max-w-4xl bg-white rounded-xl shadow-lg space-y-3 sm:space-x-6"
+    >
       <div className="group flex">
         <img
           className="shrink-0 h-12 w-12 rounded-full"
