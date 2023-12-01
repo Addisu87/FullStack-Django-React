@@ -65,10 +65,10 @@ export const editUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    loading: false,
     user: null,
     accessToken: null,
     refreshToken: null,
-    loading: false,
     error: null,
   },
   reducers: {

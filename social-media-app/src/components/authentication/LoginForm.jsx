@@ -22,14 +22,14 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.auth);
 
   const handleLogin = async ({ username, password }) => {
     try {
@@ -110,12 +110,12 @@ const LoginForm = () => {
           <button
             type="submit"
             className={`btn-primary mx-auto ${
-              loading ? "opacity-70 cursor-not-allowed" : ""
+              isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
-            disabled={loading}
+            disabled={isSubmitting}
           >
             <span className="mr-2 uppercase">
-              {loading ? "Logging in" : "Sign In"}
+              {isSubmitting ? "Logging in" : "Sign In"}
             </span>
             <BiLogIn />
           </button>

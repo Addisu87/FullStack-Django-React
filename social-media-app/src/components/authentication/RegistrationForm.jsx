@@ -89,7 +89,7 @@ const RegistrationForm = () => {
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="First name..."
               {...register("first_name")}
-              data-testid="firstName-field"
+              data-testid="first-name-field"
             />
             {errors.first_name && (
               <p className="text-red-500 text-xs">
@@ -117,7 +117,7 @@ const RegistrationForm = () => {
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Last name..."
               {...register("last_name")}
-              data-testid="lastName-field"
+              data-testid="last-name-field"
             />
             {errors.last_name && (
               <p className="text-red-500 text-xs">{errors.last_name.message}</p>

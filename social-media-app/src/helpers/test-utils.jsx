@@ -1,17 +1,26 @@
 import React from "react";
 import { render as rtlRender } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 
 function render(ui, { ...renderOptions } = {}) {
   const Wrapper = ({ children }) => (
-    <BrowserRouter>
+    <MemoryRouter>
       <Provider store={store}>{children}</Provider>
-    </BrowserRouter>
+    </MemoryRouter>
   );
 
-  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+  return {
+    // Dummy user function for testing
+    user: userEvent.setup(),
+
+    ...rtlRender(ui, {
+      wrapper: Wrapper,
+      ...renderOptions,
+    }),
+  };
 }
 
 export * from "@testing-library/react";
