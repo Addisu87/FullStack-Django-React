@@ -1,8 +1,8 @@
 import { cleanup, render, screen } from "@testing-library/react";
+import Post from "../Post";
 import userFixtures from "../../../helpers/fixtures/user";
 import postFixtures from "../../../helpers/fixtures/post";
 import { setAuthTokens } from "../../../redux/authSlice";
-import Post from "../Post";
 
 const userData = userFixtures();
 const postData = postFixtures(true, false, userData);

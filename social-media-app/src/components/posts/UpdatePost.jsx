@@ -74,7 +74,10 @@ const UpdatePost = (props) => {
                 <IoCloseCircleOutline className="h-6 w-6 text-gray-900" />
               </button>
 
-              <form onSubmit={handleSubmit(handleUpdatePost)}>
+              <form
+                onSubmit={handleSubmit(handleUpdatePost)}
+                data-testid="update-post-form"
+              >
                 <div className="">
                   <label
                     htmlFor="message"
@@ -86,6 +89,7 @@ const UpdatePost = (props) => {
                     <textarea
                       name="body"
                       id="message"
+                      data-testid="post-body-field"
                       type="text"
                       rows={4}
                       className={`block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
@@ -106,6 +110,7 @@ const UpdatePost = (props) => {
                 <div className="flex justify-end mt-2">
                   <button
                     type="submit"
+                    data-testid="update-post-submit"
                     className={`btn-primary ${
                       isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                     }`}
