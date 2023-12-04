@@ -4,12 +4,15 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import ErrorBoundary from "./ErrorBoundary";
 
 function render(ui, { ...renderOptions } = {}) {
   const Wrapper = ({ children }) => (
-    <BrowserRouter>
-      <Provider store={store}>{children}</Provider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Provider store={store}>{children}</Provider>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 
   return {

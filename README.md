@@ -184,9 +184,8 @@ Example:
 
 > Describe 1 - 3 features you will add to the project.
 
-- [ ] **[new_feature_1]**
-- [ ] **[new_feature_2]**
-- [ ] **[new_feature_3]**
+- [ 1] **[Documentation]**
+- [ 2] **[Add followers]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -216,7 +215,7 @@ If you like this project...
 
 > Give credit to everyone who inspired your codebase.
 
-I would like to thank...
+I would like to thank Kolawole Mangabo.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -226,13 +225,13 @@ I would like to thank...
 
 > Add at least 2 questions new developers would ask when they decide to use your project.
 
-- **[Question_1]**
+- **[How create a post from the document?]**
 
-  - [Answer_1]
+  - [click the input which has create a post placeholder and enter any text on the textarea of the modal and click post after that.]
 
-- **[Question_2]**
+- **[How to change a profile picture?]**
 
-  - [Answer_2]
+  - [Click profile, then edit buttons and click upload a file link.]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -240,8 +239,6 @@ I would like to thank...
 
 ## 📝 License <a name="license"></a>
 
-This project is [MIT](./LICENSE) licensed.
-
-_NOTE: we recommend using the [MIT license](https://choosealicense.com/licenses/mit/) - you can set it up quickly by [using templates available on GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository). You can also use [any other license](https://choosealicense.com/licenses/) if you wish._
+This project is [MIT](MIT.md) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

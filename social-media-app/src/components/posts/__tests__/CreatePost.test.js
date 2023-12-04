@@ -1,5 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
+import { MemoryRouter } from "react-router-dom";
 import CreatePost from "../CreatePost";
 
 // Clean up after each test
@@ -9,7 +10,11 @@ afterEach(() => {
 
 test("Render CreatePost component", async () => {
   // Get the "user" object from the render function
-  const { user } = render(<CreatePost />);
+  const { user } = render(
+    <MemoryRouter>
+      <CreatePost />
+    </MemoryRouter>
+  );
 
   //Clicking to show modal
   const showModalForm = screen.getByTestId("show-modal-form");

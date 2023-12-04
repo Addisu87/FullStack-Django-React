@@ -4,7 +4,7 @@ import userFixtures from "./user";
 
 const postFixtures = (isLiked = true, isEdited = false, user = undefined) => {
   return {
-    id: uuid4,
+    id: uuid4(),
     author: user || userFixtures(),
     body: faker.lorem.sentence(20),
     edited: isEdited,

@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { MemoryRouter } from "react-router-dom";
 import { cleanup, render, screen } from "../../../helpers/test-utils";
 import postFixtures from "../../../helpers/fixtures/post";
 import userFixtures from "../../../helpers/fixtures/user";
@@ -13,7 +14,11 @@ afterEach(() => {
 });
 
 test("Render UpdatePost component", async () => {
-  const { user } = render(<UpdatePost post={postData} />);
+  const { user } = render(
+    <MemoryRouter>
+      <UpdatePost post={postData} />
+    </MemoryRouter>
+  );
 
   const updateFormElement = screen.getByTestId("update-post-form");
   expect(updateFormElement).toBeInTheDocument();

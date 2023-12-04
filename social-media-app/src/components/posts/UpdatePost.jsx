@@ -75,8 +75,8 @@ const UpdatePost = (props) => {
               </button>
 
               <form
-                onSubmit={handleSubmit(handleUpdatePost)}
                 data-testid="update-post-form"
+                onSubmit={handleSubmit(handleUpdatePost)}
               >
                 <div className="">
                   <label
