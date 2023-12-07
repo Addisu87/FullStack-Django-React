@@ -63,7 +63,10 @@ const UpdatePost = (props) => {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div
+          className="fixed inset-0 z-10 overflow-y-auto"
+          data-testid="show-modal-form"
+        >
           <div className="flex items-center justify-center min-h-screen">
             <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-96">
               <button

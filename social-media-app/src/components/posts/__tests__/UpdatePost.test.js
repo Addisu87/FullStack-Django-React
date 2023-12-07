@@ -15,6 +15,11 @@ afterEach(() => {
 test("Render UpdatePost component", async () => {
   const { user } = render(<UpdatePost post={postData} />);
 
+  //Clicking to show modal
+  const showModalForm = screen.getByTestId("show-modal-form");
+  expect(showModalForm).toBeInTheDocument();
+  user.click(showModalForm);
+
   const updateFormElement = screen.getByTestId("update-post-form");
   expect(updateFormElement).toBeInTheDocument();
 
