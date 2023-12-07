@@ -1,12 +1,11 @@
-import postFixtures from "../../../helpers/fixtures/post";
+import commentFixtures from "../../../helpers/fixtures/comment";
 import userFixtures from "../../../helpers/fixtures/user";
 import { cleanup, render, screen } from "../../../helpers/test-utils";
 import { setAuthTokens } from "../../../redux/authSlice";
 import Comment from "../Comment";
 
 const userData = userFixtures();
-const postData = postFixtures();
-const commentData = (true, false, userData, postData);
+const commentData = commentFixtures(true, false, userData);
 
 beforeEach(() => {
   // Cleans up the DOM after each test
@@ -18,7 +17,6 @@ beforeEach(() => {
 
   setAuthTokens({
     user: userData,
-    post: postData,
     access: null,
     refresh: null,
   });

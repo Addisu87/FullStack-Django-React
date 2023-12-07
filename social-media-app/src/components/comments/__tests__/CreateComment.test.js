@@ -1,20 +1,31 @@
 import { faker } from "@faker-js/faker";
+import { v4 as uuid4 } from "uuid";
 import { cleanup, render, screen } from "../../../helpers/test-utils";
 import CreateComment from "../CreateComment";
+import { setAuthTokens } from "../../../redux/authSlice";
+import userFixtures from "../../../helpers/fixtures/user";
+
+const userData = userFixtures();
 
 // Clean up after each test
-afterEach(() => {
+beforeEach(() => {
+  // Cleans up the DOM after each test
   cleanup();
+  // to fully reset the state between __tests__, clear the storage
+  localStorage.clear();
+  // and reset all mocks
+  jest.clearAllMocks();
+
+  setAuthTokens({
+    user: userData,
+    access: null,
+    refresh: null,
+  });
 });
 
-test("render CreateComment component", async () => {
+test("Render CreateComment component", async () => {
   // Get the "user" object from the render function
-  const { user } = render(<CreateComment />);
-
-  //Clicking to show modal
-  const showCommentModalForm = screen.getByTestId("comment-modal-form");
-  expect(showCommentModalForm).toBeInTheDocument();
-  user.click(showCommentModalForm);
+  const { user } = render(<CreateComment postId={uuid4()} />);
 
   // Get form elements
   const createFormElement = screen.getByTestId("create-comment-form");

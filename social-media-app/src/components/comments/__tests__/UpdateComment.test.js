@@ -1,16 +1,23 @@
 import { faker } from "@faker-js/faker";
+import { v4 as uuid4 } from "uuid";
 import commentFixtures from "../../../helpers/fixtures/comment";
-import postFixtures from "../../../helpers/fixtures/post";
 import userFixtures from "../../../helpers/fixtures/user";
-import { render, screen } from "../../../helpers/test-utils";
+import { fireEvent, render, screen } from "../../../helpers/test-utils";
 import UpdateComment from "../UpdateComment";
 
 const userData = userFixtures();
-const postData = postFixtures(true, false, userData);
-const commentData = commentFixtures(true, false, userData, postData);
+const commentData = commentFixtures(true, false, userData);
 
 test("Render UpdateComment component", async () => {
-  const { user } = render(<UpdateComment comment={commentData} />);
+  const { user } = render(
+    <UpdateComment postId={uuid4()} comment={commentData} />
+  );
+
+  const showModalForm = screen.getByTestId("show-modal-form");
+  expect(showModalForm).toBeInTheDocument();
+
+  // Clicking to show the modal
+  fireEvent.click(showModalForm);
 
   // Get by elements
   const updateFormElement = screen.getByTestId("update-comment-form");
