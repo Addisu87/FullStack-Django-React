@@ -1,11 +1,28 @@
 import postFixtures from "../../../helpers/fixtures/post";
 import userFixtures from "../../../helpers/fixtures/user";
-import { render, screen } from "../../../helpers/test-utils";
+import { cleanup, render, screen } from "../../../helpers/test-utils";
+import { setAuthTokens } from "../../../redux/authSlice";
 import Comment from "../Comment";
 
-const user = userFixtures();
-const post = postFixtures();
-const commentData = (true, false, user, post);
+const userData = userFixtures();
+const postData = postFixtures();
+const commentData = (true, false, userData, postData);
+
+beforeEach(() => {
+  // Cleans up the DOM after each test
+  cleanup();
+  // to fully reset the state between __tests__, clear the storage
+  localStorage.clear();
+  // and reset all mocks
+  jest.clearAllMocks();
+
+  setAuthTokens({
+    user: userData,
+    post: postData,
+    access: null,
+    refresh: null,
+  });
+});
 
 test("render Comment component", () => {
   render(<Comment comment={commentData} />);
