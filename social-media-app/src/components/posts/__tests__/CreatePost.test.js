@@ -1,7 +1,7 @@
-import { cleanup, render, screen } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import { MemoryRouter } from "react-router-dom";
 import CreatePost from "../CreatePost";
+import { cleanup, render, screen } from "../../../helpers/test-utils";
 
 // Clean up after each test
 afterEach(() => {

@@ -1,5 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { cleanup, render, screen } from "../../../helpers/test-utils";
 import Post from "../Post";
 import userFixtures from "../../../helpers/fixtures/user";
 import postFixtures from "../../../helpers/fixtures/post";

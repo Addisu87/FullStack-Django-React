@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 import ErrorBoundary from "./ErrorBoundary";
 
-function render(ui, { ...renderOptions } = {}) {
+const render = (ui, { ...renderOptions } = {}) => {
   const Wrapper = ({ children }) => (
     <ErrorBoundary>
       <BrowserRouter>
@@ -24,7 +24,7 @@ function render(ui, { ...renderOptions } = {}) {
       ...renderOptions,
     }),
   };
-}
+};
 
 export * from "@testing-library/react";
 export { render };
