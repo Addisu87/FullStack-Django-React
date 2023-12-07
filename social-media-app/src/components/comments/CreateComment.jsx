@@ -39,6 +39,7 @@ const CreateComment = (props) => {
   };
   return (
     <form
+      data-testid="create-comment-form"
       className="flex flex-col items-stretch"
       onSubmit={handleSubmit(handleComments)}
     >
@@ -52,6 +53,7 @@ const CreateComment = (props) => {
         <div className="flex-1 relative">
           <textarea
             type="text"
+            data-testid="comment-body-field"
             rows={2}
             placeholder="Write a comment"
             {...register("body")}
@@ -69,6 +71,7 @@ const CreateComment = (props) => {
       <div className="self-end mr-2">
         <button
           type="submit"
+          data-testid="create-comment-submit"
           className={`btn-primary ${
             isSubmitting ? "opacity-70 cursor-not-allowed" : ""
           }`}
