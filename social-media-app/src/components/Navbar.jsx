@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/authSlice";
@@ -8,16 +8,37 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    // Check if the user has scrolled beyond a certain threshold (e.g., 50px)
+    const scrolled = window.scrollY > 20;
+    setIsScrolled(scrolled);
+  };
+
+  useEffect(() => {
+    // Attach the scroll event listener when the component mounts
+    window.addEventListener("scroll", handleScroll);
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Run this effect only once on mount
+
   const handleLogout = async () => {
     await dispatch(logoutUser());
     navigate("/login/");
   };
 
   return (
-    <div className="navbar bg-cyan-500">
+    <div
+      className={`navbar bg-cyan-500 ${
+        isScrolled ? "fixed top-0 w-full z-50 transition-all duration-300" : ""
+      }`}
+    >
       <div className="flex-1">
         <a href="/" className="btn btn-ghost text-xl text-white uppercase">
-          Addblog
+          Addgram
         </a>
       </div>
       <div className="flex-none">

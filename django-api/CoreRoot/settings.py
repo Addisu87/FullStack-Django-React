@@ -167,4 +167,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
 # Default avatar URL
-DEFAULT_AVATAR_URL = "https://img.freepik.com/premium-vector/man-character_665280-46970.jpg"
+DEFAULT_AVATAR_URL = "https://storage.googleapis.com/pai-images/d0af61e17f2c471aaf36fa513c73bd12.jpeg"
