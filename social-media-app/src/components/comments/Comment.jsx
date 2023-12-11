@@ -36,7 +36,10 @@ const Comment = (props) => {
   };
 
   return (
-    <div className="relative flex flex-col py-4 px-4 max-w-4xl bg-white rounded-xl shadow-lg space-y-4">
+    <div
+      data-testid="comment-test"
+      className="relative flex flex-col py-4 px-4 max-w-4xl bg-white rounded-xl shadow-lg space-y-4"
+    >
       <div className="group flex">
         <img
           className="shrink-0 h-12 w-12 rounded-full"

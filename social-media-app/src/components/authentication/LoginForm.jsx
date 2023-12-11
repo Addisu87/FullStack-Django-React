@@ -22,14 +22,14 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.auth);
 
   const handleLogin = async ({ username, password }) => {
     try {
@@ -45,8 +45,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="mt-12">
-      <form onSubmit={handleSubmit(handleLogin)}>
+    <div className="mt-8">
+      <form onSubmit={handleSubmit(handleLogin)} data-testid="login-form">
         <div className="flex flex-col mb-3">
           <label
             htmlFor="username"
@@ -67,6 +67,7 @@ const LoginForm = () => {
                     border border-gray-400 focus:outline-none focus:border-cyan-400"
               placeholder="Username..."
               {...register("username")}
+              data-testid="username-field"
             />
             {errors.username && (
               <p className="text-red-500 text-xs">{errors.username.message}</p>
@@ -97,6 +98,7 @@ const LoginForm = () => {
               placeholder="Password..."
               autoComplete="password"
               {...register("password")}
+              data-testid="password-field"
             />
             {errors.password && (
               <p className="text-red-500 text-xs">{errors.password.message}</p>
@@ -108,12 +110,12 @@ const LoginForm = () => {
           <button
             type="submit"
             className={`btn-primary mx-auto ${
-              loading ? "opacity-70 cursor-not-allowed" : ""
+              isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
-            disabled={loading}
+            disabled={isSubmitting}
           >
             <span className="mr-2 uppercase">
-              {loading ? "Logging in" : "Sign In"}
+              {isSubmitting ? "Logging in" : "Sign In"}
             </span>
             <BiLogIn />
           </button>

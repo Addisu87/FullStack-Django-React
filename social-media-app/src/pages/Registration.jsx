@@ -9,7 +9,7 @@ const Registration = () => {
         <div className="font-normal self-center text-xl sm:text-2xl text-gray-800">
           Welcome to the Addgram!
         </div>
-        <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
+        <div className="mt-2 self-center text-xl sm:text-sm text-gray-800">
           Enter your credentials to get access account
         </div>
         <RegistrationForm />

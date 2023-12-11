@@ -65,8 +65,11 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="mt-12">
-      <form onSubmit={handleSubmit(handleRegister)}>
+    <div className="mt-8">
+      <form
+        onSubmit={handleSubmit(handleRegister)}
+        data-testid="registration-form"
+      >
         <div className="flex flex-col mb-3">
           <label
             htmlFor="first_name"
@@ -86,6 +89,7 @@ const RegistrationForm = () => {
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="First name..."
               {...register("first_name")}
+              data-testid="first-name-field"
             />
             {errors.first_name && (
               <p className="text-red-500 text-xs">
@@ -113,6 +117,7 @@ const RegistrationForm = () => {
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Last name..."
               {...register("last_name")}
+              data-testid="last-name-field"
             />
             {errors.last_name && (
               <p className="text-red-500 text-xs">{errors.last_name.message}</p>
@@ -139,6 +144,7 @@ const RegistrationForm = () => {
                     border border-gray-400 focus:outline-none focus:border-cyan-400"
               placeholder="Username..."
               {...register("username")}
+              data-testid="username-field"
             />
             {errors.username && (
               <p className="text-red-500 text-xs">{errors.username.message}</p>
@@ -164,6 +170,7 @@ const RegistrationForm = () => {
               className="text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="Email..."
               {...register("email")}
+              data-testid="email-field"
             />
             {errors.email && (
               <p className="text-red-500 text-xs">{errors.email.message}</p>
@@ -192,6 +199,7 @@ const RegistrationForm = () => {
               placeholder="Password..."
               autoComplete="password"
               {...register("password")}
+              data-testid="password-field"
             />
             {errors.password && (
               <p className="text-red-500 text-xs">{errors.password.message}</p>
@@ -215,6 +223,7 @@ const RegistrationForm = () => {
                      sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-cyan-400"
               placeholder="A simple bio ..."
               {...register("bio")}
+              data-testid="bio-field"
             />
             {errors.bio && (
               <p className="text-red-500 text-xs">{errors.bio.message}</p>

@@ -58,6 +58,7 @@ const CreatePost = (props) => {
   return (
     <div className="w-75">
       <input
+        data-testid="show-modal-form"
         className="py-2 rounded-full text-primary w-full px-4 border border-cyan-100"
         type="text"
         placeholder="Write a post"
@@ -79,7 +80,10 @@ const CreatePost = (props) => {
               ✕
             </button>
 
-            <form onSubmit={handleSubmit(handleCreatePost)}>
+            <form
+              onSubmit={handleSubmit(handleCreatePost)}
+              data-testid="create-post-form"
+            >
               <div className="mb-3">
                 <label
                   htmlFor="message"
@@ -91,6 +95,7 @@ const CreatePost = (props) => {
                   <textarea
                     name="body"
                     id="message"
+                    data-testid="post-body-field"
                     rows={5}
                     className={`block px-3.5 text-xs placeholder-gray-500 pl-10 pr-4 rounded-2xl text-gray-900 shadow-sm
                      sm:text-xs sm:leading-6 border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
@@ -110,6 +115,7 @@ const CreatePost = (props) => {
               <div className="flex justify-end">
                 <button
                   type="submit"
+                  data-testid="create-post-submit"
                   className={`btn-primary ${
                     isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                   }`}
