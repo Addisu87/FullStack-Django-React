@@ -13,6 +13,6 @@ server {
   }
 
   location /media/ {
-    alias /app/uploads;
+    alias /app/uploads/;
   }
 }
