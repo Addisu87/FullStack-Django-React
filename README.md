@@ -225,13 +225,13 @@ I would like to thank Kolawole Mangabo.
 
 > Add at least 2 questions new developers would ask when they decide to use your project.
 
-- **[How create a post from the document?]**
+- **How create a post from the document?**
 
-  - [click the input which has create a post placeholder and enter any text on the textarea of the modal and click post after that.]
+  - click the input which has create a post placeholder and enter any text on the textarea of the modal and click post after that.
 
-- **[How to change a profile picture?]**
+- **How to change a profile picture?**
 
-  - [Click profile, then edit buttons and click upload a file link.]
+  - Click profile, then edit buttons and click upload a file link.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
