@@ -227,7 +227,7 @@ I would like to thank Kolawole Mangabo.
 
 - **How create a post from the document?**
 
-  - click the input which has create a post placeholder and enter any text on the textarea of the modal and click post after that.
+  - Click the input which has create a post placeholder and enter any text on the textarea of the modal and click post after that.
 
 - **How to change a profile picture?**
 
