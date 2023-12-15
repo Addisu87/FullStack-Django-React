@@ -12,7 +12,6 @@ services:
       - "80:80"
     depends_on:
       - api
-    mem_limit: 512m # Adjust this value based on your requirements
 
   api:
     container_name: addgram_api
