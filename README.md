@@ -140,26 +140,19 @@ Create a virtual environment
 
 To run tests, run the following command:
 
-<!--
-Example command:
-
 ```sh
   core/user/tests/test_models.py pytest
   core/user/tests/test_viewsets.py pytest
 ```
---->
 
 ### Deployment
 
 You can deploy this project using:
 
-<!--
-Example:
-
 ```sh
-
+ Docker
+ AWS
 ```
- -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
