@@ -10,22 +10,31 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+load_dotenv()  # take environment variables from .env.
+
+ENV = os.environ.get("ENV")
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*(j_eo$4b4nl6du%)c6-0-!*ex3^ea39=p#&ro91@tya3smtp!'
+
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", default='yp_640zl9&(g9+d+a!3$9=$3%49-hy^g04cap@$og#reu$6-4c'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if ENV == "PROD" else True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS", default="*").split(",")
 
 
 # Application definition
@@ -90,11 +99,11 @@ WSGI_APPLICATION = 'CoreRoot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'coredb',
-        'USER': 'core',
-        'PASSWORD': '1987',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv("DATABASE_NAME", "coredb"),
+        'USER': os.getenv("DATABASE_USER", "core"),
+        'PASSWORD': os.getenv("DATABASE_PASSWORD", "1987"),
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        'PORT': os.getenv("DATABASE_PORT", "5432"),
     }
 }
 
@@ -167,4 +176,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
 # Default avatar URL
-DEFAULT_AVATAR_URL = "https://img.freepik.com/premium-vector/man-character_665280-46970.jpg"
+DEFAULT_AVATAR_URL = "https://storage.googleapis.com/pai-images/d0af61e17f2c471aaf36fa513c73bd12.jpeg"
