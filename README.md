@@ -70,7 +70,7 @@ Full-Stack Django-React is a complete blog application that utilizes Django and 
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://google.com)
+- [Live Demo Link]()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -86,6 +86,7 @@ In order to run this project you need:
 
 ```sh
  npm install
+ Django install
 ```
 
 ### Setup
@@ -105,7 +106,7 @@ Install this project with:
 
 ```sh
   cd FullStack-django-react
-  yarn install or npm install
+  yarn install
 ```
 
 -
@@ -134,8 +135,6 @@ Create a virtual environment
  cd social-media-app
  yarn start
 ```
-
--
 
 ### Run tests
 

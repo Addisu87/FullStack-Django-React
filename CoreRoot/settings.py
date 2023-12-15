@@ -33,8 +33,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if ENV == "PROD" else True
 
-ALLOWED_HOSTS = os.environ.get(
-    "DJANGO_ALLOWED_HOSTS", default="*").split(",")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default="*").split(",")
 
 
 # Application definition
@@ -102,7 +101,7 @@ DATABASES = {
         'NAME': os.getenv("DATABASE_NAME", "coredb"),
         'USER': os.getenv("DATABASE_USER", "core"),
         'PASSWORD': os.getenv("DATABASE_PASSWORD", "1987"),
-        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        'HOST': os.environ.get("DATABASE_HOST", "localhost"),
         'PORT': os.getenv("DATABASE_PORT", "5432"),
     }
 }
