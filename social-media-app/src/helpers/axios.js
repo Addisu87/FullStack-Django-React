@@ -4,7 +4,7 @@ import authSlice from "../redux//authSlice";
 import store from "../redux/store.js";
 import { logoutUser } from "../redux/authSlice";
 
-const baseURL = "http://localhost:8000/api";
+const baseURL = process.env.REACT_APP_API_URL;
 
 const axiosService = axios.create({
   baseURL: baseURL,
