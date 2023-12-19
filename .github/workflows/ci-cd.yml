@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Injecting environment vars
+      - name: Injecting environment variables
         run: |
           echo "${{ secrets.TEST_SECRETS }}" >> .env
       - name: Building Docker containers

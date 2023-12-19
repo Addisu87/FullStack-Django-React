@@ -20,7 +20,7 @@ const UpdateProfileForm = (props) => {
   const { profile } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { user, error } = useSelector((state) => state.auth);
 
   const {
     register,

@@ -4,10 +4,8 @@ import authSlice from "../redux//authSlice";
 import store from "../redux/store.js";
 import { logoutUser } from "../redux/authSlice";
 
-const baseURL = process.env.REACT_APP_API_URL;
-
 const axiosService = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -48,7 +46,7 @@ const refreshAuthLogic = async (failedRequest) => {
         refresh: refreshToken,
       },
       {
-        baseURL: baseURL,
+        baseURL: process.env.REACT_APP_API_URL,
       }
     );
 
