@@ -34,10 +34,18 @@ const LoginForm = () => {
   const handleLogin = async ({ username, password }) => {
     try {
       const response = await dispatch(loginUser({ username, password }));
-      // Dispatch setAuthTokens action to update the user in the Redux state
-      dispatch(setAuthTokens(response.payload));
-      navigate("/");
-      toast.success("Successfully logged in 🚀.");
+
+      // Use optional chaining and nullish coalescing
+      const accessToken = response?.payload?.access ?? null;
+
+      if (accessToken) {
+        // Dispatch setAuthTokens action to update the user in the Redux state
+        dispatch(setAuthTokens(response.payload));
+        toast.success("Successfully logged in 🚀.");
+        navigate("/");
+      } else {
+        toast.error("An error occurred while registering. Please try again.");
+      }
     } catch (error) {
       toast.error("An error occurred.");
       console.error("Error", error);

@@ -54,10 +54,17 @@ const RegistrationForm = () => {
           bio,
         })
       );
-      // Dispatch setAuthTokens action to update the user in the Redux state
-      dispatch(setAuthTokens(response.payload));
-      toast.success("A user registered successfully 🚀");
-      navigate("/");
+      // Use optional chaining and nullish coalescing
+      const accessToken = response?.payload?.access ?? null;
+
+      if (accessToken) {
+        // Dispatch setAuthTokens action to update the user in the Redux state
+        dispatch(setAuthTokens(response.payload));
+        toast.success("A user registered successfully 🚀");
+        navigate("/");
+      } else {
+        toast.error("An error occurred while registering. Please try again.");
+      }
     } catch (error) {
       toast.error("An error occurred.!");
       console.error("Error registering user:", error);
