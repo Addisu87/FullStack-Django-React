@@ -43,4 +43,5 @@ module.exports = {
   output: {
     publicPath: ".",
   },
+  performance: { hints: false },
 };

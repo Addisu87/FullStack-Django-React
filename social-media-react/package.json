@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.1",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.14.1",
@@ -52,9 +53,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.23.5",
+    "@babel/core": "^7.23.6",
     "@babel/plugin-transform-private-property-in-object": "^7.23.4",
-    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-env": "^7.23.6",
     "@babel/preset-react": "^7.23.3",
     "@faker-js/faker": "^8.3.1",
     "babel-jest": "^29.7.0",
@@ -63,7 +64,7 @@
     "daisyui": "^3.9.2",
     "dotenv-webpack": "^8.0.1",
     "html-loader": "^4.2.0",
-    "html-webpack-plugin": "^5.5.3",
+    "html-webpack-plugin": "^5.6.0",
     "jest-localstorage-mock": "^2.4.26",
     "react-test-renderer": "^18.2.0",
     "style-loader": "^3.3.3",
