@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/authSlice";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -26,8 +27,12 @@ const Navbar = () => {
   }, []); // Run this effect only once on mount
 
   const handleLogout = async () => {
-    await dispatch(logoutUser());
-    navigate("/login/");
+    try {
+      await dispatch(logoutUser());
+      navigate("/login/");
+    } catch (error) {
+      toast.error("Logout failed.🔥");
+    }
   };
 
   return (
