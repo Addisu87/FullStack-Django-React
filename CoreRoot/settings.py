@@ -171,6 +171,7 @@ REST_FRAMEWORK = {
 }
 
 
+# CORS settings
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 
 # Media files
@@ -181,7 +182,6 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 DEFAULT_AVATAR_URL = "https://storage.googleapis.com/pai-images/d0af61e17f2c471aaf36fa513c73bd12.jpeg"
 
 # Caching
-
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
