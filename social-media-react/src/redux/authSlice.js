@@ -62,6 +62,23 @@ export const editUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const { refreshToken } = getState().auth;
+
+      const response = await axiosService.post(`${baseURL}/auth/logout/`, {
+        refresh: refreshToken,
+      });
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -84,15 +101,6 @@ const authSlice = createSlice({
           refresh: action.payload.refresh,
         })
       );
-    },
-
-    logoutUser: (state) => {
-      state.user = null;
-      state.accessToken = null;
-      state.refreshToken = null;
-      state.loading = false;
-      state.error = null;
-      localStorage.removeItem("auth");
     },
   },
   extraReducers: (builder) => {
@@ -130,9 +138,23 @@ const authSlice = createSlice({
       .addCase(editUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.accessToken = null;
+        state.refreshToken = null;
+        state.loading = false;
+        localStorage.removeItem("auth");
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.error;
       });
   },
 });
 
-export const { setAuthTokens, logoutUser } = authSlice.actions;
+export const { setAuthTokens } = authSlice.actions;
 export default authSlice.reducer;
