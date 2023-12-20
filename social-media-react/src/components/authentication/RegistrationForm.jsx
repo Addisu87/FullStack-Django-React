@@ -54,6 +54,7 @@ const RegistrationForm = () => {
           bio,
         })
       );
+
       // Use optional chaining and nullish coalescing
       const accessToken = response?.payload?.access ?? null;
 
