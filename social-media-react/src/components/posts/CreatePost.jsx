@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Dialog } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import axiosService from "../../helpers/axios";
 
@@ -13,8 +13,8 @@ const schema = yup.object({
 });
 
 const CreatePost = (props) => {
-  const { refresh } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const { refresh } = props;
   const navigate = useNavigate();
 
   const {
@@ -37,7 +37,7 @@ const CreatePost = (props) => {
     try {
       // Check if the user is authenticated
       if (!user) {
-        navigate("/login");
+        navigate("/login/");
         return;
       }
 
@@ -64,20 +64,17 @@ const CreatePost = (props) => {
         placeholder="Write a post"
         onClick={openModal}
       />
-      <Dialog
-        open={isOpen}
-        onClose={closeModal}
-        className="fixed inset-0 z-10 overflow-y-auto"
-      >
-        <div className="flex items-center justify-center min-h-screen">
-          <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-          <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-full">
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gray-600 opacity-50"></div>
+
+          <div className="modal-box bg-white p-6 rounded-lg shadow-xl w-full max-w-md z-10">
             <button
-              className="absolute top-2 right-2 text-gray-600"
+              className="absolute top-2 right-2 text-gray-600 w-6 h-6"
               onClick={closeModal}
             >
-              ✕
+              <MdClose />
             </button>
 
             <form
@@ -127,7 +124,7 @@ const CreatePost = (props) => {
             </form>
           </div>
         </div>
-      </Dialog>
+      )}
     </div>
   );
 };
