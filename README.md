@@ -98,8 +98,6 @@ Clone this repository to your desired folder:
   git clone https://github.com/Addisu87/FullStack-Django-React
 ```
 
--
-
 ### Install
 
 Install this project with:
@@ -108,8 +106,6 @@ Install this project with:
   cd FullStack-django-react
   pnpm install
 ```
-
--
 
 ### Usage
 
