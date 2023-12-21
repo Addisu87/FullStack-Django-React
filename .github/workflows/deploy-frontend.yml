@@ -3,6 +3,8 @@ name: Build and deploy frontend
 on:
   push:
     branches: [dev]
+  pull_request:
+    branches: [dev]
 
 jobs:
   build-test-deploy:
@@ -13,9 +15,9 @@ jobs:
         working-directory: social-media-react
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2.2.4
         with:
-          version: 8
+          version: 7
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
