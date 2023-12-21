@@ -106,7 +106,7 @@ Install this project with:
 
 ```sh
   cd FullStack-django-react
-  yarn install
+  pnpm install
 ```
 
 -
@@ -133,7 +133,7 @@ Create a virtual environment
 
 ```sh
  cd social-media-app
- yarn start
+ pnpm start
 ```
 
 ### Run tests
