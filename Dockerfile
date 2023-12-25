@@ -15,6 +15,7 @@ RUN apk add --update alpine-sdk \
 # install python dependencies
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip
+RUN pip install -U setuptools
 RUN pip install --no-cache-dir -r requirements.txt
 
 # copy project
