@@ -23,7 +23,7 @@ class PostViewSet(AbstractViewSet):
         self.check_object_permissions(self.request, obj)
         return obj
 
-    # Adding caching for posts
+    # Adding caching for posts and list a queryset
     def list(self, request, *args, **kwargs):
         post_objects = cache.get("post_objects")
 

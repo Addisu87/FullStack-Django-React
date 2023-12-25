@@ -27,11 +27,9 @@ then
 fi
 
 # If there are new changes, we pull these changes.
-
-git pull origin main;
+git pull origin dev;
 
 # We can now build and start the containers
-
-docker compose up -d --build
+docker-compose up -d --build
 
 exit 0;

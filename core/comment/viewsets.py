@@ -31,7 +31,7 @@ class CommentViewSet(AbstractViewSet):
         self.check_object_permissions(self.request, obj)
         return obj
 
-    # adding caching for comments
+    # adding caching for comments and list a queryset
     def list(self, request, *args, **kwargs):
         comment_objects = cache.get("comment_objects")
 
