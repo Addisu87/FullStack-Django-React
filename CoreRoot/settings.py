@@ -191,7 +191,7 @@ DEFAULT_AVATAR_URL = "https://storage.googleapis.com/pai-images/d0af61e17f2c471a
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379",
+        "LOCATION": "redis://redis:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
