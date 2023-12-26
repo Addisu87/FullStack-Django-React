@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
-import TestRenderer from "react-test-renderer";
+import { render } from "@testing-library/react";
+
 import ProfileCard from "../ProfileCard";
 
 const userData = {
@@ -16,11 +17,14 @@ const userData = {
   updated: "2023-12-20T07:38:47.631Z",
 };
 
-test("Profile card snapshot", () => {
-  const profileCardDomTree = TestRenderer.create(
-    <BrowserRouter>
-      <ProfileCard user={userData} />
-    </BrowserRouter>
-  ).toJSON();
-  expect(profileCardDomTree).toMatchSnapshot();
+describe("Jest Snapshot testing suite", () => {
+  it("Profile card snapshot", () => {
+    const { container } = render(
+      <BrowserRouter>
+        <ProfileCard user={userData} />
+      </BrowserRouter>
+    ).toJSON();
+
+    expect(container.innerHTML).toMatchSnapshot();
+  });
 });

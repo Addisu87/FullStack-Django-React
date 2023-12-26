@@ -10,8 +10,6 @@ const postData = postFixtures(true, false, userData);
 beforeEach(() => {
   // Cleans up the DOM after each test
   cleanup();
-  // to fully reset the state between __tests__, clear the storage
-  localStorage.clear();
   // and reset all mocks
   jest.clearAllMocks();
 

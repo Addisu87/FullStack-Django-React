@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker";
+import userEvent from "@testing-library/user-event";
+
 import { cleanup, render, screen } from "../../../helpers/test-utils";
 import postFixtures from "../../../helpers/fixtures/post";
 import userFixtures from "../../../helpers/fixtures/user";
@@ -13,7 +15,8 @@ afterEach(() => {
 });
 
 test("Render UpdatePost component", async () => {
-  const { user } = render(<UpdatePost post={postData} />);
+  const user = userEvent.setup();
+  render(<UpdatePost post={postData} />);
 
   //Clicking to show modal
   const showModalForm = screen.getByTestId("show-modal-form");

@@ -1,5 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { v4 as uuid4 } from "uuid";
+import userEvent from "@testing-library/user-event";
+
 import { cleanup, render, screen } from "../../../helpers/test-utils";
 import CreateComment from "../CreateComment";
 import { setAuthTokens } from "../../../redux/authSlice";
@@ -9,10 +11,6 @@ const userData = userFixtures();
 
 // Clean up after each test
 beforeEach(() => {
-  // Cleans up the DOM after each test
-  cleanup();
-  // to fully reset the state between __tests__, clear the storage
-  localStorage.clear();
   // and reset all mocks
   jest.clearAllMocks();
 
@@ -25,7 +23,8 @@ beforeEach(() => {
 
 test("Render CreateComment component", async () => {
   // Get the "user" object from the render function
-  const { user } = render(<CreateComment postId={uuid4()} />);
+  const user = userEvent.setup();
+  render(<CreateComment postId={uuid4()} />);
 
   // Get form elements
   const createFormElement = screen.getByTestId("create-comment-form");

@@ -1,5 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { v4 as uuid4 } from "uuid";
+import userEvent from "@testing-library/user-event";
+
 import commentFixtures from "../../../helpers/fixtures/comment";
 import userFixtures from "../../../helpers/fixtures/user";
 import { fireEvent, render, screen } from "../../../helpers/test-utils";
@@ -9,9 +11,8 @@ const userData = userFixtures();
 const commentData = commentFixtures(true, false, userData);
 
 test("Render UpdateComment component", async () => {
-  const { user } = render(
-    <UpdateComment postId={uuid4()} comment={commentData} />
-  );
+  const user = userEvent.setup();
+  render(<UpdateComment postId={uuid4()} comment={commentData} />);
 
   const showModalForm = screen.getByTestId("show-modal-form");
   expect(showModalForm).toBeInTheDocument();

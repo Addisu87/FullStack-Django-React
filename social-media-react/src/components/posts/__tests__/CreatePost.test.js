@@ -1,6 +1,8 @@
+import userEvent from "@testing-library/user-event";
 import { faker } from "@faker-js/faker";
-import CreatePost from "../CreatePost";
+
 import { cleanup, render, screen } from "../../../helpers/test-utils";
+import CreatePost from "../CreatePost";
 
 // Clean up after each test
 afterEach(() => {
@@ -9,7 +11,8 @@ afterEach(() => {
 
 test("Render CreatePost component", async () => {
   // Get the "user" object from the render function
-  const { user } = render(<CreatePost />);
+  const user = userEvent.setup();
+  render(<CreatePost />);
 
   //Clicking to show modal
   const showModalForm = screen.getByTestId("show-modal-form");
