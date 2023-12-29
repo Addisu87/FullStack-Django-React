@@ -174,7 +174,10 @@ REST_FRAMEWORK = {
 
 # CORS settings
 
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+# Split the string from the environment variable into a list
+CORS_ALLOWED_ORIGINS_STRING = os.environ.get("CORS_ALLOWED_ORIGINS", "")
+CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS_STRING.split(
+    ",") if CORS_ALLOWED_ORIGINS_STRING else []
 
 
 # Media files

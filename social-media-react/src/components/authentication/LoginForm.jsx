@@ -34,11 +34,13 @@ const LoginForm = () => {
   const handleLogin = async ({ username, password }) => {
     try {
       const response = await dispatch(loginUser({ username, password }));
+      console.log("Response:", response);
 
       // Use optional chaining and nullish coalescing
       const accessToken = response?.payload?.access ?? null;
+      console.log("Access Token:", accessToken);
 
-      if (accessToken) {
+      if (response.payload && response.payload.access) {
         // Dispatch setAuthTokens action to update the user in the Redux state
         dispatch(setAuthTokens(response.payload));
         toast.success("Successfully logged in 🚀.");
