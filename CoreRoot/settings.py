@@ -37,7 +37,6 @@ DEBUG = False if ENV == "PROD" else True
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default="*").split(",")
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,7 +50,7 @@ INSTALLED_APPS = [
     # external packages apps
     'rest_framework',
     'rest_framework_simplejwt',
-    'corsheaders',
+    "corsheaders",
     'rest_framework_simplejwt.token_blacklist',
 
     'core',
@@ -70,8 +69,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'CoreRoot.urls'
