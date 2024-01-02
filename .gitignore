@@ -134,3 +134,7 @@ dmypy.json
 # default files
 media/
 uploads/
+
+Addgram.pem/
+addgramapi/
+addgramapi.pub/
