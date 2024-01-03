@@ -103,7 +103,7 @@ DATABASES = {
         'NAME': os.getenv("DATABASE_NAME", "coredb"),
         'USER': os.getenv("DATABASE_USER", "core"),
         'PASSWORD': os.getenv("DATABASE_PASSWORD", "1987"),
-        'HOST': os.environ.get("DATABASE_HOST", "localhost"),
+        'HOST': os.environ.get("DATABASE_HOST", "127.0.0.1"),
         'PORT': os.getenv("DATABASE_PORT", "5432"),
     }
 }
