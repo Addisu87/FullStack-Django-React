@@ -138,3 +138,5 @@ uploads/
 Addgram.pem/
 addgramapi/
 addgramapi.pub/
+
+.gitattributes/
