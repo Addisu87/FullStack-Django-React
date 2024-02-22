@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "corsheaders",
     'rest_framework_simplejwt.token_blacklist',
+    'drf_spectacular',
     'core',
     'core.user',
     'core.auth',
@@ -169,6 +170,7 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
