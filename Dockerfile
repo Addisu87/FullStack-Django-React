@@ -14,7 +14,8 @@ RUN apk add --no-cache \
     tzdata
 
 # install build dependencies
-RUN apk add --no-cache --virtual .build-deps \
+RUN apk add --update --no-cache postgresql-client && \
+    apk add --no-cache --virtual .build-deps \
     alpine-sdk \
     postgresql-dev \
     gcc \
@@ -25,9 +26,9 @@ RUN apk add --no-cache --virtual .build-deps \
 
 # install python dependencies
 COPY requirements.txt /app/requirements.txt
-RUN pip3 install --upgrade pip \
-    && pip3 install -U setuptools \
-    && pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip \
+    && pip install -U setuptools \
+    && pip install --no-cache-dir -r requirements.txt
 
 # copy project
 COPY . .
