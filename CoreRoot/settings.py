@@ -26,9 +26,6 @@ ENV = os.environ.get("ENV")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# SECRET_KEY = os.environ.get(
-#     "SECRET_KEY", default='yp_640zl9&(g9+d+a!3$9=$3%49-hy^g04cap@$og#reu$6-4c')
-
 SECRET_KEY = os.environ.get(
     "SECRET_KEY", default='j_eo$4b4nl6du%)c6-0-!*ex3^ea39=p#&ro91@tya3smtp!')
 

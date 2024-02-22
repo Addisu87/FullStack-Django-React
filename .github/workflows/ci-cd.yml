@@ -2,7 +2,7 @@ name: Build, Test and Deploy Addgram backend
 
 on:
   push:
-    branches: [dev]
+    branches: [main]
 
 jobs:
   build-test:
