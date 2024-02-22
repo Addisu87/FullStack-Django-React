@@ -23,7 +23,9 @@ services:
     ports:
       - "8000:8000"
     command: >
-      sh -c "python manage.py migrate --no-input && gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate --no-input &&
+             gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - .:/app
       - uploads_volume:/app/uploads

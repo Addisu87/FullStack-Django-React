@@ -18,6 +18,7 @@ jobs:
           docker-compose logs
       - name: Running Tests inside Docker containers
         run: |
+          docker-compose wait_for_db
           docker-compose exec -T api pytest
 
   deploy:

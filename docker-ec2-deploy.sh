@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TARGET='dev'
+TARGET='main'
 
 cd ~/api || exit
 
@@ -27,7 +27,7 @@ then
 fi
 
 # If there are new changes, we pull these changes.
-git pull origin dev;
+git pull origin main;
 
 # We can now build and start the containers
 docker-compose up -d --build
